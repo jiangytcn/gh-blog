@@ -16,7 +16,7 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://jiangytcn.github.io/gh-blog/page/2/index.html">
+<meta property="og:url" content="http://www.ystacks.com/page/2/index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
 
-<link rel="stylesheet" href="/gh-blog/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 <script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
@@ -64,9 +64,9 @@
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item navbar-logo" href="/gh-blog/">
+            <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/gh-blog/images/logo.png" alt height="28">
+                <img src="/images/logo.png" alt height="28">
                 
             </a>
             <div class="navbar-burger">
@@ -78,11 +78,11 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/gh-blog/archives">Archives</a>
+            <a class="navbar-item " href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/gh-blog/categories/LifeStyle">Lifestyle</a>
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
-            <a class="navbar-item " href="/gh-blog/about">About</a>
+            <a class="navbar-item " href="/about">About</a>
             
         </div>
         
@@ -111,7 +111,7 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-09-03-instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+            <a href="/2019/07/19/2014-09-03-instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -121,7 +121,7 @@
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/cloudstack/">cloudstack</a>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
         </span>
         
         
@@ -157,7 +157,7 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-12-01-how-to-change-xenserver-default-installtion-partitions/" itemprop="url">How To Change Xenserver Default Installtion Partitions</a>
+            <a href="/2019/07/19/2014-12-01-how-to-change-xenserver-default-installtion-partitions/" itemprop="url">How To Change Xenserver Default Installtion Partitions</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -204,7 +204,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-05-16-using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
+            <a href="/2019/07/19/2014-05-15-python-re/" itemprop="url">Python RE 正则表达式</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -214,106 +214,56 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/openstack/">openstack</a>
+            <a class="article-category-link" href="/categories/Python/">Python</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            6 minutes read (About 853 words)
+            9 minutes read (About 1393 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
-<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
-<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
-<p>自己写的查询Flavor例子</p>
-<pre><code>
- 1 from sqlalchemy.orm import sessionmaker
- 2 from sqlalchemy import create_engine
- 3 from sqlalchemy.ext.declarative import declarative_base
- 4 from sqlalchemy import Column, Integer, String, Float, Boolean
- 5
- 6 sql_connection = "mysql://root:root@localhost/nova?charset=utf8"
- 7 engine = create_engine(sql_connection, echo=True) #echo=True 设置该项后，可以打印出sql的执行过程
- 8 Session = sessionmaker(bind=engine)
- 9 session = Session()
-10
-11 class NovaBase():
-12     pass
-13
-14 BASE = declarative_base() # 用户创建与DB映射的基类
-15
-16 class InstanceTypes(BASE, NovaBase):
-17     __tablename__ = "instance_types" # 数据库中表的名称
-18     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
-19     name = Column(String(255))
-20     memory_mb = Column(Integer)
-21     vcpus = Column(Integer)
-22     root_gb = Column(Integer)
-23     ephemeral_gb = Column(Integer)
-24     flavorid = Column(String(255))
-25     swap = Column(Integer, nullable=False, default=0)
-26     rxtx_factor = Column(Float, nullable=False, default=1)
-27     vcpu_weight = Column(Integer, nullable=True)
-28     disabled = Column(Boolean, default=False)
-29     is_public = Column(Boolean, default=True)
-30
-31 flavors = session.query(InstanceTypes).all() #查询数据表
-32 for flavor in flavors:
-33     print flavor.id, flavor.name
-</code></pre>
-<p>代码输出</p>
-<pre><code>
-2013-05-15 18:41:10,928 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
-2013-05-15 18:41:10,929 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,933 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'character_set%%'
-2013-05-15 18:41:10,934 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,935 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
-2013-05-15 18:41:10,936 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine SHOW COLLATION
-2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
-2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,948 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
-2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine SELECT instance_types.id AS instance_types_id, instance_types.name AS instance_types_name, instance_types.memory_mb AS instance_types_memory_mb, instance_types.vcpus AS instance_types_vcpus, instance_types.root_gb AS instance_types_root_gb, instance_types.ephemeral_gb AS instance_types_ephemeral_gb, instance_types.flavorid AS instance_types_flavorid, instance_types.swap AS instance_types_swap, instance_types.rxtx_factor AS instance_types_rxtx_factor, instance_types.vcpu_weight AS instance_types_vcpu_weight, instance_types.disabled AS instance_types_disabled, instance_types.is_public AS instance_types_is_public
-FROM instance_types
-2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine ()
+        <p>####简单介绍<br>正则表达式并不是Python的一部分。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。<br>下图展示了使用正则表达式进行匹配的流程：<br><img src="http://jiangyt-github-io.qiniudn.com/re-match-workflow.png" alt="正则表达式匹配流程图"></p>
+<p>正则表达式的大致匹配过程是：依次拿出表达式和文本中的字符比较，如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。如果表达式中有量词或边界，这个过程会稍微有一些不同，但也是很好理解的，看下图中的示例以及自己多使用几次就能明白。</p>
+<p>下图列出了Python支持的正则表达式元字符和语法<br><img src="http://jiangyt-github-io.qiniudn.com/re-grammars.png" alt="正则表达式支持的语法"></p>
+<p>####数量词的贪婪模式与非贪婪模式<br>正则表达式通常用于在文本中查找匹配的字符串。Python里数量词默认是贪婪的（在少数语言里也可能是默认非贪婪），总是尝试匹配尽可能多的字符；非贪婪的则相反，总是尝试匹配尽可能少的字符。例如：正则表达式”ab*“ 如果用于查找”abbbc”，将找到”abbb”。而如果使用非贪婪的数量词 “ab*?”，将找到”a”。</p>
+<p>####反斜杠的困扰<br>与大多数编程语言相同，正则表达式里使用”&quot;作为转义字符，这就可能造成反斜杠困扰。假如你需要匹配文本中的字符”&quot;，那么使用编程语言表示的正则表达式里将需要4个反斜杠”\\“：前两个和后两个分别用于在编程语言里转义成反斜杠，转换成两个反斜杠后再在正则表达式里转义成一个反斜杠。Python里的原生字符串很好地解决了这个问题，这个例子中的正则表达式可以使用r”\“表示。同样，匹配一个数字的”\d”可以写成r”\d”。有了原生字符串，你再也不用担心是不是漏写了反斜杠，写出来的表达式也更直观。</p>
+<p>####匹配模式<br>正则表达式提供了一些可用的匹配模式，比如忽略大小写、多行匹配等，这部分内容将在Pattern类的工厂方法re.compile()中一起介绍。</p>
+<p>###RE 模块</p>
+<p>####开始使用re<br>Python通过re模块提供对正则表达式的支持。使用re的一般步骤是先将正则表达式的字符串形式编译为Pattern实例，然后使用Pattern实例处理文本并获得匹配结果（一个Match实例），最后使用Match实例获得信息，进行其他的操作。</p>
+<pre><code>import re
+# 将正则表达式编译成Pattern对象
+pattern = re.compile(r'hello')
+# 使用Pattern匹配文本，获得匹配结果，无法匹配时将返回None
+match = pattern.match('hello world!')
+if match:
+    print match.group()
 
-1 m1.medium
-2 m1.tiny
-3 m1.large
-4 m1.xlarge
-5 m1.small
-6 m1.nano
-7 m1.micro
+### 输出 ###
+# hello
 </code></pre>
 
-<p>###Nova 中所对应的代码结构</p>
-<p>nova/openstack/common/db/sqlalchemy/models.py 定义了SQLAlchemy 的基类， 所有的对数据的操作，通过该类中定义的方法来实现， 其子类，只需要调用相关的方法即可</p>
-<p>nova/db/sqlalchemy/models.py 定义了nova数据中的所有的表,以InstanceTypes 为例</p>
-<pre><code>
-BASE = declarative_base() # 与上一个类子中的方法一样
+<p>re.compile(strPattern [, flag]):</p>
+<p>这个方法是Pattern类的工厂方法，用于将字符串形式的正则表达式编译为Pattern对象。 第二个参数flag是匹配模式，取值可以使用按位或运算符’|’表示同时生效，比如re.I | re.M。另外，你也可以在regex字符串中指定模式，比如re.compile(‘pattern’, re.I | re.M)与re.compile(‘(?im)pattern’)是等价的。<br>可选值有：</p>
+<pre><code>* re.I(re.IGNORECASE): 忽略大小写（括号内是完整写法，下同）
+* M(MULTILINE): 多行模式，改变&apos;^&apos;和&apos;$&apos;的行为（参见上图）
+* S(DOTALL): 点任意匹配模式，改变&apos;.&apos;的行为
+* L(LOCALE): 使预定字符类 \w \W \b \B \s \S 取决于当前区域设定
+* U(UNICODE): 使预定字符类 \w \W \b \B \s \S \d \D 取决于unicode定义的字符属性
+* X(VERBOSE):详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释。以下两个正则表达式是等价的</code></pre><pre><code>a = re.compile(r"""
+                    \d +  # the integral part
+                    \.    # the decimal point
+                    \d *  # some fractional digits""", re.X)
+b = re.compile(r"\d+\.\d*")
+</code></pre>
 
-class NovaBase(models.SoftDeleteMixin, models.ModelBase): #区别在这里， models 为1中定义的模块
-      pass
-class InstanceTypes(BASE, NovaBase):
-     __tablename__ = "instance_types" # 数据库中表的名称
-     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
-     name = Column(String(255))
-     memory_mb = Column(Integer)
-     vcpus = Column(Integer)
-     root_gb = Column(Integer)
-     ephemeral_gb = Column(Integer)
-     flavorid = Column(String(255))
-     swap = Column(Integer, nullable=False, default=0)
-     rxtx_factor = Column(Float, nullable=False, default=1)
-     vcpu_weight = Column(Integer, nullable=True)
-     disabled = Column(Boolean, default=False)
-     is_public = Column(Boolean, default=True)
+<p>re提供了众多模块方法用于完成正则表达式的功能。这些方法可以使用Pattern实例的相应方法替代，唯一的好处是少写一行re.compile()代码，但同时也无法复用编译后的Pattern对象。这些方法将在Pattern类的实例方法部分一起介绍。如上面这个例子可以简写为</p>
+<pre><code>m = re.match(r'hello', 'hello world!')
+print m.group()
 </code></pre>
 
 
@@ -330,7 +280,7 @@ class InstanceTypes(BASE, NovaBase):
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-05-25-openvas-related/" itemprop="url">OpenVAS Related</a>
+            <a href="/2019/07/19/2014-05-25-openvas-related/" itemprop="url">OpenVAS Related</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -340,7 +290,7 @@ class InstanceTypes(BASE, NovaBase):
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/OpenVAS/">OpenVAS</a>
+            <a class="article-category-link" href="/categories/OpenVAS/">OpenVAS</a>
         </span>
         
         
@@ -372,7 +322,7 @@ class InstanceTypes(BASE, NovaBase):
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-05-25-linux-iscsi-server-client-settings/" itemprop="url">Linux Iscsi Server Client Settings</a>
+            <a href="/2019/07/19/2014-05-25-linux-iscsi-server-client-settings/" itemprop="url">Linux Iscsi Server Client Settings</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -382,7 +332,7 @@ class InstanceTypes(BASE, NovaBase):
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Linux/">Linux</a>
+            <a class="article-category-link" href="/categories/Linux/">Linux</a>
         </span>
         
         
@@ -458,7 +408,7 @@ class InstanceTypes(BASE, NovaBase):
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-02-14-setting-django-oscar-environment/" itemprop="url">Setting Django oscar Environment</a>
+            <a href="/2019/07/19/2014-02-14-setting-django-oscar-environment/" itemprop="url">Setting Django oscar Environment</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -468,7 +418,7 @@ class InstanceTypes(BASE, NovaBase):
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/commerce/">commerce</a>
+            <a class="article-category-link" href="/categories/commerce/">commerce</a>
         </span>
         
         
@@ -536,7 +486,7 @@ vim settings.py
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-05-30-git-revert-merge/" itemprop="url">Git Revert Merge</a>
+            <a href="/2019/07/19/2014-05-30-git-revert-merge/" itemprop="url">Git Revert Merge</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -546,7 +496,7 @@ vim settings.py
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Git/">Git</a>
+            <a class="article-category-link" href="/categories/Git/">Git</a>
         </span>
         
         
@@ -650,7 +600,7 @@ $ git merge dev</code></pre>
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
+            <a href="/2019/07/19/2014-05-24-libvirt-virsh-commands/" itemprop="url">Libvirt Virsh Commands</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -660,7 +610,126 @@ $ git merge dev</code></pre>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Git/">Git</a>
+            <a class="article-category-link" href="/categories/Libvirt/">Libvirt</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 141 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Libvirt Virsh 命令</p>
+<p>###磁盘文件</p>
+<ul>
+<li>查看domain的挂载的磁盘信息<ul>
+<li>virsh domblklist instance-0000002d  <pre><code>vda        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk
+  vdb        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.local
+  vdc        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.swap
+  vdd        /dev/disk/by-path/ip-192.168.0.28:3260-iscsi-iqn.2010-10.org.openstack:volume-7c9646ef-e1f1-4da4-b230-c4ec7679bb6a-lun-1
+  </code></pre></li>
+</ul>
+</li>
+<li>查看磁盘文件状态<ul>
+<li>virsh domblkstat instance-0000002d vda  <pre><code>vda rd_req 7970
+  vda rd_bytes 214534656
+  vda wr_req 1503
+  vda wr_bytes 247596032
+  vda flush_operations 182
+  vda rd_total_times 32382476906
+  vda wr_total_times 646733610926
+  vda flush_total_times 214371604
+  </code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-19-openstack-havana-virtual-networking-devices/" itemprop="url">Openstack Havana Neutron 虚拟网络设备分析</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 563 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <pre><code>
+Openstack网络设计中有：Tap设备、veth对，linux 桥接、OvS 桥接四中虚拟网络设备。对于一个流经vm中的eth0到物理host的eth1的以太网数据帧来说，要利用host上的9个设备完成：Tap设备vnet0(vm nic),linux 桥接qbrXXX, veth pair(qvbXXX,qvoXXX),Open vSwitch 桥接br-int, veth pair(intbr-eth1,phy-br-eth1),以及最后的物理主机的网卡eth1。
+
+Tap设备:例如KVM、Xen虚拟一个网卡（通常称作VIF或者vNIC）vnet0,供vm使用。Guest OS因此接收到所有发送到Tap设备的以太网数据帧。
+
+Veth pairs 是一对直接相连的虚拟网卡（virtual network interfaces），发送到veth对中的任意一方的以太网数据帧，另一方也会接收到。网络因此利用veth pairs作为VPC(virtual patch cables)来连接virtual bridges.
+
+Linux brige 象一个hub一样，可以将多个网络设备，包括物理或者虚拟机的，连接到一个Linux 桥接设备上。以太网数据帧会在hub上相连的的所有网络设备上进行传输
+
+Open vSwitch 桥接设备的想一个虚拟的交换机，网卡连接到OVS 桥街上的端口，端口可以象物理交换机一样，对其进行配置VLAN等信息
+
+由于openstack现在的防火墙的实现机制，使得不能够直接将Tap设备（vnet0、vnet1……）直接接入到桥接设备br-int(like a hub).防火墙实现机制是在tap设备上通过iptables实现防火墙，但是OVS又不支持直接连接到OVS port上的tap设备上的iptables
+
+因此，网络设计上，增加了一个Linux 桥接设备以及一个veth pair来解决这个问题。将tap设备vnet0连接到linux bridge上（qbrXXX），而不是直接到连到ovs的桥街上，这个ovs桥接设备通过（qvbXXX,qvoXXX）veth pair连接到br-int(linke a hub)上
+
+[root@devstack:keystone_admin ~]# brctl show
+bridge name     bridge id          STP enabled     interfaces
+qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
+qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
+</code></pre>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Git/">Git</a>
         </span>
         
         
@@ -726,143 +795,24 @@ Date:   Thu Apr 17 00:03:21 2014 +0800
 
 
     
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/gh-blog/2019/07/19/2014-05-19-openstack-havana-virtual-networking-devices/" itemprop="url">Openstack Havana Neutron 虚拟网络设备分析</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/openstack/">openstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 563 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <pre><code>
-Openstack网络设计中有：Tap设备、veth对，linux 桥接、OvS 桥接四中虚拟网络设备。对于一个流经vm中的eth0到物理host的eth1的以太网数据帧来说，要利用host上的9个设备完成：Tap设备vnet0(vm nic),linux 桥接qbrXXX, veth pair(qvbXXX,qvoXXX),Open vSwitch 桥接br-int, veth pair(intbr-eth1,phy-br-eth1),以及最后的物理主机的网卡eth1。
-
-Tap设备:例如KVM、Xen虚拟一个网卡（通常称作VIF或者vNIC）vnet0,供vm使用。Guest OS因此接收到所有发送到Tap设备的以太网数据帧。
-
-Veth pairs 是一对直接相连的虚拟网卡（virtual network interfaces），发送到veth对中的任意一方的以太网数据帧，另一方也会接收到。网络因此利用veth pairs作为VPC(virtual patch cables)来连接virtual bridges.
-
-Linux brige 象一个hub一样，可以将多个网络设备，包括物理或者虚拟机的，连接到一个Linux 桥接设备上。以太网数据帧会在hub上相连的的所有网络设备上进行传输
-
-Open vSwitch 桥接设备的想一个虚拟的交换机，网卡连接到OVS 桥街上的端口，端口可以象物理交换机一样，对其进行配置VLAN等信息
-
-由于openstack现在的防火墙的实现机制，使得不能够直接将Tap设备（vnet0、vnet1……）直接接入到桥接设备br-int(like a hub).防火墙实现机制是在tap设备上通过iptables实现防火墙，但是OVS又不支持直接连接到OVS port上的tap设备上的iptables
-
-因此，网络设计上，增加了一个Linux 桥接设备以及一个veth pair来解决这个问题。将tap设备vnet0连接到linux bridge上（qbrXXX），而不是直接到连到ovs的桥街上，这个ovs桥接设备通过（qvbXXX,qvoXXX）veth pair连接到br-int(linke a hub)上
-
-[root@devstack:keystone_admin ~]# brctl show
-bridge name     bridge id          STP enabled     interfaces
-qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
-qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
-</code></pre>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/gh-blog/2019/07/19/2014-05-24-libvirt-virsh-commands/" itemprop="url">Libvirt Virsh Commands</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Libvirt/">Libvirt</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 141 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>##Libvirt Virsh 命令</p>
-<p>###磁盘文件</p>
-<ul>
-<li>查看domain的挂载的磁盘信息<ul>
-<li>virsh domblklist instance-0000002d  <pre><code>vda        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk
-  vdb        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.local
-  vdc        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.swap
-  vdd        /dev/disk/by-path/ip-192.168.0.28:3260-iscsi-iqn.2010-10.org.openstack:volume-7c9646ef-e1f1-4da4-b230-c4ec7679bb6a-lun-1
-  </code></pre></li>
-</ul>
-</li>
-<li>查看磁盘文件状态<ul>
-<li>virsh domblkstat instance-0000002d vda  <pre><code>vda rd_req 7970
-  vda rd_bytes 214534656
-  vda wr_req 1503
-  vda wr_bytes 247596032
-  vda flush_operations 182
-  vda rd_total_times 32382476906
-  vda wr_total_times 646733610926
-  vda flush_total_times 214371604
-  </code></pre>
-</li>
-</ul>
-</li>
-</ul>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
     <div class="pagination-previous">
-        <a href="/gh-blog/">Prev</a>
+        <a href="/">Prev</a>
     </div>
     <div class="pagination-next">
-        <a href="/gh-blog/page/3/">Next</a>
+        <a href="/page/3/">Next</a>
     </div>
     <ul class="pagination-list is-hidden-mobile">
         
-        <li><a class="pagination-link" href="/gh-blog/">1</a></li>
+        <li><a class="pagination-link" href="/">1</a></li>
         
-        <li><a class="pagination-link is-current" href="/gh-blog/page/2/">2</a></li>
+        <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
         
-        <li><a class="pagination-link" href="/gh-blog/page/3/">3</a></li>
+        <li><a class="pagination-link" href="/page/3/">3</a></li>
         
-        <li><a class="pagination-link" href="/gh-blog/page/4/">4</a></li>
+        <li><a class="pagination-link" href="/page/4/">4</a></li>
         
     </ul>
 </nav>
@@ -1025,7 +975,7 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
     
 
 
-<script src="/gh-blog/js/script.js"></script>
+<script src="/js/script.js"></script>
 
     
     <div class="searchbox ins-search">
@@ -1050,12 +1000,12 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
                 TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
-            CONTENT_URL: '/gh-blog/content.json',
+            CONTENT_URL: '/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/gh-blog/js/insight.js"></script>
+<script src="/js/insight.js"></script>
     
 </body>
 </html>

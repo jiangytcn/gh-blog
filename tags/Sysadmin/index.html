@@ -16,7 +16,7 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://jiangytcn.github.io/gh-blog/tags/Sysadmin/index.html">
+<meta property="og:url" content="http://www.ystacks.com/tags/Sysadmin/index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
 
-<link rel="stylesheet" href="/gh-blog/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 <script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
@@ -64,9 +64,9 @@
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item navbar-logo" href="/gh-blog/">
+            <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/gh-blog/images/logo.png" alt height="28">
+                <img src="/images/logo.png" alt height="28">
                 
             </a>
             <div class="navbar-burger">
@@ -78,11 +78,11 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/gh-blog/archives">Archives</a>
+            <a class="navbar-item " href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/gh-blog/categories/LifeStyle">Lifestyle</a>
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
-            <a class="navbar-item " href="/gh-blog/about">About</a>
+            <a class="navbar-item " href="/about">About</a>
             
         </div>
         
@@ -118,7 +118,7 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2015-07-10-sudo-witout-password-redhat/" itemprop="url"></a>
+            <a href="/2019/07/19/2015-07-10-sudo-witout-password-redhat/" itemprop="url"></a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -128,7 +128,7 @@
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Sysadmin/">Sysadmin</a>
+            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
         </span>
         
         
@@ -178,7 +178,7 @@ ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2015-07-21-howto-enable-linux-screen-tabs-name/" itemprop="url"></a>
+            <a href="/2019/07/19/2015-07-21-howto-enable-linux-screen-tabs-name/" itemprop="url"></a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -188,7 +188,7 @@ ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Sysadmin/">Sysadmin</a>
+            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
         </span>
         
         
@@ -247,7 +247,7 @@ To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/gh-blog/2019/07/19/2015-08-03-How-To-Setup-private-docker-registry-and-build-a-debian-based-docker-image/" itemprop="url"></a>
+            <a href="/2019/07/19/2015-10-01-How-To-enable-or-disable-ipv6-on-rhel/" itemprop="url"></a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -257,7 +257,69 @@ To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/Docker/">Docker</a>
+            <a class="article-category-link" href="/categories/linux/">linux</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 193 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>This introduction will outline specifically  how to disable and enable IPV6 in RHEL 6.X</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
+<p>Problem:<br>Need to disable the IPV6 in RedHat Enterprise Linux</p>
+<p>Solution:</p>
+<p>Disable IPV6 in RHEL:</p>
+<p>1)      Add the below line in the modprobe.conf file</p>
+<pre><code># vi /etc/modprobe.conf
+
+alias net-pf-10 off
+alias ipv6 off                    # Add this for RHEL before 5.4
+options ipv6 disable=1    # Add this for 5.4 and later</code></pre><p>Note : If any entry available like “alias net-pf-10 ipv6”, delete that entry.</p>
+<p>2)      Also add the below entry in the network file to prevent error</p>
+<pre><code># vi /etc/sysconfig/network
+
+NETWORKING_IPV6=no</code></pre><p>3)      Reboot the server to disable the IPV6</p>
+<pre><code># shutdown -r now</code></pre><p>Enable IPV6 in RHEL:</p>
+<p>4)      Add the below entry in the modprobe.conf file</p>
+<pre><code># vi /etc/modprobe.conf
+
+alias net-pf-10 ipv6</code></pre><p>Note : Remove if any entry like “alias net-pf-10 off or alias ipv6 off or options ipv6 disable=1” in the modprobe.conf file.</p>
+<p>5)      Change the “ NETWORKING_IPV6” parameter value to yes in the netwok file.</p>
+<pre><code># vi /etc/sysconfig/network
+
+NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6 support</p>
+<pre><code># shutdown -r now</code></pre><p>Thank you.</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2015-08-03-How-To-Setup-private-docker-registry-and-build-a-debian-based-docker-image/" itemprop="url"></a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Docker/">Docker</a>
         </span>
         
         
@@ -323,68 +385,6 @@ Status: Image is up to date for localhost:5000/debian:jessie
 #start a new image
 [yitao@yitao-dev ~]$ sudo docker run --rm --name=jessie localhost:5000/debian:jessie cat /etc/issue.net
 Debian GNU/Linux 8</code></pre><p>Thank you.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/gh-blog/2019/07/19/2015-10-01-How-To-enable-or-disable-ipv6-on-rhel/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/gh-blog/categories/linux/">linux</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 193 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically  how to disable and enable IPV6 in RHEL 6.X</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
-<p>Problem:<br>Need to disable the IPV6 in RedHat Enterprise Linux</p>
-<p>Solution:</p>
-<p>Disable IPV6 in RHEL:</p>
-<p>1)      Add the below line in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 off
-alias ipv6 off                    # Add this for RHEL before 5.4
-options ipv6 disable=1    # Add this for 5.4 and later</code></pre><p>Note : If any entry available like “alias net-pf-10 ipv6”, delete that entry.</p>
-<p>2)      Also add the below entry in the network file to prevent error</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=no</code></pre><p>3)      Reboot the server to disable the IPV6</p>
-<pre><code># shutdown -r now</code></pre><p>Enable IPV6 in RHEL:</p>
-<p>4)      Add the below entry in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 ipv6</code></pre><p>Note : Remove if any entry like “alias net-pf-10 off or alias ipv6 off or options ipv6 disable=1” in the modprobe.conf file.</p>
-<p>5)      Change the “ NETWORKING_IPV6” parameter value to yes in the netwok file.</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6 support</p>
-<pre><code># shutdown -r now</code></pre><p>Thank you.</p>
 
     
     </div>
@@ -555,7 +555,7 @@ NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6
     
 
 
-<script src="/gh-blog/js/script.js"></script>
+<script src="/js/script.js"></script>
 
     
     <div class="searchbox ins-search">
@@ -580,12 +580,12 @@ NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6
                 TAGS: 'Tags',
                 UNTITLED: '(Untitled)',
             },
-            CONTENT_URL: '/gh-blog/content.json',
+            CONTENT_URL: '/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/gh-blog/js/insight.js"></script>
+<script src="/js/insight.js"></script>
     
 </body>
 </html>
