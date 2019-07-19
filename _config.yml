@@ -13,8 +13,8 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://jiangytcn.github.io
-root: /
+url: http://jiangytcn.github.io/gh-blog
+root: /gh-blog
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -79,6 +79,6 @@ theme: minos
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/jiangytcn/jiangytcn.github.io.git
+  repository: https://github.com/jiangytcn/gh-blog.git
   branch: gh-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
