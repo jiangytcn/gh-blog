@@ -247,68 +247,6 @@ To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2015-10-01-How-To-enable-or-disable-ipv6-on-rhel/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/linux/">linux</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 193 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically  how to disable and enable IPV6 in RHEL 6.X</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
-<p>Problem:<br>Need to disable the IPV6 in RedHat Enterprise Linux</p>
-<p>Solution:</p>
-<p>Disable IPV6 in RHEL:</p>
-<p>1)      Add the below line in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 off
-alias ipv6 off                    # Add this for RHEL before 5.4
-options ipv6 disable=1    # Add this for 5.4 and later</code></pre><p>Note : If any entry available like “alias net-pf-10 ipv6”, delete that entry.</p>
-<p>2)      Also add the below entry in the network file to prevent error</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=no</code></pre><p>3)      Reboot the server to disable the IPV6</p>
-<pre><code># shutdown -r now</code></pre><p>Enable IPV6 in RHEL:</p>
-<p>4)      Add the below entry in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 ipv6</code></pre><p>Note : Remove if any entry like “alias net-pf-10 off or alias ipv6 off or options ipv6 disable=1” in the modprobe.conf file.</p>
-<p>5)      Change the “ NETWORKING_IPV6” parameter value to yes in the netwok file.</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6 support</p>
-<pre><code># shutdown -r now</code></pre><p>Thank you.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
             <a href="/2019/07/19/2015-08-03-How-To-Setup-private-docker-registry-and-build-a-debian-based-docker-image/" itemprop="url"></a>
         
     </h1>
@@ -385,6 +323,68 @@ Status: Image is up to date for localhost:5000/debian:jessie
 #start a new image
 [yitao@yitao-dev ~]$ sudo docker run --rm --name=jessie localhost:5000/debian:jessie cat /etc/issue.net
 Debian GNU/Linux 8</code></pre><p>Thank you.</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2015-10-01-How-To-enable-or-disable-ipv6-on-rhel/" itemprop="url"></a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/linux/">linux</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 193 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>This introduction will outline specifically  how to disable and enable IPV6 in RHEL 6.X</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
+<p>Problem:<br>Need to disable the IPV6 in RedHat Enterprise Linux</p>
+<p>Solution:</p>
+<p>Disable IPV6 in RHEL:</p>
+<p>1)      Add the below line in the modprobe.conf file</p>
+<pre><code># vi /etc/modprobe.conf
+
+alias net-pf-10 off
+alias ipv6 off                    # Add this for RHEL before 5.4
+options ipv6 disable=1    # Add this for 5.4 and later</code></pre><p>Note : If any entry available like “alias net-pf-10 ipv6”, delete that entry.</p>
+<p>2)      Also add the below entry in the network file to prevent error</p>
+<pre><code># vi /etc/sysconfig/network
+
+NETWORKING_IPV6=no</code></pre><p>3)      Reboot the server to disable the IPV6</p>
+<pre><code># shutdown -r now</code></pre><p>Enable IPV6 in RHEL:</p>
+<p>4)      Add the below entry in the modprobe.conf file</p>
+<pre><code># vi /etc/modprobe.conf
+
+alias net-pf-10 ipv6</code></pre><p>Note : Remove if any entry like “alias net-pf-10 off or alias ipv6 off or options ipv6 disable=1” in the modprobe.conf file.</p>
+<p>5)      Change the “ NETWORKING_IPV6” parameter value to yes in the netwok file.</p>
+<pre><code># vi /etc/sysconfig/network
+
+NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6 support</p>
+<pre><code># shutdown -r now</code></pre><p>Thank you.</p>
 
     
     </div>

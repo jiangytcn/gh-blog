@@ -204,7 +204,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-05-15-python-re/" itemprop="url">Python RE 正则表达式</a>
+            <a href="/2019/07/19/2014-05-16-using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -214,56 +214,106 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Python/">Python</a>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            9 minutes read (About 1393 words)
+            6 minutes read (About 853 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>####简单介绍<br>正则表达式并不是Python的一部分。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。<br>下图展示了使用正则表达式进行匹配的流程：<br><img src="http://jiangyt-github-io.qiniudn.com/re-match-workflow.png" alt="正则表达式匹配流程图"></p>
-<p>正则表达式的大致匹配过程是：依次拿出表达式和文本中的字符比较，如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。如果表达式中有量词或边界，这个过程会稍微有一些不同，但也是很好理解的，看下图中的示例以及自己多使用几次就能明白。</p>
-<p>下图列出了Python支持的正则表达式元字符和语法<br><img src="http://jiangyt-github-io.qiniudn.com/re-grammars.png" alt="正则表达式支持的语法"></p>
-<p>####数量词的贪婪模式与非贪婪模式<br>正则表达式通常用于在文本中查找匹配的字符串。Python里数量词默认是贪婪的（在少数语言里也可能是默认非贪婪），总是尝试匹配尽可能多的字符；非贪婪的则相反，总是尝试匹配尽可能少的字符。例如：正则表达式”ab*“ 如果用于查找”abbbc”，将找到”abbb”。而如果使用非贪婪的数量词 “ab*?”，将找到”a”。</p>
-<p>####反斜杠的困扰<br>与大多数编程语言相同，正则表达式里使用”&quot;作为转义字符，这就可能造成反斜杠困扰。假如你需要匹配文本中的字符”&quot;，那么使用编程语言表示的正则表达式里将需要4个反斜杠”\\“：前两个和后两个分别用于在编程语言里转义成反斜杠，转换成两个反斜杠后再在正则表达式里转义成一个反斜杠。Python里的原生字符串很好地解决了这个问题，这个例子中的正则表达式可以使用r”\“表示。同样，匹配一个数字的”\d”可以写成r”\d”。有了原生字符串，你再也不用担心是不是漏写了反斜杠，写出来的表达式也更直观。</p>
-<p>####匹配模式<br>正则表达式提供了一些可用的匹配模式，比如忽略大小写、多行匹配等，这部分内容将在Pattern类的工厂方法re.compile()中一起介绍。</p>
-<p>###RE 模块</p>
-<p>####开始使用re<br>Python通过re模块提供对正则表达式的支持。使用re的一般步骤是先将正则表达式的字符串形式编译为Pattern实例，然后使用Pattern实例处理文本并获得匹配结果（一个Match实例），最后使用Match实例获得信息，进行其他的操作。</p>
-<pre><code>import re
-# 将正则表达式编译成Pattern对象
-pattern = re.compile(r'hello')
-# 使用Pattern匹配文本，获得匹配结果，无法匹配时将返回None
-match = pattern.match('hello world!')
-if match:
-    print match.group()
+        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
+<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
+<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
+<p>自己写的查询Flavor例子</p>
+<pre><code>
+ 1 from sqlalchemy.orm import sessionmaker
+ 2 from sqlalchemy import create_engine
+ 3 from sqlalchemy.ext.declarative import declarative_base
+ 4 from sqlalchemy import Column, Integer, String, Float, Boolean
+ 5
+ 6 sql_connection = "mysql://root:root@localhost/nova?charset=utf8"
+ 7 engine = create_engine(sql_connection, echo=True) #echo=True 设置该项后，可以打印出sql的执行过程
+ 8 Session = sessionmaker(bind=engine)
+ 9 session = Session()
+10
+11 class NovaBase():
+12     pass
+13
+14 BASE = declarative_base() # 用户创建与DB映射的基类
+15
+16 class InstanceTypes(BASE, NovaBase):
+17     __tablename__ = "instance_types" # 数据库中表的名称
+18     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+19     name = Column(String(255))
+20     memory_mb = Column(Integer)
+21     vcpus = Column(Integer)
+22     root_gb = Column(Integer)
+23     ephemeral_gb = Column(Integer)
+24     flavorid = Column(String(255))
+25     swap = Column(Integer, nullable=False, default=0)
+26     rxtx_factor = Column(Float, nullable=False, default=1)
+27     vcpu_weight = Column(Integer, nullable=True)
+28     disabled = Column(Boolean, default=False)
+29     is_public = Column(Boolean, default=True)
+30
+31 flavors = session.query(InstanceTypes).all() #查询数据表
+32 for flavor in flavors:
+33     print flavor.id, flavor.name
+</code></pre>
+<p>代码输出</p>
+<pre><code>
+2013-05-15 18:41:10,928 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2013-05-15 18:41:10,929 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,933 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'character_set%%'
+2013-05-15 18:41:10,934 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,935 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
+2013-05-15 18:41:10,936 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine SHOW COLLATION
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,948 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine SELECT instance_types.id AS instance_types_id, instance_types.name AS instance_types_name, instance_types.memory_mb AS instance_types_memory_mb, instance_types.vcpus AS instance_types_vcpus, instance_types.root_gb AS instance_types_root_gb, instance_types.ephemeral_gb AS instance_types_ephemeral_gb, instance_types.flavorid AS instance_types_flavorid, instance_types.swap AS instance_types_swap, instance_types.rxtx_factor AS instance_types_rxtx_factor, instance_types.vcpu_weight AS instance_types_vcpu_weight, instance_types.disabled AS instance_types_disabled, instance_types.is_public AS instance_types_is_public
+FROM instance_types
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine ()
 
-### 输出 ###
-# hello
+1 m1.medium
+2 m1.tiny
+3 m1.large
+4 m1.xlarge
+5 m1.small
+6 m1.nano
+7 m1.micro
 </code></pre>
 
-<p>re.compile(strPattern [, flag]):</p>
-<p>这个方法是Pattern类的工厂方法，用于将字符串形式的正则表达式编译为Pattern对象。 第二个参数flag是匹配模式，取值可以使用按位或运算符’|’表示同时生效，比如re.I | re.M。另外，你也可以在regex字符串中指定模式，比如re.compile(‘pattern’, re.I | re.M)与re.compile(‘(?im)pattern’)是等价的。<br>可选值有：</p>
-<pre><code>* re.I(re.IGNORECASE): 忽略大小写（括号内是完整写法，下同）
-* M(MULTILINE): 多行模式，改变&apos;^&apos;和&apos;$&apos;的行为（参见上图）
-* S(DOTALL): 点任意匹配模式，改变&apos;.&apos;的行为
-* L(LOCALE): 使预定字符类 \w \W \b \B \s \S 取决于当前区域设定
-* U(UNICODE): 使预定字符类 \w \W \b \B \s \S \d \D 取决于unicode定义的字符属性
-* X(VERBOSE):详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释。以下两个正则表达式是等价的</code></pre><pre><code>a = re.compile(r"""
-                    \d +  # the integral part
-                    \.    # the decimal point
-                    \d *  # some fractional digits""", re.X)
-b = re.compile(r"\d+\.\d*")
-</code></pre>
+<p>###Nova 中所对应的代码结构</p>
+<p>nova/openstack/common/db/sqlalchemy/models.py 定义了SQLAlchemy 的基类， 所有的对数据的操作，通过该类中定义的方法来实现， 其子类，只需要调用相关的方法即可</p>
+<p>nova/db/sqlalchemy/models.py 定义了nova数据中的所有的表,以InstanceTypes 为例</p>
+<pre><code>
+BASE = declarative_base() # 与上一个类子中的方法一样
 
-<p>re提供了众多模块方法用于完成正则表达式的功能。这些方法可以使用Pattern实例的相应方法替代，唯一的好处是少写一行re.compile()代码，但同时也无法复用编译后的Pattern对象。这些方法将在Pattern类的实例方法部分一起介绍。如上面这个例子可以简写为</p>
-<pre><code>m = re.match(r'hello', 'hello world!')
-print m.group()
+class NovaBase(models.SoftDeleteMixin, models.ModelBase): #区别在这里， models 为1中定义的模块
+      pass
+class InstanceTypes(BASE, NovaBase):
+     __tablename__ = "instance_types" # 数据库中表的名称
+     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+     name = Column(String(255))
+     memory_mb = Column(Integer)
+     vcpus = Column(Integer)
+     root_gb = Column(Integer)
+     ephemeral_gb = Column(Integer)
+     flavorid = Column(String(255))
+     swap = Column(Integer, nullable=False, default=0)
+     rxtx_factor = Column(Float, nullable=False, default=1)
+     vcpu_weight = Column(Integer, nullable=True)
+     disabled = Column(Boolean, default=False)
+     is_public = Column(Boolean, default=True)
 </code></pre>
 
 
@@ -486,7 +536,118 @@ vim settings.py
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-05-30-git-revert-merge/" itemprop="url">Git Revert Merge</a>
+            <a href="/2019/07/19/2014-06-01-cloudstack-cli-cloudmonkey-installation/" itemprop="url">Cloudstack Cli Cloudmonkey Installation</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 429 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cli安装使用分为四部分</p>
+<ol>
+<li><strong>安装virtualenv</strong></li>
+<li><strong>安装cloudmonkey</strong></li>
+<li><strong>配置cloudmonkey</strong></li>
+<li><strong>命令使用</strong></li>
+</ol>
+<h2 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h2><pre><code>1. virtualenv提供了一个安装软件时的测试环境，所安装的软件不会安装在系统目录下
+2. 安装python2.7.4 时的依赖软件， 此步骤可选， cloudmonkey 要求python版本在2.5以上即可
+3. yum -y groupinstall &quot;Development tools&quot; zlib-devel bzip2-devel openssl-devel ncurses-devel mysql-devel ibxml2-devel libxslt-devel  unixODBC-devel sqlite sqlite-devel</code></pre><h2 id="源码安装python2-7-4"><a href="#源码安装python2-7-4" class="headerlink" title="源码安装python2.7.4"></a>源码安装python2.7.4</h2><pre><code>wget http://www.python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
+tar xf Python-2.7.4.tar.bz2
+cd Python-2.7.4
+/configure --prefix=/opt/python2.7
+make && make altinstall`
+</code></pre>
+
+<p>##源码安装virtualenv</p>
+<pre><code>wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.1.tar.gz#md5=07e09df0adfca0b2d487e39a4bf2270a
+tar
+-xvzf virtualenv-1.9.1.tar.gz
+python virtualenv
+-1.9.1/setup.py install
+</code></pre>
+
+<p>###安装cloudmonkey</p>
+<ol>
+<li><p>建立virtualenv环境</p>
+ <pre><code>#mkidr workenv
+ #virtualenv worksenv
+ #source worksenv/bin/activate
+ </code></pre></li>
+<li><p>安装cloudmonkey两种方式任选其一</p>
+<p> 2.1. 通过python库安装</p>
+<p> 在系统安装了pip后或者env生效后执行下面命令    </p>
+ <pre><code>#$ pip install cloudmonkey</code></pre>
+
+<p> 2.2. 通过源码安装将打包后的源码上传至服务器中解压缩打包后的文件安装</p>
+ <pre><code># python setup.py build #
+ # python setup.py install</code></pre>
+
+
+</li>
+</ol>
+<h3 id="配置cloudmonkey"><a href="#配置cloudmonkey" class="headerlink" title="配置cloudmonkey"></a>配置cloudmonkey</h3><pre><code>
+#cloudmonkey
+> set history_file /usr/share/cloudmonkey_history
+> set log_file /var/log/cloudmonkey
+设置管理服务器
+> set host 192.168.56.1
+设置端口
+> set port 8080
+设置使用的apikey
+> set apikey {put-your-api-key-for-your-user}
+设置使用的secretkey
+> set secretkey {put-your-secret-key-for-your-user}
+修改cloudmonkey终端提示符
+> set prompt smcloudcli>
+同步配置
+> sync
+324 APIs discovered and cached
+</code></pre>
+
+<p>配置结束。<br>通常情况下，所有配置项在 ~/.cloudmonkey/config: 均可见</p>
+<h3 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h3><p>tab健可以命令补全</p>
+<pre><code>#cloudmonkey
+加载用户的key
+smcloudcli>sync
+smcloudcli>list <tab>
+设置数据显示方式为table
+smcloudcli>set display table
+设置数据显示方式为json
+smcloudcli>set display json
+smcloudcli>list users
+</tab></code></pre>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -503,89 +664,54 @@ vim settings.py
         <span class="column is-narrow">
             
             
-            9 minutes read (About 1319 words)
+            2 minutes read (About 233 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>##Git Merge命令的使用及撤销</p>
-<p>Git 的 revert 命令可以用来撤销提交（commit），对于常规的提交来说，revert 命令十分直观易用，相当于做一次被 revert 的提交的「反操作」并形成一个新的 commit，但是当你需要撤销一个合并（merge）的时候，事情就变得稍微复杂了一些。</p>
-<p>###Merge Commit<br>在描述 merge commit 之前，先来简短地描述一下常规的 commit。每当你做了一批操作（增加、修改、或删除）之后，你执行 <code>git commit</code> 便会得到一个常规的 Commit。执行 <code>git show &lt;commit&gt;</code>将会输出详细的增删情况。</p>
-<p>但是Merge commit 不是这样。每当你使用 git merge 合并两个分支，你将会得到一个新的 merge commit。执行 git show <commit> 之后，会有类似的输出：</commit></p>
-<pre><code>1 commit 19b7d40d2ebefb4236a8ab630f89e4afca6e9dbe
-2 Merge: b0ef24a cca45f9
-3 ......
-</code></pre>
+        <ol>
+<li><p>撤销某次提交，恢复删除的文件</p>
+<ul>
+<li>通过git log 命令查找到想要恢复的commit id号<pre><code> commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
+Author: Yitao Jiang <willierjyt@gmail.com>
+Date:   Thu Apr 17 00:03:21 2014 +0800
+  Delete tags.
+</willierjyt@gmail.com></code></pre></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e</p>
+  <pre><code>[root@dvlp jiangyt.github.io]# git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
+  Finished one revert.
+  Revert tags.html and Upload new posts
 
-<p>其中，Merge 这一行代表的是这个合并 parents，它可以用来表明 merge 操作的线索。</p>
-<p>举个例子，通常，我们的稳定代码都在 master 分支，而开发过程使用 dev 分支，当开发完成后，再把 dev 分支 merge 进 master 分支：</p>
-<pre><code>
-a -> b -> c -> f -- g -> h (master)
-            \      /
-            d -> e         (dev)
-</code></pre>
+  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
 
-<p>上图中，g 是 merge commit，其他的都是常规 commit。g 的两个 parent 分别是 f 和 e。</p>
-<hr>
-<p>###Revert a Merge Commit(撤销merge操作)<br>当你使用 git revert 撤销一个 merge commit 时，如果除了 commit 号而不加任何其他参数，git 将会提示错误：</p>
-<pre><code>1 $ git revert g
-2 error: Commit g is a merge but no -m option was given.
-3 fatal: revert failed</code></pre>
+  # Please enter the commit message for your changes. Lines starting
+  # with '#' will be ignored, and an empty message aborts the commit.
+  # On branch master$
+  # Changes to be committed:$
+  #   (use "git reset HEAD <file>..." to unstage)
+  #
+  # new file:   tags.html</file></code></pre>
+</li>
+<li><p>保存，退出后:wq 文件已恢复</p>
+</li>
+<li><p>查看当前提交记录<br>  <em>git log</em></p>
+  <pre><code>  commit bba1aaa176b12a5abd47f852cbb28f187d1d5e5d
+  Author: Yitao Jiang <willierjyt@gmail.com>
+  Date:   Sun May 25 22:12:12 2014 +0800
 
-<p>这是由于，在你合并两个分支并试图撤销时，Git 并不知道你到底需要保留哪一个分支上所做的修改。从 Git 的角度来看，master 分支和 dev 在地位上是完全平等的，只是在 workflow 中，master 被人为约定成了「主分支」。</p>
-<p>于是是 Git 需要你通过 m 或 mainline 参数来指定「主线」。merge commit 的 parents 一定是在两个不同的线索上，因此可以通过 parent 来表示「主线」。m 参数的值可以是 1 或者 2，对应着 parent 在 merge commit 信息中的顺序。</p>
-<p>以上面那张图为例，我们查看 commit g 的内容：</p>
-<pre><code>$ git show g
-commit g
-Merge: f e</code></pre>
+  Revert tags.html and Upload new posts
 
-<p>那么<code>$ git revert -m 1 g</code> 将会保留 master 分支上的修改，撤销 dev 分支上的修改。</p>
-<p>撤销成功之后，Git 将会生成一个新的 Commit，提交历史就成了这样：</p>
-<pre><code>
-a -> b -> c -> f -- g -> h -> G (master)
-               \  /
-            d -> e                (dev)
-</code></pre>
+  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
+  </willierjyt@gmail.com></code></pre>
 
-<p>其中 G 是撤销 g 生成的 commit。通过 <code>$ git show G</code> 之后，我们会发现 G 是一个常规提交，内容就是撤销 merge 时被丢弃的那条线索的所有 commit 的「反操作」的合集。</p>
-<hr>
-<p>上面的提交历史在实践中通常对应着这样的情况：</p>
-<p>工程师在 master 分支切出了 dev 分支编写新功能，开发完成后合并 dev 分支到 master 分支并上线。上线之后，发现了 dev 分支引入了严重的 bug，而其他人已经在最新的 master 上切出了新的分支并进行开发，所以不能简单地在 master 分支上通过重置（git reset ）来回滚代码，只能选择 revert 那个 merge commit。</p>
-<p>但是事情还没有结束。工程师必须切回 dev 分支修复那些 bug，于是提交记录变成了这个样子：</p>
-<pre><code>a -> b -> c -> f -- g -> h -> G -> i (master)
-           \      /
-            d -> e -> j -> k         (dev)
-</code></pre>
-
-<p>工程师返回 dev 分支通过 j，k 两个 commit 修复了 bug，其他工程师在 master 上有了新的提交 i。现在到了 dev 分支的内容重新上线的时候了。</p>
-<p>直觉上来说，还是和之前一样，把 dev 分支合并到 master 分支就好了。于是：</p>
-<pre><code>$ git checkout master
-$ git merge dev
-</code></pre>
-
-<p>得到的提交记录变成了这样：</p>
-<pre><code>a -> b -> c -> f -- g -> h -> G -> i -- m (master)
-           \      /                    /
-            d -> e -> j -> k ---------     (dev)
-</code></pre>
-
-
-<p><code>m</code>是新的 merge commit。需要注意的是，这<strong>不能</strong>得到我们期望的结果。因为 <code>d</code> 和 <code>e</code> 两个提交曾经被丢弃过，如此合并到 master 的代码，并不会重新包含 <code>d</code> 和<code>e</code> 两个提交的内容，相当于只有 dev 上的新 commit 被合并了进来，而 dev 分支之前的内容，依然是被 revert 掉了。</p>
-<p>所以，如果想恢复整个 dev 所做的修改，应该：</p>
-<pre>
-<code>$ git checkout master
-$ git revert G
-$ git merge dev</code></pre>
-
-<p>于是，提交历史变成了这样：</p>
-<pre><code>a -> b -> c -> f -- g -> h -> G -> i -> G' -- m (master)
-           \      /                          /
-            d -> e -> j -> k ---------------    (dev)
-</code></pre>
-
-<p>其中 <code>G&#39;</code> 是这次 revert 操作生成的 commit，把之前撤销合并时丢弃的代码恢复了回来，然后再 merge dev 分支，把解 bug 写的新代码合并到 master 分支。</p>
-<p>现在，工程师可以放心地上线没有 bug 的新功能了。</p>
+<p>  可以看到在revert后，产生的commit记录中包含revert的commit id号</p>
+</li>
+</ul>
 
     
     </div>
@@ -705,85 +831,6 @@ bridge name     bridge id          STP enabled     interfaces
 qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
 qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
 </code></pre>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Git/">Git</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 233 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <ol>
-<li><p>撤销某次提交，恢复删除的文件</p>
-<ul>
-<li>通过git log 命令查找到想要恢复的commit id号<pre><code> commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
-Author: Yitao Jiang <willierjyt@gmail.com>
-Date:   Thu Apr 17 00:03:21 2014 +0800
-  Delete tags.
-</willierjyt@gmail.com></code></pre></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e</p>
-  <pre><code>[root@dvlp jiangyt.github.io]# git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
-  Finished one revert.
-  Revert tags.html and Upload new posts
-
-  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
-
-  # Please enter the commit message for your changes. Lines starting
-  # with '#' will be ignored, and an empty message aborts the commit.
-  # On branch master$
-  # Changes to be committed:$
-  #   (use "git reset HEAD <file>..." to unstage)
-  #
-  # new file:   tags.html</file></code></pre>
-</li>
-<li><p>保存，退出后:wq 文件已恢复</p>
-</li>
-<li><p>查看当前提交记录<br>  <em>git log</em></p>
-  <pre><code>  commit bba1aaa176b12a5abd47f852cbb28f187d1d5e5d
-  Author: Yitao Jiang <willierjyt@gmail.com>
-  Date:   Sun May 25 22:12:12 2014 +0800
-
-  Revert tags.html and Upload new posts
-
-  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
-  </willierjyt@gmail.com></code></pre>
-
-<p>  可以看到在revert后，产生的commit记录中包含revert的commit id号</p>
-</li>
-</ul>
 
     
     </div>
