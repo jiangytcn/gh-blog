@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>Tag: neutron - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http://jiangytcn.github.io/tags/neutron/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ystacks">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#neutron</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-16-using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 853 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
+<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
+<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
+<p>自己写的查询Flavor例子</p>
+<pre><code>
+ 1 from sqlalchemy.orm import sessionmaker
+ 2 from sqlalchemy import create_engine
+ 3 from sqlalchemy.ext.declarative import declarative_base
+ 4 from sqlalchemy import Column, Integer, String, Float, Boolean
+ 5
+ 6 sql_connection = "mysql://root:root@localhost/nova?charset=utf8"
+ 7 engine = create_engine(sql_connection, echo=True) #echo=True 设置该项后，可以打印出sql的执行过程
+ 8 Session = sessionmaker(bind=engine)
+ 9 session = Session()
+10
+11 class NovaBase():
+12     pass
+13
+14 BASE = declarative_base() # 用户创建与DB映射的基类
+15
+16 class InstanceTypes(BASE, NovaBase):
+17     __tablename__ = "instance_types" # 数据库中表的名称
+18     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+19     name = Column(String(255))
+20     memory_mb = Column(Integer)
+21     vcpus = Column(Integer)
+22     root_gb = Column(Integer)
+23     ephemeral_gb = Column(Integer)
+24     flavorid = Column(String(255))
+25     swap = Column(Integer, nullable=False, default=0)
+26     rxtx_factor = Column(Float, nullable=False, default=1)
+27     vcpu_weight = Column(Integer, nullable=True)
+28     disabled = Column(Boolean, default=False)
+29     is_public = Column(Boolean, default=True)
+30
+31 flavors = session.query(InstanceTypes).all() #查询数据表
+32 for flavor in flavors:
+33     print flavor.id, flavor.name
+</code></pre>
+<p>代码输出</p>
+<pre><code>
+2013-05-15 18:41:10,928 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2013-05-15 18:41:10,929 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,933 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'character_set%%'
+2013-05-15 18:41:10,934 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,935 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
+2013-05-15 18:41:10,936 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine SHOW COLLATION
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,948 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine SELECT instance_types.id AS instance_types_id, instance_types.name AS instance_types_name, instance_types.memory_mb AS instance_types_memory_mb, instance_types.vcpus AS instance_types_vcpus, instance_types.root_gb AS instance_types_root_gb, instance_types.ephemeral_gb AS instance_types_ephemeral_gb, instance_types.flavorid AS instance_types_flavorid, instance_types.swap AS instance_types_swap, instance_types.rxtx_factor AS instance_types_rxtx_factor, instance_types.vcpu_weight AS instance_types_vcpu_weight, instance_types.disabled AS instance_types_disabled, instance_types.is_public AS instance_types_is_public
+FROM instance_types
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine ()
+
+1 m1.medium
+2 m1.tiny
+3 m1.large
+4 m1.xlarge
+5 m1.small
+6 m1.nano
+7 m1.micro
+</code></pre>
+
+<p>###Nova 中所对应的代码结构</p>
+<p>nova/openstack/common/db/sqlalchemy/models.py 定义了SQLAlchemy 的基类， 所有的对数据的操作，通过该类中定义的方法来实现， 其子类，只需要调用相关的方法即可</p>
+<p>nova/db/sqlalchemy/models.py 定义了nova数据中的所有的表,以InstanceTypes 为例</p>
+<pre><code>
+BASE = declarative_base() # 与上一个类子中的方法一样
+
+class NovaBase(models.SoftDeleteMixin, models.ModelBase): #区别在这里， models 为1中定义的模块
+      pass
+class InstanceTypes(BASE, NovaBase):
+     __tablename__ = "instance_types" # 数据库中表的名称
+     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+     name = Column(String(255))
+     memory_mb = Column(Integer)
+     vcpus = Column(Integer)
+     root_gb = Column(Integer)
+     ephemeral_gb = Column(Integer)
+     flavorid = Column(String(255))
+     swap = Column(Integer, nullable=False, default=0)
+     rxtx_factor = Column(Float, nullable=False, default=1)
+     vcpu_weight = Column(Integer, nullable=True)
+     disabled = Column(Boolean, default=False)
+     is_public = Column(Boolean, default=True)
+</code></pre>
+
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-19-openstack-havana-virtual-networking-devices/" itemprop="url">Openstack Havana Neutron 虚拟网络设备分析</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 563 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <pre><code>
+Openstack网络设计中有：Tap设备、veth对，linux 桥接、OvS 桥接四中虚拟网络设备。对于一个流经vm中的eth0到物理host的eth1的以太网数据帧来说，要利用host上的9个设备完成：Tap设备vnet0(vm nic),linux 桥接qbrXXX, veth pair(qvbXXX,qvoXXX),Open vSwitch 桥接br-int, veth pair(intbr-eth1,phy-br-eth1),以及最后的物理主机的网卡eth1。
+
+Tap设备:例如KVM、Xen虚拟一个网卡（通常称作VIF或者vNIC）vnet0,供vm使用。Guest OS因此接收到所有发送到Tap设备的以太网数据帧。
+
+Veth pairs 是一对直接相连的虚拟网卡（virtual network interfaces），发送到veth对中的任意一方的以太网数据帧，另一方也会接收到。网络因此利用veth pairs作为VPC(virtual patch cables)来连接virtual bridges.
+
+Linux brige 象一个hub一样，可以将多个网络设备，包括物理或者虚拟机的，连接到一个Linux 桥接设备上。以太网数据帧会在hub上相连的的所有网络设备上进行传输
+
+Open vSwitch 桥接设备的想一个虚拟的交换机，网卡连接到OVS 桥街上的端口，端口可以象物理交换机一样，对其进行配置VLAN等信息
+
+由于openstack现在的防火墙的实现机制，使得不能够直接将Tap设备（vnet0、vnet1……）直接接入到桥接设备br-int(like a hub).防火墙实现机制是在tap设备上通过iptables实现防火墙，但是OVS又不支持直接连接到OVS port上的tap设备上的iptables
+
+因此，网络设计上，增加了一个Linux 桥接设备以及一个veth pair来解决这个问题。将tap设备vnet0连接到linux bridge上（qbrXXX），而不是直接到连到ovs的桥街上，这个ovs桥接设备通过（qvbXXX,qvoXXX）veth pair连接到br-int(linke a hub)上
+
+[root@devstack:keystone_admin ~]# brctl show
+bridge name     bridge id          STP enabled     interfaces
+qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
+qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
+</code></pre>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

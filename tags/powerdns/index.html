@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>Tag: powerdns - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http://jiangytcn.github.io/tags/powerdns/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ystacks">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#powerdns</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2015-05-06-powerdns-configuration-for-single-node/" itemprop="url">PowerDNS Configuration For Single Node</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/sysadmin/">sysadmin</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 548 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h1 id="Configuration-For-Single-Host"><a href="#Configuration-For-Single-Host" class="headerlink" title="Configuration For Single Host"></a>Configuration For Single Host</h1><p>#####The guide is used for setup a single node powerdns with mysql backend under openstack</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ol>
+<li><p>Launch a powerdns instance using image ubuntu 14.04, associate floatingip</p>
+</li>
+<li><p>ssh into instance then run following commands</p>
+<p> sudo apt-get update<br> sudo apt-get install mysql-server mysql-common pdns-server pdns-backend-mysql</p>
+<p> <strong>WHEN INSTALLING MYSQL-SERVER, REMEMBER THE ROOT PASSWORD OF DATABASE FOR LATER USE</strong></p>
+</li>
+</ol>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><ul>
+<li><p>configure mysql-server</p>
+<p>  edit /etc/mysql/my.cnf</p>
+<p>  <code>bind-address       = 127.0.0.1</code></p>
+<p>  restart mysql-server</p>
+</li>
+<li><p>Create powerdns database</p>
+<p>  Now that you have created a database, you need to add a user that will have access to that database.<br>  For simplify we are using root user, otherwise create use and grant access to database.</p>
+<p>  Next, you create the database required for your install of PowerDNS:</p>
+  <pre><code>
+  create database pdns;
+
+  use pdns;
+
+  create table domains (
+   id              INT auto_increment,
+   name            VARCHAR(255) NOT NULL,
+   master          VARCHAR(128) DEFAULT NULL,
+   last_check      INT DEFAULT NULL,
+   type            VARCHAR(6) NOT NULL,
+   notified_serial INT DEFAULT NULL,
+   account         VARCHAR(40) DEFAULT NULL,
+   primary key (id)
+  ) Engine=InnoDB;
+
+  CREATE UNIQUE INDEX name_index ON domains(name);
+
+  CREATE TABLE records (
+    id              INT auto_increment,
+    domain_id       INT DEFAULT NULL,
+    name            VARCHAR(255) DEFAULT NULL,
+    type            VARCHAR(10) DEFAULT NULL,
+    content         VARCHAR(64000) DEFAULT NULL,
+    ttl             INT DEFAULT NULL,
+    prio            INT DEFAULT NULL,
+    change_date     INT DEFAULT NULL,
+    primary key(id)
+  ) Engine=InnoDB;
+
+  CREATE INDEX nametype_index ON records(name,type);
+  CREATE INDEX domain_id ON records(domain_id);
+
+  create table supermasters (
+    ip         VARCHAR(64) NOT NULL,
+    nameserver VARCHAR(255) NOT NULL,
+    account    VARCHAR(40) DEFAULT NULL
+  ) Engine=InnoDB;</code></pre>
+
+<p>  Now, leave the MySQL shell with:</p>
+<p>  <code>quit;</code></p>
+</li>
+<li><p>modify powerdns server</p>
+<blockquote>
+<p>cd /etc/powerdns</p>
+</blockquote>
+<blockquote>
+<p>mv pdns.conf pdns.conf.bak</p>
+</blockquote>
+<blockquote>
+<p>cp pdns.d/pdns.local.gmysql.conf  pdns.conf</p>
+</blockquote>
+<p> then modify pdns.conf change to the db credentials created above.<br> Finally, restart your PowerDNS service with the following:</p>
+<p> <code>sudo service pdns restart</code></p>
+</li>
+<li><p><strong>Admin Web UI</strong></p>
+<p>  Poweradmin writen in php give you a web dashboard for operating dns record, much more convinent.</p>
+<ul>
+<li><p>Install the prerequisites</p>
+<blockquote>
+<p>$ sudo apt-get install apache2 libapache2-mod-php5 php5 php5-common </p>
+</blockquote>
+<blockquote>
+<p>php5-curl php5-dev php5-gd php-pear php5-imap php5-mcrypt php5-common </p>
+</blockquote>
+<blockquote>
+<p>php5-ming php5-mysql php5-xmlrpc gettext</p>
+</blockquote>
+<blockquote>
+<p>$sudo pear install MDB2</p>
+</blockquote>
+<blockquote>
+<p>$sudo pear install MDB2_Driver_mysql</p>
+</blockquote>
+</li>
+<li><p>Download poweradmin release</p>
+<blockquote>
+<p>$cd /tmp</p>
+</blockquote>
+<blockquote>
+<p>wget <a href="https://github.com/downloads/Poweradmin/Poweradmin/Poweradmin-2.1.6.tgz" target="_blank" rel="noopener">https://github.com/downloads/Poweradmin/Poweradmin/Poweradmin-2.1.6.tgz</a></p>
+</blockquote>
+<blockquote>
+<p>tar xvfz Poweradmin-2.1.6.tgz</p>
+</blockquote>
+<blockquote>
+<p>mv Poweradmin-2.1.6 /var/www/html/Poweradmin</p>
+</blockquote>
+<blockquote>
+<p>touch /var/www/html/Poweradmin/inc/config.inc.php</p>
+</blockquote>
+<blockquote>
+<p>chown -R www-data:www-data /var/www/html/Poweradmin/`</p>
+</blockquote>
+<p>  Now open a browser and launch the web-based Poweradmin installer (http://<your powerdns floating ip>/poweradmin/install). Following the guide to setup admin ui.</your></p>
+<p>  After installation, install subfolder under /var/www/html/Poweradmin need to be removed or migrated, then go to http://<your powerdns floating ip>/Poweradmin//index.php to setup dns records</your></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ul>
+<li><p>Can not launch powerdns admin installer</p>
+<p>Login to the powerdns machine, disable firewall of add the tcp:80 port to the INPUT chain, restart apache2 service</p>
+</li>
+<li><p>Mysql crypto releate issue</p>
+<ol>
+<li><p>Make sure php5-mcrypt installed(yum install php5-mcrypt)</p>
+</li>
+<li><p>modify configuration for php</p>
+<blockquote>
+<p>root@powerdns-cli-01:/etc/php5# find / -name mcrypt.so</p>
+</blockquote>
+ <pre><code>/usr/lib/php5/20121212/mcrypt.so</code></pre>
+
+<blockquote>
+<p>root@powerdns-cli-01:/etc/php5# cat  cli/conf.d/20-mcrypt.ini </p>
+</blockquote>
+ <pre><code>; configuration for php MCrypt module
+ extension=/usr/lib/php5/20121212/mcrypt.so`</code></pre>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://doc.powerdns.com/md/authoritative/installation/" target="_blank" rel="noopener">https://doc.powerdns.com/md/authoritative/installation/</a></li>
+<li>Google</li>
+</ol>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

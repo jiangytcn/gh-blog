@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http://jiangytcn.github.io/page/3/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ystacks">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-18-vm-failes-to-start-with-error-vdi-not-available/" itemprop="url">VM Failes to start with error: VDI not available</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Xenserver/">Xenserver</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 177 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>触发条件: Ssh 至 VM内部，执行关机命令(shutdown -h now), 在NFS backend下的Vm通过Cloudstack无法启动</p>
+<p>产生原因：Xenserver 与存储设备或者Lun失去连接</p>
+<p>解决方法：</p>
+<ul>
+<li><p>Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file<br>  For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.<br>  VM are failing to start with “errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]” error</p>
+</li>
+<li><p>Connect to XenServer and make a note of the SR UUID and name-label of the VDI</p>
+</li>
+</ul>
+<pre><code># xe vdi-list uuid=<vdi 1 uuid from step> params=sr-uuid, name-label</vdi></code></pre>
+
+<ul>
+<li>Run the following commands in XenServer</li>
+</ul>
+<pre><code># xe vdi-forget uuid=<volume 1 extracted from step>
+# xe sr-scan uuid=<sr 2 uuid extracted from step>
+# xe vdi-param-set uuid=< volume extracted from step1 > name-label=< name label extracted from step2 >
+</sr></volume></code></pre>
+
+<ul>
+<li>Restart Cloudstack Management Service</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-25-openvas-related/" itemprop="url">OpenVAS Related</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/OpenVAS/">OpenVAS</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 17 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##网络安全相关词语</p>
+<ul>
+<li>NVP Network Vulnerability Test</li>
+<li>CVE Common Vulnerabilities and Exposure</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-15-python-re/" itemprop="url">Python RE 正则表达式</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Python/">Python</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1393 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>####简单介绍<br>正则表达式并不是Python的一部分。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。<br>下图展示了使用正则表达式进行匹配的流程：<br><img src="http://jiangyt-github-io.qiniudn.com/re-match-workflow.png" alt="正则表达式匹配流程图"></p>
+<p>正则表达式的大致匹配过程是：依次拿出表达式和文本中的字符比较，如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。如果表达式中有量词或边界，这个过程会稍微有一些不同，但也是很好理解的，看下图中的示例以及自己多使用几次就能明白。</p>
+<p>下图列出了Python支持的正则表达式元字符和语法<br><img src="http://jiangyt-github-io.qiniudn.com/re-grammars.png" alt="正则表达式支持的语法"></p>
+<p>####数量词的贪婪模式与非贪婪模式<br>正则表达式通常用于在文本中查找匹配的字符串。Python里数量词默认是贪婪的（在少数语言里也可能是默认非贪婪），总是尝试匹配尽可能多的字符；非贪婪的则相反，总是尝试匹配尽可能少的字符。例如：正则表达式”ab*“ 如果用于查找”abbbc”，将找到”abbb”。而如果使用非贪婪的数量词 “ab*?”，将找到”a”。</p>
+<p>####反斜杠的困扰<br>与大多数编程语言相同，正则表达式里使用”&quot;作为转义字符，这就可能造成反斜杠困扰。假如你需要匹配文本中的字符”&quot;，那么使用编程语言表示的正则表达式里将需要4个反斜杠”\\“：前两个和后两个分别用于在编程语言里转义成反斜杠，转换成两个反斜杠后再在正则表达式里转义成一个反斜杠。Python里的原生字符串很好地解决了这个问题，这个例子中的正则表达式可以使用r”\“表示。同样，匹配一个数字的”\d”可以写成r”\d”。有了原生字符串，你再也不用担心是不是漏写了反斜杠，写出来的表达式也更直观。</p>
+<p>####匹配模式<br>正则表达式提供了一些可用的匹配模式，比如忽略大小写、多行匹配等，这部分内容将在Pattern类的工厂方法re.compile()中一起介绍。</p>
+<p>###RE 模块</p>
+<p>####开始使用re<br>Python通过re模块提供对正则表达式的支持。使用re的一般步骤是先将正则表达式的字符串形式编译为Pattern实例，然后使用Pattern实例处理文本并获得匹配结果（一个Match实例），最后使用Match实例获得信息，进行其他的操作。</p>
+<pre><code>import re
+# 将正则表达式编译成Pattern对象
+pattern = re.compile(r'hello')
+# 使用Pattern匹配文本，获得匹配结果，无法匹配时将返回None
+match = pattern.match('hello world!')
+if match:
+    print match.group()
+
+### 输出 ###
+# hello
+</code></pre>
+
+<p>re.compile(strPattern [, flag]):</p>
+<p>这个方法是Pattern类的工厂方法，用于将字符串形式的正则表达式编译为Pattern对象。 第二个参数flag是匹配模式，取值可以使用按位或运算符’|’表示同时生效，比如re.I | re.M。另外，你也可以在regex字符串中指定模式，比如re.compile(‘pattern’, re.I | re.M)与re.compile(‘(?im)pattern’)是等价的。<br>可选值有：</p>
+<pre><code>* re.I(re.IGNORECASE): 忽略大小写（括号内是完整写法，下同）
+* M(MULTILINE): 多行模式，改变&apos;^&apos;和&apos;$&apos;的行为（参见上图）
+* S(DOTALL): 点任意匹配模式，改变&apos;.&apos;的行为
+* L(LOCALE): 使预定字符类 \w \W \b \B \s \S 取决于当前区域设定
+* U(UNICODE): 使预定字符类 \w \W \b \B \s \S \d \D 取决于unicode定义的字符属性
+* X(VERBOSE):详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释。以下两个正则表达式是等价的</code></pre><pre><code>a = re.compile(r"""
+                    \d +  # the integral part
+                    \.    # the decimal point
+                    \d *  # some fractional digits""", re.X)
+b = re.compile(r"\d+\.\d*")
+</code></pre>
+
+<p>re提供了众多模块方法用于完成正则表达式的功能。这些方法可以使用Pattern实例的相应方法替代，唯一的好处是少写一行re.compile()代码，但同时也无法复用编译后的Pattern对象。这些方法将在Pattern类的实例方法部分一起介绍。如上面这个例子可以简写为</p>
+<pre><code>m = re.match(r'hello', 'hello world!')
+print m.group()
+</code></pre>
+
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-04-18-cloudstack-421-spawn-vm-workflow/" itemprop="url">Cloudstack 4.2.1 Spawn VM Workflow</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 21 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="http://jiangyt-github-io.qiniudn.com/VM%20Spawn%20Workflow.png" alt="Cloudstack 4.2.1 创建虚拟机流程-Xenserver 平台"></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-03-20-host-cpu-comprehension/" itemprop="url">host cpu comprehension</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 370 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Linux-物理机"><a href="#Linux-物理机" class="headerlink" title="Linux 物理机"></a>Linux 物理机</h2><blockquote>
+<p>查看Linux系统中物理与逻辑cpu的相关信息</p>
+</blockquote>
+<blockquote>
+<p>Linux 下/proc/cpuinfo文件会显示cpu的信息</p>
+</blockquote>
+<blockquote>
+<p>逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “processor” | wc -l</p>
+</blockquote>
+<blockquote>
+<p>物理CPU个数，是指physical id（的值）的数量</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “physical id” | sort | uniq | wc -l</p>
+</blockquote>
+<blockquote>
+<p>每个物理CPU中Core的个数：每个相同的physical id都有其对应的core id。如core id分别为1、2、3、4，则表示是Quad-Core CPU，若core id分别是1、2，则表示是Dual-Core。</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “cpu cores” | wc -l</p>
+</blockquote>
+<blockquote>
+<p>逻辑CPU：每个物理CPU中逻辑CPU(可能是core, threads或both)的个数：</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “siblings”</p>
+</blockquote>
+<blockquote>
+<p>它既可能是cores的个数，也可能是core的倍数。当它和core的个数相等时，表示每一个core就是一个逻辑CPU，若它时core的2倍时，表示每个core又enable了超线程（Hyper-Thread）。</p>
+</blockquote>
+<blockquote>
+<p>比如：一个双核的启用了超线程的物理cpu，其core id分别为1、2，但是sibling是4，也就是如果有两个逻辑CPU具有相同的”core id”，那么超线程是打开的。</p>
+</blockquote>
+<h2 id="Xenserver"><a href="#Xenserver" class="headerlink" title="Xenserver"></a>Xenserver</h2><p><strong>XenServer中Socket、Core、以及超线程后的核心之间在XenServer中CPU的排序关系</strong></p>
+<p><img src="https://lh4.googleusercontent.com/-mKqIVhoVnx4/Uyr2yJi9h_I/AAAAAAAAAHs/4_ekJs8SipY/w626-h162-no/CPU.png" alt="enter image description here"></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-02-26-django-oscar-i18n/" itemprop="url">Django oscar I18N</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/commerce/">commerce</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 80 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Translating-Oscar"><a href="#Translating-Oscar" class="headerlink" title="Translating Oscar"></a>Translating Oscar</h3><p>Within your project, create a locale folder and a symlink to Oscar so that ./manage.py makemessages finds Oscar’s translatable strings:</p>
+<pre><code>mkdir locale i18n
+ln -s $PATH_TO_OSCAR i18n/oscar
+./manage.py makemessages --symlinks --locale=zh_CN
+</code></pre>
+
+<p>Now the i18n files are under  <em>local</em> directory,edit django.po files<br>and run command to generate django.mo file.</p>
+<pre><code>
+./manage.py compilemessages --locale=zh_CN
+</code></pre>
+
+<p>Restart your django server, vist your website to verify.</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-02-18-cloudstack-421-user-guide/" itemprop="url">Cloudstack 4.2.1 User Guide</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 37 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Adding-nic-to-a-vm"><a href="#Adding-nic-to-a-vm" class="headerlink" title="Adding nic to a vm"></a>Adding nic to a vm</h3><ul>
+<li><strong>Be sure that the network to be added had a VR running</strong></li>
+<li><strong>The network doesn’t add before</strong></li>
+<li><strong>Shutdown VM</strong><pre><code>Click INSTANCES -->> VM -->> Details -->> NICS -->> Add network to VM  -->> select network -->> OK
+</code></pre>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-17-openstack-nova-adding-plugin/" itemprop="url">OpenStack Nova 添加扩展API流程</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1240 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 <a href="/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">上一随笔</a></p>
+<p>Openstack 中规定，扩展openstack得api有两种方式</p>
+<blockquote>
+<p>创建新的WSGI 资源</p>
+</blockquote>
+<blockquote>
+<p>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</p>
+</blockquote>
+<blockquote>
+<p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
+</blockquote>
+<p>在一个API模块中，可以有一个或多个得资源和扩展控制器。</p>
+<p>根据osapi_compute_extension 得配置， ExtensionManager 由nova/api/openstack/compute/contrib/ 下的<strong>init</strong>.py 文件加载标准的或者新的扩展。</p>
+<p>所以扩展的api统一写在nova/api/openstack/compute/contrib/ 目录下</p>
+<p>如本例子中得 nova/api/openstack/compute/contrib/documents.py</p>
+<p>##扩展API流程</p>
+<p>实现控制器，完成对资源的基本操作，如增删改查和其他一些用户自定义的RESTful资源操作；</p>
+<p>实现一个extensions.ExtensionDescriptor的子类， 并实现get_resources 或者 get_controller_extensions，来建立新的资源或扩展资源控制器（即改写原有的业务逻辑）。具体实现哪个方法这取决于是否要修改原有的RESTFul业务逻辑， 或者说两个功能都需要；</p>
+<p>将控制器和扩展的资源类，写如新创建的的资源中； 规范是资源类是模块（问家名）首字母大写，这样做的目的是使nova.api.openstack.extensions.load_standard_extensions这个类能够是别该新资源，并予以加载；</p>
+<p>当添加新的资源（extensions.ResourceExtension的子类）的时候，如果想要去除掉 {tenent_id} 链接，则需要编写自定义的路由访问规则（本例子中没有涉及）</p>
+<p>###documents.py 实现</p>
+<pre><code>1 # vim: tabstop=4 shiftwidth=4 softtabstop=4
+ 2
+ 3 # Author:  Yitao Jiang
+ 4 # Email:  willierjyt@gmail.com
+ 5
+ 6 import webob
+ 7 from webob import exc
+ 8
+ 9 from nova import db
+10 from nova import exception
+11 from nova.api.openstack import extensions
+12 authorize = extensions.extension_authorizer('compute', 'documents')
+13
+14 # 请求控制器， 即处理对资源的请求，予以响应
+15 class DocumentsController():
+16         """the Documents API Controller declearation"""
+17
+18         def index(self, req):
+19             import pdb; pdb.set_trace()
+20             documents = {}
+21             context = req.environ['nova.context']
+22             authorize(context)
+23
+24             documents["key"] =  "helloworld"
+25             return documents
+26
+27         def create(self, req):
+28             documents = {}
+29             context = req.environ['nova.context']
+30             authorize(context)
+31
+32             documents["key"] =  "helloworld"
+33             return documents
+34
+35         def show(self, req, id):
+37             documents = {}
+38             context = req.environ['nova.context']
+39             authorize(context)
+40
+41             try:
+42                 document = db.document_get(context, id)
+43             except :
+44                 raise webob.exc.HTTPNotFound(explanation="Document not found")
+45
+46             documents["document"] = document
+47             return documents
+48
+49         def update(self, req):
+50             documents = {}
+51             context = req.environ['nova.context']
+52             authorize(context)
+53
+54             documents["key"] =  "helloworld"
+55             return documents
+56
+57         def delete(self, req, id):
+58             return webob.Response(status_int=202)
+59 # 根据命名规范， 模块（python源文件）中的类名是模块名的首字母大写
+60 class Documents(extensions.ExtensionDescriptor):
+61         """Documents ExtensionDescriptor implementation"""
+62
+63         name = "documents"
+64         alias = "os-documents"
+65         namespace = "www.www.com"
+66         updated = "2013-05-19T00:00:00+00:00"
+67
+68         def get_resources(self):
+69             """register the new Documents Restful resource"""
+70
+71             resources = [extensions.ResourceExtension('os-documents',
+72                 DocumentsController())
+73                 ]
+74
+75             return resources
+</code></pre>
+
+<p>在之后可以由以下几种方式来操作documents 资源</p>
+<ul>
+<li>GET v2/{tenant_id}/ os-documents</li>
+<li>POST v2/{tenant_id}/ os-documents </li>
+<li>GET v2/{tenant_id}/ os-documents/{document_id}</li>
+<li>PUT v2/{tenant_id}/ os-documents/{document_id}</li>
+<li>DELETE v2/{tenant_id}/ os-documents/{document_id}</li>
+</ul>
+<p>###扩展api时所修改的文件</p>
+<pre><code>
+1  nova/db/api.py
+2  nova/db/sqlalchemy/api.py
+3  nova/db/sqlalchemy/models.py
+</code></pre>
+
+<p>nova/db/api.py 文件内容</p>
+<p>####数据操作API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用</p>
+<pre><code>
+1 def document_get(context, document_id):
+2        """Get a document or raise if it does not exist."""
+3        return IMPL.document_get(context, document_id)
+
+nova/db/sqlalchemy/api.py 文件内容
+
+# 完成通过由SQLAlchemy操作数据库
+
+ 1  @require_admin_context
+ 2  def document_get(context, document_id):
+ 3
+ 4        session = get_session()
+ 5        with session.begin():
+ 6                query = model_query(context, models.Document, session=session, read_deleted="yes").filter_by(id=document_id)
+ 7
+ 8                result = query.first()
+ 9
+10                if not result or not query:
+11                        raise Exception()
+12
+13                return result
+SQLAlchemy 中定义的资源
+
+nova/db/sqlalchemy/models.py（具体使用见上一 篇日志）
+
+1 class Document(BASE, NovaBase):
+2        """Represents a document of customized extension."""
+3
+4        __tablename__ = 'documents'
+5        id = Column(Integer, primary_key=True)
+6        title = Column(String(255))
+</code></pre>
+
+<p>至此，添加添加新的nova API功能完成,重起api服务</p>
+<p>调用 curl -v -X GET -H ‘X-Auth-Token: 8e5971b3ce0a4f039b895681e7c29361’ <a href="http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/extensions/os-documents" target="_blank" rel="noopener">http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/extensions/os-documents</a>  | python -mjson.tool命令，<br>可以看到返回，扩展添加成功</p>
+<pre><code>
+ 1 {
+ 2     "extension": {
+ 3         "alias": "os-documents",
+ 4         "description": "Documents ExtensionDescriptor implementation",
+ 5         "links": [],
+ 6         "name": "documents",
+ 7         "namespace": "www.www.com",
+ 8         "updated": "2013-05-19T00:00:00+00:00"
+ 9     }
+10 }
+
+数据库添加表documents， 结构如下
+
+mysql> desc documents;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title      | varchar(255) | NO   |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
+| deleted_at | datetime     | YES  |     | NULL    |                |
+| deleted    | int(11)      | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+6 rows in set (0.05 sec)
+
+mysql> select * from documents;
++----+----------------+------------+------------+------------+---------+
+| id | title          | created_at | updated_at | deleted_at | deleted |
++----+----------------+------------+------------+------------+---------+
+|  1 | abcdefgiifeife | NULL       | NULL       | NULL       |    NULL |
+|  2 | 1qaz2wsx       | NULL       | NULL       | NULL       |    NULL |
++----+----------------+------------+------------+------------+---------+
+2 rows in set (0.03 sec)
+
+ 1 curl  -X GET -H 'X-Auth-Token: 8e5971b3ce0a4f039b895681e7c29361' http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/os-documents/1  | python -mjson.tool
+ 2 返回结果
+ 3 {
+ 4     "document": {
+ 5         "created_at": null,
+ 6         "deleted": null,
+ 7         "deleted_at": null,
+ 8         "id": 1,
+ 9         "title": "abcdefgiifeife",
+10         "updated_at": null
+11     }
+12 }
+</code></pre>
+<p>至此新添加的资源，API 扩展成功， 可以在此基础上进行进一步的修改，完成需求</p>
+<p>###参考文档：</p>
+<ol>
+<li><a href="http://docs.openstack.org/developer/nova/devref/addmethod.openstackapi.html" target="_blank" rel="noopener">Adding a Method to the OpenStack API</a></li>
+</ol>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-06-03-cloud-storage-swift-ceph/" itemprop="url">cloud storage swift ceph</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Storage/">Storage</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            14 minutes read (About 2063 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>###<em>概述</em><br>许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类</p>
+<p>块存储对于云环境下是重要的一部分，<br>主要用于存储<br>虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.</p>
+<p>###<em>Openstack Swift</em></p>
+<p>###软件架构</p>
+<p>OpenStack 对象存储(Swift)利用标准服务器组建集群，提供了冗余的，可扩展的分布式对象存储。分布式意味着数据的每一分份在集群中的存储节点上复制。复制的份数是可配置的但是对于生产环境最少是3份。</p>
+<p>Swift 中的数据可以通过REST<br>接口访问，根据需要可以对存储的数据进行相应的操作。<br>每一个对象的访问路径包含三个元素：<br>/account/container/object<br>object存储了用户的实际的输入的数据</p>
+<p>Accounts and containers提供了组织对象的方式，不允许嵌套的accounts 和 containers。</p>
+<p>Swift 软件以组件的方式进行开发，包括account servers, container servers, 和object servers 除此之外，proxy server哟用于接受用户的api请求<br>Account servers 对账户提供container listings的操作 Container servers 对于一个给定的容器提供object listings 的操作 Object servers返回数据本身</p>
+<p>###<em>Rings</em></p>
+<p>由于用户的数据在集群中分布，所以非常的有必要记录数据存放的位置。 Swift通过维护一个叫做_rings_的数据结构来完成数据的定位操作。Rings 在集群中的各个节点复制包括存储节点以及代理节点，这种方式使得swift避免了大部分存储系统依赖于集中单一的meta date服务器的弊端。由于ring文件存储的是集群中node的关系，而不是一个集中的数据map，所以在存储或者删除object是，不需要更新ring文件.这样有益于IO操作，极大程度的减少了访问的带来的不便</p>
+<p>对于acount数据库、container数据库、和单独的object都有独立的rings文件，但是都已相同的方式进行工作。简单来说就是，对于一个给定的Account，container，或者object，ring返回的是它在物理存储节点上的位置，从技术的角度来说，这一过程包括<a href="http://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">一致性hash算法</a>。在mirantis上有对ring工作原理的相关介绍 <a href="http://mirantis.blogspot.com/2012/02/under-hood-of-swift-ring.html" target="_blank" rel="noopener">under-hood-of-swift-ring</a> 和 <a href="https://julien.danjou.info/blog/2012/openstack-swift-consistency-analysis" target="_blank" rel="noopener">openstack-swift-consistency-analysis</a>.</p>
+<p><img src="http://jiangyt-github-io.qiniudn.com/Swift_Arch.png" alt="Swift-architecture"></p>
+<p>###<em>Proxy Server</em><br>代理服务器暴露出public API并且接受对存储实体的请求。对于每一个请求，代理节点都会通过ring文件查找account，container以及object所在的物理位置。根据位置将请求转发.Objects 在代理节点和客户端间直接的以流的的方式进行传递，并且没有缓存</p>
+<p>###<em>Object server</em><br>这是一个简单的blob的存储服务器，可以存储数据、查询、删除数据。对象以二进制文件的方式在存储节点中，对象的metadata信息存储在xattrs（file’s extended attributes）上，这就要求存储object的节点必须支持xattrs</p>
+<p>每一个object利用对象名的hash值以及操作的时间戳来进行存储路径的存储，最新的写操作会在记录中的最新位置（包括在分布式的场景下，创建的请求需要全局的同步时钟）以保证响应对象的最新的一个版本。删除操作也会记录为文件的一个版本，这就保证了已经删除的对象在集群间正确的复制，老的版本不会出现在用户的请求中</p>
+<p>###<em>Container server</em><br>Container 服务器用于查询object信息（listings）。并不知道具体的object的位置，但是对于一个给定的container可以查询到其包含的objects。listings 数据存储在sqlite3数据库中，并且向object一样，在集群间复制。象object总数、container的存储使用情况的统计值都会记录下来.</p>
+<p>在所服务的节点上，会有一个特殊的进程swift-container-updater 不间断的想container数据库中填充数据，在一个container中的数据变化时，并对其数据库进行更新。通过ring来定位需要更新的account。</p>
+<p>###<em>Account server</em><br>与container server雷系，但是是处理container listings 的操作.</p>
+<p>###<em>Features and functions</em></p>
+<ul>
+<li>Replication: The number of object copies that can be configured manually.</li>
+<li>Object upload is a synchronous process: The proxy server returns a “201 Created” HTTP code only if more than half the replicas are written.</li>
+<li>Integration with OpenStack identity service (Keystone): Accounts are mapped to tenants.</li>
+<li>Auditing objects consistency: the md5 sum of an object on the file system compared to its metadata stored in xattrs.</li>
+<li>Container synchronization: This makes it possible to synchronize containers across multiple data centers.</li>
+<li>Handoff mechanism: It makes it possible to use an additional node to keep a replica in case of failure.</li>
+<li>If the object is more than 5 Gb, it has to be split: These parts are stored as separate objects and could be read simultaneously.</li>
+</ul>
+<p>##Ceph</p>
+<p>Ceph is a distributed network storage with distributed metadata management and POSIX semantics. The Ceph object store can be accessed with a number of clients, including a dedicated cmdline tool, FUSE, and  Amazon S3 clients (through a compatibility layer, called “S3 Gateway“).  Ceph is highly modular – different sets of features are provided by different components which one can mix and match. Specifically, for object store accessible via s3 API it is enough to run three of them: object server, monitori</p>
+<p><img src="http://jiangyt-github-io.qiniudn.com/Ceph_arch.png" alt="ceph-architecture"></p>
+<p>###<em>Monitor server</em><br>ceph-mon is a lightweight daemon that provides a consensus for distributed decision-making in a Ceph cluster. It also is the initial point of contact for new clients, and will hand out information about the topology of the cluster. Normally there would be three ceph-mon daemons, on three separate physical machines, isolated from each other; for example, in different racks or rows.</p>
+<p>###<em>Object server</em><br>The actual data put onto Ceph is stored on top of a cluster storage engine called RADOS, deployed on a set of storage nodes.</p>
+<p>ceph-osd is the storage daemon that runs on every storage node (object server) in the Ceph cluster. ceph-osd contacts ceph-mon for cluster membership. Its main goal is to service object read/write/etc. requests from clients, It also peers with other ceph-osds for data replication. The data model is fairly simple at this level. There are multiple named pools, and within each pool there are named objects, in a flat namespace (no directories). Each object has both data and metadata. The data for an object is a single, potentially big, series of bytes.  The metadata is an unordered set of key-value pairs. Ceph filesystem uses metadata to store file owner, etc. Underneath, ceph-osd stores the data on a local filesystem. We recommend Btrfs, but any POSIX filesystem that has extended attributes should work.</p>
+<p>###<em>CRUSH algorithm</em><br>While Swift uses rings (md5 hash range mapping against sets of storage nodes) for consistent data distribution and lookup, Ceph uses an algorithm called CRUSH for this.  In short, CRUSH is an algorithm that can calculate the physical location of data in Ceph, given the object name, cluster map and CRUSH rules as input. CRUSH describes the storage cluster in a hierarchy that reflects its physical organization, and thus can also ensure proper data replication on top of physical hardware. Also CRUSH allows data placement to be controlled by policy, which allows CRUSH to adapt to changes in the cluster membership.</p>
+<p>###<em>Rados Gateway</em><br>radosgw is a FastCGI service that provides a RESTful HTTP API to store objects and metadata on the Ceph cluster.</p>
+<p>###<em>Features and functions</em></p>
+<ul>
+<li>Partial or complete reads and writes</li>
+<li>Snapshots</li>
+<li>Atomic transactions with features like append, truncate, and clone range</li>
+<li>Object level key-value mappings</li>
+<li>Object replicas management</li>
+<li>Aggregation of objects (series of objects) into a group, and mapping the group to a series of OSDs</li>
+<li>Authentication with shared secret keys: Both the client and the monitor cluster- have a copy of the client’s secret key</li>
+<li>Compatibility with S3/Swift API</li>
+</ul>
+<p>###<em>Feature summary</em></p>
+<pre><code>
+Swift Ceph
+Replication Yes Yes
+Max. obj.size 5gb(bigger objects segmented) Unlimited
+Multi DCinstallation Yes (replication on the container level only,but a blueprint proposed for full inter dc replication) No (demands asynchronous eventual consistency
+replication, which Ceph does not yet support)
+Integration/w Opentsack Yes Partial(lack of Keystone support)
+Replicasmanagement No Yes
+Writingalgorithm Synchronous Synchronous
+Amazon S3 compatible API Yes Yes
+Data placement method Ring (static mapping structure) CRUSH (algorithm)
+</code></pre>
+
+<p>###<em>参考文章</em></p>
+<p><a href="http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph" target="_blank" rel="noopener">http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph</a></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-09-03-cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1806 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cloudstack Debug a live agent<br>login into ssvm, either console proxy or ssh(port 3922)<br>kill all the processes named as(run.sh/_run.sh, and java)</p>
+<ol>
+<li><p>cd /usr/local/cloud/systemvm</p>
+</li>
+<li><p>add parameters “-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787” after “java “ in the last line of _run.sh</p>
+</li>
+<li><p>./run.sh, the java agent will start, with debug port 8787 is listened on.</p>
+</li>
+<li><p>allow port 8787 in ssvm, “iptables -I INPUT -i eth1 -p tcp -m state –state NEW -m tcp –dport 8787 -j ACCEPT”, either eth1 or eth2 is ok.</p>
+</li>
+<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
+</li>
+<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
+</li>
+<li><p>SSVM health check - Run the following script inside ssvm  /usr/local/cloud/systemvm/ssvm-check.sh</p>
+<p> It checks for </p>
+<pre><code>1. connectivity with  DNS server 
+2. resolving of  domain names 
+3. status of secondary storage 
+4. ability to write to secondary storage 
+5. connectivity with management server at port 8250 and  status of java process.
+NOTE - If you dont find the health check script then go to #9. Most probably your ssvm didnt get patched right.</code></pre></li>
+<li><p>Template not ready / not available when creating an instance - Many a times the SSVM is running but still the templates do not show as ready or to say templates are not available when creating an instance. Run the health check script above and diagnose. The most probable reason reason is that the agent running on SSVM hasn’t been able to connect with MS which could also be validated by checking the host table in DB. select * from host where type like ‘SecondaryStorageVM’. If the status shows as Alert then definitely that is the reason. There could be a number of reasons for the agent not being able to connect with MS. Below three could be one of them.</p>
+</li>
+</ol>
+<p>Check whether port 8250 is open on MS and there is no firewall rule. This is the port on which the agent and MS communication happens.</p>
+<p>Check whether the SSVM is trying to connect to the right ip of MS. If it is incorrect it could be due to the wrong ip being set in the global settings (configuration table) for ‘host’ in MS. Change that, restart MS and SSVM and see if it solves the issue.</p>
+<p>Check the agent status on SSVM- See if the agent is running by typing “service cloud status” in SSVM. Try to run it and see if that’s successful or changes the alert status.</p>
+<p>To check the state of templates whether is has downloaded or there is an error - Log into DB and check table template_host_ref and observe the download_state and error_string.</p>
+<p>Templates stuck in download in progress - Either stop and then start the SSVM. Or, run service cloud restart on the SSVM. You can also restart MS. This would trigger template sync which essentially will try and resume such stuck templates or redo the download of erred out templates. Whenever there is a handshake between MS and the agent running on the SSVM there is a template sync which syncs the template status on the MS DB and the template’s physical Location and triggers the download if its not complete or retries in case there was some error. (This handshake happens on ssvm re/start, agent re/start and MS re/start)<br>Connection refused as the status for the template - Check whether the config parameter “secstorage.allowed.internal.sites” has been set to allow the internal n/w URL’s.</p>
+<p>Retrying the download of templates - Refer #5 above</p>
+<p>###no route to host<br>This error often implies your firewall blocks the traffic, check iptable rules in SSVM then host then physical firewall.</p>
+<p>###SSVM agent not running<br>You see error something like below. Most probably your systemvm didnt get patched with the agent specific code. This patching happens through the ISO - something like  systemvm***.iso. Check the size and location of the iso and whether you are not using the old version iso. For XS its on the host so grep for it and for vmware its on secondary storage. Do also check that if its vmware that you built your ssvm using noredist flag for mvn command.<br>2013-12-20 13:35:12,954 DEBUG [cloud.utils.ProcessUtil] (main:null) Execution is successful.<br>2013-12-20 13:35:12,960 ERROR [cloud.agent.AgentShell] (main:null) Unable to start agent: Resource class not found: com.cloud.storage.resource.PremiumSecondaryStorageResource due to: java.lang.ClassNotFoundException: com.cloud.storage.resource.PremiumSecondaryStorageResource<br>Dont see any health check script on SSVM or the agent running - The issue for sure is as in #9 above. For vmware setup I saw that because the systemvm.iso size wasnt right.<br>SSVM Logs - /var/log/cloud/cloud.log<br>*ERROR: Java process not running. Try restarting the SSVM - *It looks like the scripts/java binaries have not been copied into the SSVM ? See this thread <a href="http://markmail.org/thread/niu2qwsdydkuh2f" target="_blank" rel="noopener">http://markmail.org/thread/niu2qwsdydkuh2f</a> for how it is supposed to work (response from Alex)</p>
+<p>###Available secondary storage space is low<br>shows only ~2 gb. Generally this is because the secondary storage is not mounted correctly. Run the step 2 above to verify that. One of the reasons could be “It’s due to IP access-list settings which was turned on by default on NAS4Free.  Have allowed the SSVM’s IP address to mount to the NAS and it’s now working fine.”<br>SSVM nics - SSVM basically has four nics, they are:</p>
+<ul>
+<li>eth0: link local nic used for ssh login from host</li>
+<li>eth1: private nic used as management interface between mgmt server and SSVM</li>
+<li>eth2: public nic used as interface that can reach outside internet</li>
+<li>eth3: storage nic used as interface to access secondary storage share like NFS</li>
+</ul>
+<p>CloudStack sets route for each nic, however, the most important route ‘default’ is set to public nic which is eth2.</p>
+<p>That means a healthy SSVM should have default route like(by command ‘ip route’):<br>default via public_gateway_ip_address dev eth2</p>
+<p>this also implies communication between SSVMs happen thru public nic even both SSVMs are in the same private subnet.</p>
+<p>SSVM templates physical location - find the mount point by typing command “mount” . Go to the directory and under template/tmpl you will find all the templates.</p>
+<p>SSVM Apache server - For 2.2 onwards the system vms are debian based. Type “service apache2 status” to find the status. Apache root is at /www/html/<br>Run script of java process /usr/local/cloud/systemvm/run.sh<br>Increasing log level - 1) Edit the file /usr/local/cloud/systemvm/conf/log4j-cloud.xml 2) For the log file cloud.log change the threshold to info:  <param name="Threshold" value="WARN">  to  <param name="Threshold" value="INFO">  3) Change com.cloud to INFO:  <category name="com.cloud"> <priority value="INFO"> </priority></category>  If you’re not getting sufficient logging, you can also try setting it to  DEBUG.</p>
+<p>Multiple secondary storages feature has been added since some time now. The private templates are copied to one of the secondary storages and public to all of them for higher availability.All the public templates will be replicated to all the secondary storage for redundancy but private templates and uploaded volumes would be kept in one of the randomly chosen secondary storage. Snapshots are randomly copied to one of the secondary storage (the chain of incremental snapshots are kept on the same secondary storage.) Currently these algorithms are hardcoded and there is no way to tweak it. In case you need flexibility please open an enhancement for the same. During template sync the consistency is again checked and download triggered for templates keeping in mind the algorithm above.<br>SSVM and CPVM do not have agents running AND  SSVM health check runs fine. cloud.log on SSVM/CPVM keeps showing the following message:<br>2014-06-16 08:08:01,108 INFO  [utils.nio.NioClient] (Agent-Selector:null) Connecting to 10.102.192.247:8250<br>2014-06-16 08:08:01,872 ERROR [utils.nio.NioConnection] (Agent-Selector:null) Unable to initialize the threads.<br>java.io.IOException: SSL: Fail to init SSL! java.io.IOException: Connection closed with -1 on reading size.<br>at com.cloud.utils.nio.NioClient.init(NioClient.java:84)<br>at com.cloud.utils.nio.NioConnection.run(NioConnection.java:108)<br>at java.lang.Thread.run(Thread.java:701)</p>
+<p>###Solution :</p>
+<ol>
+<li><p>rm ./client/target/cloud-client-ui-4.3.0.0/WEB-INF/classes/cloudmanagementserver.keystore ./client/target/conf/cloudmanagementserver.keystore ./client/target/generated-webapp/WEB-INF/classes/cloudmanagementserver.keystore</p>
+</li>
+<li><p>remove root entry from cloud.keystore;</p>
+</li>
+<li><p>remove ssl.keystore from cloud.configuration where description like ‘%key%’;</p>
+</li>
+<li><p>restart MS  agent in ssvm</p>
+</li>
+</ol>
+<p>Download Complete 100% but getting error like this Failed post download script: /usr/sbin/vhd-utilvhd tool check /mnt/SecStorage/33e2e9f5/template/tmpl/345/447/dnld1469110483936142751tmp_ failed - Many reasons for this but amongst them are wrong OS selection, vhd corruption.</p>
+<p>Test this in the lab by copying the template to one of the hosts then on that host run</p>
+<ul>
+<li>vhd-util check -n filename.vhd</li>
+<li>vhd-util scan filename.vhd</li>
+</ul>
+<p>SSVM RAM - Set the param secstorage.vm.ram.size to in change the ram size of the vm. Default in the code is 256.</p>
+<p>For each secondary storage there is a corresponding row created in the host table. </p>
+<ul>
+<li><p>HTTP Server returned 403 (expected 200 OK) - For copy templates. </p>
+<p>  Try to see the first log for this template initiation ? It should be logged with DownloadCommand and should have the url of the source ssvm’s template. Then you can try going to the destination SSVM and try downloading that url.<br>  See what issues you get. I would also check the iptable rules to see if the destination ssvm is blocked from accessing the source ssvm and also if there is any .htaccess file in the apache directories forbidding the download of template</p>
+<p>  One of the problems as was as follows.*The problem is that we’re using basic networking &amp; have the private network setup with the same gateway &amp; subnet as the public network.  When the storage VM comes up the public network gets setup first but then when the private network comes up on eth2 it clobbers the gateway &amp; sets it to the eth2 interface.  So when the copy is initiated between the storage VMs it happens across the private network but the /var/www/html/copy/.htaccess file only allows the public IP of the other SSVM, thus the 403 errors. </p>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/page/2/">Prev</a>
+    </div>
+    <div class="pagination-next">
+        <a href="/page/4/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/">1</a></li>
+        
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
+        
+        <li><a class="pagination-link is-current" href="/page/3/">3</a></li>
+        
+        <li><a class="pagination-link" href="/page/4/">4</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

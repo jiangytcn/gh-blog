@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http://jiangytcn.github.io/page/4/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ystacks">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-30-git-revert-merge/" itemprop="url">Git Revert Merge</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Git/">Git</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1319 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Git Merge命令的使用及撤销</p>
+<p>Git 的 revert 命令可以用来撤销提交（commit），对于常规的提交来说，revert 命令十分直观易用，相当于做一次被 revert 的提交的「反操作」并形成一个新的 commit，但是当你需要撤销一个合并（merge）的时候，事情就变得稍微复杂了一些。</p>
+<p>###Merge Commit<br>在描述 merge commit 之前，先来简短地描述一下常规的 commit。每当你做了一批操作（增加、修改、或删除）之后，你执行 <code>git commit</code> 便会得到一个常规的 Commit。执行 <code>git show &lt;commit&gt;</code>将会输出详细的增删情况。</p>
+<p>但是Merge commit 不是这样。每当你使用 git merge 合并两个分支，你将会得到一个新的 merge commit。执行 git show <commit> 之后，会有类似的输出：</commit></p>
+<pre><code>1 commit 19b7d40d2ebefb4236a8ab630f89e4afca6e9dbe
+2 Merge: b0ef24a cca45f9
+3 ......
+</code></pre>
+
+<p>其中，Merge 这一行代表的是这个合并 parents，它可以用来表明 merge 操作的线索。</p>
+<p>举个例子，通常，我们的稳定代码都在 master 分支，而开发过程使用 dev 分支，当开发完成后，再把 dev 分支 merge 进 master 分支：</p>
+<pre><code>
+a -> b -> c -> f -- g -> h (master)
+            \      /
+            d -> e         (dev)
+</code></pre>
+
+<p>上图中，g 是 merge commit，其他的都是常规 commit。g 的两个 parent 分别是 f 和 e。</p>
+<hr>
+<p>###Revert a Merge Commit(撤销merge操作)<br>当你使用 git revert 撤销一个 merge commit 时，如果除了 commit 号而不加任何其他参数，git 将会提示错误：</p>
+<pre><code>1 $ git revert g
+2 error: Commit g is a merge but no -m option was given.
+3 fatal: revert failed</code></pre>
+
+<p>这是由于，在你合并两个分支并试图撤销时，Git 并不知道你到底需要保留哪一个分支上所做的修改。从 Git 的角度来看，master 分支和 dev 在地位上是完全平等的，只是在 workflow 中，master 被人为约定成了「主分支」。</p>
+<p>于是是 Git 需要你通过 m 或 mainline 参数来指定「主线」。merge commit 的 parents 一定是在两个不同的线索上，因此可以通过 parent 来表示「主线」。m 参数的值可以是 1 或者 2，对应着 parent 在 merge commit 信息中的顺序。</p>
+<p>以上面那张图为例，我们查看 commit g 的内容：</p>
+<pre><code>$ git show g
+commit g
+Merge: f e</code></pre>
+
+<p>那么<code>$ git revert -m 1 g</code> 将会保留 master 分支上的修改，撤销 dev 分支上的修改。</p>
+<p>撤销成功之后，Git 将会生成一个新的 Commit，提交历史就成了这样：</p>
+<pre><code>
+a -> b -> c -> f -- g -> h -> G (master)
+               \  /
+            d -> e                (dev)
+</code></pre>
+
+<p>其中 G 是撤销 g 生成的 commit。通过 <code>$ git show G</code> 之后，我们会发现 G 是一个常规提交，内容就是撤销 merge 时被丢弃的那条线索的所有 commit 的「反操作」的合集。</p>
+<hr>
+<p>上面的提交历史在实践中通常对应着这样的情况：</p>
+<p>工程师在 master 分支切出了 dev 分支编写新功能，开发完成后合并 dev 分支到 master 分支并上线。上线之后，发现了 dev 分支引入了严重的 bug，而其他人已经在最新的 master 上切出了新的分支并进行开发，所以不能简单地在 master 分支上通过重置（git reset ）来回滚代码，只能选择 revert 那个 merge commit。</p>
+<p>但是事情还没有结束。工程师必须切回 dev 分支修复那些 bug，于是提交记录变成了这个样子：</p>
+<pre><code>a -> b -> c -> f -- g -> h -> G -> i (master)
+           \      /
+            d -> e -> j -> k         (dev)
+</code></pre>
+
+<p>工程师返回 dev 分支通过 j，k 两个 commit 修复了 bug，其他工程师在 master 上有了新的提交 i。现在到了 dev 分支的内容重新上线的时候了。</p>
+<p>直觉上来说，还是和之前一样，把 dev 分支合并到 master 分支就好了。于是：</p>
+<pre><code>$ git checkout master
+$ git merge dev
+</code></pre>
+
+<p>得到的提交记录变成了这样：</p>
+<pre><code>a -> b -> c -> f -- g -> h -> G -> i -- m (master)
+           \      /                    /
+            d -> e -> j -> k ---------     (dev)
+</code></pre>
+
+
+<p><code>m</code>是新的 merge commit。需要注意的是，这<strong>不能</strong>得到我们期望的结果。因为 <code>d</code> 和 <code>e</code> 两个提交曾经被丢弃过，如此合并到 master 的代码，并不会重新包含 <code>d</code> 和<code>e</code> 两个提交的内容，相当于只有 dev 上的新 commit 被合并了进来，而 dev 分支之前的内容，依然是被 revert 掉了。</p>
+<p>所以，如果想恢复整个 dev 所做的修改，应该：</p>
+<pre>
+<code>$ git checkout master
+$ git revert G
+$ git merge dev</code></pre>
+
+<p>于是，提交历史变成了这样：</p>
+<pre><code>a -> b -> c -> f -- g -> h -> G -> i -> G' -- m (master)
+           \      /                          /
+            d -> e -> j -> k ---------------    (dev)
+</code></pre>
+
+<p>其中 <code>G&#39;</code> 是这次 revert 操作生成的 commit，把之前撤销合并时丢弃的代码恢复了回来，然后再 merge dev 分支，把解 bug 写的新代码合并到 master 分支。</p>
+<p>现在，工程师可以放心地上线没有 bug 的新功能了。</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/page/3/">Prev</a>
+    </div>
+    <div class="pagination-next is-invisible is-hidden-mobile">
+        <a href="/page/5/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/">1</a></li>
+        
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
+        
+        <li><a class="pagination-link" href="/page/3/">3</a></li>
+        
+        <li><a class="pagination-link is-current" href="/page/4/">4</a></li>
+        
+    </ul>
+</nav>
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

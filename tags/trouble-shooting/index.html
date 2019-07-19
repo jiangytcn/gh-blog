@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>Tag: trouble-shooting - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http://jiangytcn.github.io/tags/trouble-shooting/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ystacks">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#trouble-shooting</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-09-03-instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 711 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+<p>##Solutions</p>
+<p>[root@ms2 ~]# cat /var/cloudstack/management/.ssh/id_rsa.pub<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuqhNj72tdEVhc/Cbph6EyPLcPm6KKrgVMdFKXRn7uW5S6UT+QqtM4ec7S0lA0roVsbnst2/DdLQZhCcBDMggRRP7BJSM1O5cXcFQib+gwAaneaUwomVMPiA/uAdCJBxgId5qTZw4cyWnemLkkZTcta96aIIhT0/ycal4PMPbXRE9u78RRVeoo19BnjAYd6o7zo+O8fNaRLdQRTcpGCm5KTQRhKREOA/OREHvX0mBuuEAie74e3QVd+ZA/6kQ7uspKsFnQTWEM0I8YR2UPj9JL1pyPAawV3QiycEOaChYhUZ6DcuebEJEbzahiRbtBnDkRz+gQ/TpHx96pmAzzDaQyQ==cloud@ms2<br>[root@ms2 ~]#</p>
+<p>###Mount System ISO<br>[root@ms2 ~]# mkdir /tmp/is<br>[root@ms2 ~]# mount -o loop /var/cloudstack/mnt/VM/7566222426160.3051fff0/systemvm/systemvm-4.2.0-SNAPSHOT.iso </p>
+<p>root@ms2 ~]# cd /tmp/is/</p>
+<p>[root@ms2 is]# ls<br>authorized_keys cloud-scripts.tgz systemvm.zip</p>
+<p>[root@ms2 is]# cat authorized_keys<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAv2Ym6oJKNnSiMPg0F/RxNhCNvmiB0HJwWLbWC0GQLkB6/Q7F93X8jConFbjehQqBPXePZhEV8veGyH8AmjRDlnP42qpxvCsOnD7BGrXm+Uv+/VovzZ719wcMny0GO2spJgpJcut0YrJqr9OXRlrgbis9dweeB0SyZDKT2ja4c6V2E2Fo9D7BdqWg2S2ptKW7oNkL6846Rfa9/WHh0PO7DmJ5mIuJbazNfBOM0SH6M2FOORgBFytC2XEf0o2aYHGDKOyuwDb2YOuThfDNP3r29qhRUHdZY8Ozs9S0iF+m/L3vBvuOCk0eJMjuYJnsuMTH7KScP5GILurlBCaU9vXmvw== cloud@ms2</p>
+<p>We can see that the private keys are not equal, so we update the system.iso with correct authorized_keys, and then replace system.iso, destroy ssvm ,cpvm along with it’s base template image within hypervisor, then the new system vms will be bring up.</p>
+<p>Now you can deploy you virtual machines</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-09-03-cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1806 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cloudstack Debug a live agent<br>login into ssvm, either console proxy or ssh(port 3922)<br>kill all the processes named as(run.sh/_run.sh, and java)</p>
+<ol>
+<li><p>cd /usr/local/cloud/systemvm</p>
+</li>
+<li><p>add parameters “-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787” after “java “ in the last line of _run.sh</p>
+</li>
+<li><p>./run.sh, the java agent will start, with debug port 8787 is listened on.</p>
+</li>
+<li><p>allow port 8787 in ssvm, “iptables -I INPUT -i eth1 -p tcp -m state –state NEW -m tcp –dport 8787 -j ACCEPT”, either eth1 or eth2 is ok.</p>
+</li>
+<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
+</li>
+<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
+</li>
+<li><p>SSVM health check - Run the following script inside ssvm  /usr/local/cloud/systemvm/ssvm-check.sh</p>
+<p> It checks for </p>
+<pre><code>1. connectivity with  DNS server 
+2. resolving of  domain names 
+3. status of secondary storage 
+4. ability to write to secondary storage 
+5. connectivity with management server at port 8250 and  status of java process.
+NOTE - If you dont find the health check script then go to #9. Most probably your ssvm didnt get patched right.</code></pre></li>
+<li><p>Template not ready / not available when creating an instance - Many a times the SSVM is running but still the templates do not show as ready or to say templates are not available when creating an instance. Run the health check script above and diagnose. The most probable reason reason is that the agent running on SSVM hasn’t been able to connect with MS which could also be validated by checking the host table in DB. select * from host where type like ‘SecondaryStorageVM’. If the status shows as Alert then definitely that is the reason. There could be a number of reasons for the agent not being able to connect with MS. Below three could be one of them.</p>
+</li>
+</ol>
+<p>Check whether port 8250 is open on MS and there is no firewall rule. This is the port on which the agent and MS communication happens.</p>
+<p>Check whether the SSVM is trying to connect to the right ip of MS. If it is incorrect it could be due to the wrong ip being set in the global settings (configuration table) for ‘host’ in MS. Change that, restart MS and SSVM and see if it solves the issue.</p>
+<p>Check the agent status on SSVM- See if the agent is running by typing “service cloud status” in SSVM. Try to run it and see if that’s successful or changes the alert status.</p>
+<p>To check the state of templates whether is has downloaded or there is an error - Log into DB and check table template_host_ref and observe the download_state and error_string.</p>
+<p>Templates stuck in download in progress - Either stop and then start the SSVM. Or, run service cloud restart on the SSVM. You can also restart MS. This would trigger template sync which essentially will try and resume such stuck templates or redo the download of erred out templates. Whenever there is a handshake between MS and the agent running on the SSVM there is a template sync which syncs the template status on the MS DB and the template’s physical Location and triggers the download if its not complete or retries in case there was some error. (This handshake happens on ssvm re/start, agent re/start and MS re/start)<br>Connection refused as the status for the template - Check whether the config parameter “secstorage.allowed.internal.sites” has been set to allow the internal n/w URL’s.</p>
+<p>Retrying the download of templates - Refer #5 above</p>
+<p>###no route to host<br>This error often implies your firewall blocks the traffic, check iptable rules in SSVM then host then physical firewall.</p>
+<p>###SSVM agent not running<br>You see error something like below. Most probably your systemvm didnt get patched with the agent specific code. This patching happens through the ISO - something like  systemvm***.iso. Check the size and location of the iso and whether you are not using the old version iso. For XS its on the host so grep for it and for vmware its on secondary storage. Do also check that if its vmware that you built your ssvm using noredist flag for mvn command.<br>2013-12-20 13:35:12,954 DEBUG [cloud.utils.ProcessUtil] (main:null) Execution is successful.<br>2013-12-20 13:35:12,960 ERROR [cloud.agent.AgentShell] (main:null) Unable to start agent: Resource class not found: com.cloud.storage.resource.PremiumSecondaryStorageResource due to: java.lang.ClassNotFoundException: com.cloud.storage.resource.PremiumSecondaryStorageResource<br>Dont see any health check script on SSVM or the agent running - The issue for sure is as in #9 above. For vmware setup I saw that because the systemvm.iso size wasnt right.<br>SSVM Logs - /var/log/cloud/cloud.log<br>*ERROR: Java process not running. Try restarting the SSVM - *It looks like the scripts/java binaries have not been copied into the SSVM ? See this thread <a href="http://markmail.org/thread/niu2qwsdydkuh2f" target="_blank" rel="noopener">http://markmail.org/thread/niu2qwsdydkuh2f</a> for how it is supposed to work (response from Alex)</p>
+<p>###Available secondary storage space is low<br>shows only ~2 gb. Generally this is because the secondary storage is not mounted correctly. Run the step 2 above to verify that. One of the reasons could be “It’s due to IP access-list settings which was turned on by default on NAS4Free.  Have allowed the SSVM’s IP address to mount to the NAS and it’s now working fine.”<br>SSVM nics - SSVM basically has four nics, they are:</p>
+<ul>
+<li>eth0: link local nic used for ssh login from host</li>
+<li>eth1: private nic used as management interface between mgmt server and SSVM</li>
+<li>eth2: public nic used as interface that can reach outside internet</li>
+<li>eth3: storage nic used as interface to access secondary storage share like NFS</li>
+</ul>
+<p>CloudStack sets route for each nic, however, the most important route ‘default’ is set to public nic which is eth2.</p>
+<p>That means a healthy SSVM should have default route like(by command ‘ip route’):<br>default via public_gateway_ip_address dev eth2</p>
+<p>this also implies communication between SSVMs happen thru public nic even both SSVMs are in the same private subnet.</p>
+<p>SSVM templates physical location - find the mount point by typing command “mount” . Go to the directory and under template/tmpl you will find all the templates.</p>
+<p>SSVM Apache server - For 2.2 onwards the system vms are debian based. Type “service apache2 status” to find the status. Apache root is at /www/html/<br>Run script of java process /usr/local/cloud/systemvm/run.sh<br>Increasing log level - 1) Edit the file /usr/local/cloud/systemvm/conf/log4j-cloud.xml 2) For the log file cloud.log change the threshold to info:  <param name="Threshold" value="WARN">  to  <param name="Threshold" value="INFO">  3) Change com.cloud to INFO:  <category name="com.cloud"> <priority value="INFO"> </priority></category>  If you’re not getting sufficient logging, you can also try setting it to  DEBUG.</p>
+<p>Multiple secondary storages feature has been added since some time now. The private templates are copied to one of the secondary storages and public to all of them for higher availability.All the public templates will be replicated to all the secondary storage for redundancy but private templates and uploaded volumes would be kept in one of the randomly chosen secondary storage. Snapshots are randomly copied to one of the secondary storage (the chain of incremental snapshots are kept on the same secondary storage.) Currently these algorithms are hardcoded and there is no way to tweak it. In case you need flexibility please open an enhancement for the same. During template sync the consistency is again checked and download triggered for templates keeping in mind the algorithm above.<br>SSVM and CPVM do not have agents running AND  SSVM health check runs fine. cloud.log on SSVM/CPVM keeps showing the following message:<br>2014-06-16 08:08:01,108 INFO  [utils.nio.NioClient] (Agent-Selector:null) Connecting to 10.102.192.247:8250<br>2014-06-16 08:08:01,872 ERROR [utils.nio.NioConnection] (Agent-Selector:null) Unable to initialize the threads.<br>java.io.IOException: SSL: Fail to init SSL! java.io.IOException: Connection closed with -1 on reading size.<br>at com.cloud.utils.nio.NioClient.init(NioClient.java:84)<br>at com.cloud.utils.nio.NioConnection.run(NioConnection.java:108)<br>at java.lang.Thread.run(Thread.java:701)</p>
+<p>###Solution :</p>
+<ol>
+<li><p>rm ./client/target/cloud-client-ui-4.3.0.0/WEB-INF/classes/cloudmanagementserver.keystore ./client/target/conf/cloudmanagementserver.keystore ./client/target/generated-webapp/WEB-INF/classes/cloudmanagementserver.keystore</p>
+</li>
+<li><p>remove root entry from cloud.keystore;</p>
+</li>
+<li><p>remove ssl.keystore from cloud.configuration where description like ‘%key%’;</p>
+</li>
+<li><p>restart MS  agent in ssvm</p>
+</li>
+</ol>
+<p>Download Complete 100% but getting error like this Failed post download script: /usr/sbin/vhd-utilvhd tool check /mnt/SecStorage/33e2e9f5/template/tmpl/345/447/dnld1469110483936142751tmp_ failed - Many reasons for this but amongst them are wrong OS selection, vhd corruption.</p>
+<p>Test this in the lab by copying the template to one of the hosts then on that host run</p>
+<ul>
+<li>vhd-util check -n filename.vhd</li>
+<li>vhd-util scan filename.vhd</li>
+</ul>
+<p>SSVM RAM - Set the param secstorage.vm.ram.size to in change the ram size of the vm. Default in the code is 256.</p>
+<p>For each secondary storage there is a corresponding row created in the host table. </p>
+<ul>
+<li><p>HTTP Server returned 403 (expected 200 OK) - For copy templates. </p>
+<p>  Try to see the first log for this template initiation ? It should be logged with DownloadCommand and should have the url of the source ssvm’s template. Then you can try going to the destination SSVM and try downloading that url.<br>  See what issues you get. I would also check the iptable rules to see if the destination ssvm is blocked from accessing the source ssvm and also if there is any .htaccess file in the apache directories forbidding the download of template</p>
+<p>  One of the problems as was as follows.*The problem is that we’re using basic networking &amp; have the private network setup with the same gateway &amp; subnet as the public network.  When the storage VM comes up the public network gets setup first but then when the private network comes up on eth2 it clobbers the gateway &amp; sets it to the eth2 interface.  So when the copy is initiated between the storage VMs it happens across the private network but the /var/www/html/copy/.htaccess file only allows the public IP of the other SSVM, thus the 403 errors. </p>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

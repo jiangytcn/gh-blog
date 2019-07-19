@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>How To Change Xenserver Default Installtion Partitions - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content>
+
+
+
+
+
+    <meta name="description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
+<meta name="keywords" content="Xenserver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How To Change Xenserver Default Installtion Partitions">
+<meta property="og:url" content="http://jiangytcn.github.io/2019/07/19/2014-12-01-how-to-change-xenserver-default-installtion-partitions/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-07-19T01:16:05.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How To Change Xenserver Default Installtion Partitions">
+<meta name="twitter:description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            How To Change Xenserver Default Installtion Partitions
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 430 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="修改root磁盘大小"><a href="#修改root磁盘大小" class="headerlink" title="修改root磁盘大小"></a>修改root磁盘大小</h2><pre><code>开机选择F2高级模式，输入shell，
+vi /opt/xensource/installer/constants.py
+DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
+输入EXIT</code></pre><h2 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h2><pre><code>XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu-DM的进程，占用大约6M的内存空间，
+因此在虚拟机数量较多的情况下，我们需要增大Domain0内存以便支持更多的虚拟机运行。
+由于Domain0是32位操作系统，故支持的最大内存量为4GB。
+更改Domain0内存的方法参考CTX124806-XenServerSingleServerScalabilitywithXenDesktop提到的例子，
+更改/boot/exlinux.conf下包含dom0_mem=2940M的Xen命令行。</code></pre><h3 id="为了修改先前的设置，完成下面的步骤："><a href="#为了修改先前的设置，完成下面的步骤：" class="headerlink" title="为了修改先前的设置，完成下面的步骤："></a>为了修改先前的设置，完成下面的步骤：</h3><ol>
+<li>通过XenCenter的控制口或者SSH方式以root身份登录到Domain0。</li>
+<li>确保备份一份原始的/boot/extlinux.conf文件。以免未来的修改导致XenServer不能启动。</li>
+<li>用vi打开/boot/extlinux.conf。</li>
+<li>下面的改动仅添加到labelxe和labelxe-serial部分。<br> ###进行下面的改动：<pre><code>labelxe#XenServerkernelmboot.c32append/boot/xen.gzdom0_mem=752Mlowmem_emergency_pool=1Mcrashkernel=64M@32Mconsole=com1vga=mode-0x0311—/boot/vmlinuz-2.6-xenroot=LABEL=root-ecpmuteuroxencons=hvcconsole=hvc0console=tty0quietvga=785splash—/boot/initrd-2.6-xen.img</code></pre> ###改变为:<pre><code>labelxe#XenServerkernelmboot.c32append/boot/xen.gzdom0_mem=2940Mlowmem_emergency_pool=1Mcrashkernel=64M@32Mconsole=com1vga=mode-0x0311—/boot/vmlinuz-2.6-xenroot=LABEL=root-ecpmuteuroxencons=hvcconsole=hvc0console=tty0quietvga=785splash—/boot/initrd-2.6-xen.img</code></pre></li>
+</ol>
+<hr>
+<p>调整Dom0内存设置dom0_mem=2940M是为了分配给dom0更多的内存，这意味着它可以更好地处理更多数量的虚拟机。<br>在改变了这个设置并重启以确保新配置的dom0内存大小生效</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Xenserver/">#Xenserver</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/07/19/2014-12-17-how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/">How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/07/19/2014-09-03-instance-start-failed-because-mis-match-in-vr-ssh-key-pair/">Instance start failed because mismatch in VR ssh key Pair</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://jiangytcn.github.io/2019/07/19/2014-12-01-how-to-change-xenserver-default-installtion-partitions/';
+        this.page.identifier = '2019/07/19/2014-12-01-how-to-change-xenserver-default-installtion-partitions/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'jiangyt' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
