@@ -66,7 +66,9 @@
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/images/logo.png" alt height="28">
+                    
+                    ystacks
+                    
                 
             </a>
             <div class="navbar-burger">
@@ -187,7 +189,7 @@ print m.group()
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-05-29-mysql-lost-connection/" itemprop="url">MySQL Lost Connection</a>
+            <a href="/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -197,26 +199,61 @@ print m.group()
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Mysql/">Mysql</a>
+            <a class="article-category-link" href="/categories/Git/">Git</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            a few seconds read (About 106 words)
+            2 minutes read (About 233 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>##Navicat连接mysql数据库连接错误Code 2013 Lost connection</p>
-<p>###现象</p>
-<p>2013 - Lost connection to Mysql Server at ‘waiting for initial communication packet’, system error:0</p>
-<p><img src="http://jiangyt-github-io.qiniudn.com/Mysql%20%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5.png" alt="Lost connection to Mysql Server at &#39;waiting for initial communication packet&#39;, system error:0"></p>
-<p>###解决方法<br>在mysql的配置文件my.cnf 或my.ini 下添加</p>
-<pre><code>skip_name_resolve </code></pre>
-<p>使其在与mysql服务器建立连接时，跳过主机名的解析</p>
+        <ol>
+<li><p>撤销某次提交，恢复删除的文件</p>
+<ul>
+<li>通过git log 命令查找到想要恢复的commit id号<pre><code> commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
+Author: Yitao Jiang <willierjyt@gmail.com>
+Date:   Thu Apr 17 00:03:21 2014 +0800
+  Delete tags.
+</willierjyt@gmail.com></code></pre></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e</p>
+  <pre><code>[root@dvlp jiangyt.github.io]# git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
+  Finished one revert.
+  Revert tags.html and Upload new posts
+
+  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
+
+  # Please enter the commit message for your changes. Lines starting
+  # with '#' will be ignored, and an empty message aborts the commit.
+  # On branch master$
+  # Changes to be committed:$
+  #   (use "git reset HEAD <file>..." to unstage)
+  #
+  # new file:   tags.html</file></code></pre>
+</li>
+<li><p>保存，退出后:wq 文件已恢复</p>
+</li>
+<li><p>查看当前提交记录<br>  <em>git log</em></p>
+  <pre><code>  commit bba1aaa176b12a5abd47f852cbb28f187d1d5e5d
+  Author: Yitao Jiang <willierjyt@gmail.com>
+  Date:   Sun May 25 22:12:12 2014 +0800
+
+  Revert tags.html and Upload new posts
+
+  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
+  </willierjyt@gmail.com></code></pre>
+
+<p>  可以看到在revert后，产生的commit记录中包含revert的commit id号</p>
+</li>
+</ul>
 
     
     </div>
@@ -231,7 +268,7 @@ print m.group()
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-04-18-cloudstack-421-spawn-vm-workflow/" itemprop="url">Cloudstack 4.2.1 Spawn VM Workflow</a>
+            <a href="/2019/07/19/2014-05-24-libvirt-virsh-commands/" itemprop="url">Libvirt Virsh Commands</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -241,20 +278,155 @@ print m.group()
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+            <a class="article-category-link" href="/categories/Libvirt/">Libvirt</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            a few seconds read (About 21 words)
+            a minute read (About 141 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="http://jiangyt-github-io.qiniudn.com/VM%20Spawn%20Workflow.png" alt="Cloudstack 4.2.1 创建虚拟机流程-Xenserver 平台"></p>
+        <p>##Libvirt Virsh 命令</p>
+<p>###磁盘文件</p>
+<ul>
+<li>查看domain的挂载的磁盘信息<ul>
+<li>virsh domblklist instance-0000002d  <pre><code>vda        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk
+  vdb        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.local
+  vdc        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.swap
+  vdd        /dev/disk/by-path/ip-192.168.0.28:3260-iscsi-iqn.2010-10.org.openstack:volume-7c9646ef-e1f1-4da4-b230-c4ec7679bb6a-lun-1
+  </code></pre></li>
+</ul>
+</li>
+<li>查看磁盘文件状态<ul>
+<li>virsh domblkstat instance-0000002d vda  <pre><code>vda rd_req 7970
+  vda rd_bytes 214534656
+  vda wr_req 1503
+  vda wr_bytes 247596032
+  vda flush_operations 182
+  vda rd_total_times 32382476906
+  vda wr_total_times 646733610926
+  vda flush_total_times 214371604
+  </code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-06-01-cloudstack-cli-cloudmonkey-installation/" itemprop="url">Cloudstack Cli Cloudmonkey Installation</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 429 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cli安装使用分为四部分</p>
+<ol>
+<li><strong>安装virtualenv</strong></li>
+<li><strong>安装cloudmonkey</strong></li>
+<li><strong>配置cloudmonkey</strong></li>
+<li><strong>命令使用</strong></li>
+</ol>
+<h2 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h2><pre><code>1. virtualenv提供了一个安装软件时的测试环境，所安装的软件不会安装在系统目录下
+2. 安装python2.7.4 时的依赖软件， 此步骤可选， cloudmonkey 要求python版本在2.5以上即可
+3. yum -y groupinstall &quot;Development tools&quot; zlib-devel bzip2-devel openssl-devel ncurses-devel mysql-devel ibxml2-devel libxslt-devel  unixODBC-devel sqlite sqlite-devel</code></pre><h2 id="源码安装python2-7-4"><a href="#源码安装python2-7-4" class="headerlink" title="源码安装python2.7.4"></a>源码安装python2.7.4</h2><pre><code>wget http://www.python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
+tar xf Python-2.7.4.tar.bz2
+cd Python-2.7.4
+/configure --prefix=/opt/python2.7
+make && make altinstall`
+</code></pre>
+
+<p>##源码安装virtualenv</p>
+<pre><code>wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.1.tar.gz#md5=07e09df0adfca0b2d487e39a4bf2270a
+tar
+-xvzf virtualenv-1.9.1.tar.gz
+python virtualenv
+-1.9.1/setup.py install
+</code></pre>
+
+<p>###安装cloudmonkey</p>
+<ol>
+<li><p>建立virtualenv环境</p>
+ <pre><code>#mkidr workenv
+ #virtualenv worksenv
+ #source worksenv/bin/activate
+ </code></pre></li>
+<li><p>安装cloudmonkey两种方式任选其一</p>
+<p> 2.1. 通过python库安装</p>
+<p> 在系统安装了pip后或者env生效后执行下面命令    </p>
+ <pre><code>#$ pip install cloudmonkey</code></pre>
+
+<p> 2.2. 通过源码安装将打包后的源码上传至服务器中解压缩打包后的文件安装</p>
+ <pre><code># python setup.py build #
+ # python setup.py install</code></pre>
+
+
+</li>
+</ol>
+<h3 id="配置cloudmonkey"><a href="#配置cloudmonkey" class="headerlink" title="配置cloudmonkey"></a>配置cloudmonkey</h3><pre><code>
+#cloudmonkey
+> set history_file /usr/share/cloudmonkey_history
+> set log_file /var/log/cloudmonkey
+设置管理服务器
+> set host 192.168.56.1
+设置端口
+> set port 8080
+设置使用的apikey
+> set apikey {put-your-api-key-for-your-user}
+设置使用的secretkey
+> set secretkey {put-your-secret-key-for-your-user}
+修改cloudmonkey终端提示符
+> set prompt smcloudcli>
+同步配置
+> sync
+324 APIs discovered and cached
+</code></pre>
+
+<p>配置结束。<br>通常情况下，所有配置项在 ~/.cloudmonkey/config: 均可见</p>
+<h3 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h3><p>tab健可以命令补全</p>
+<pre><code>#cloudmonkey
+加载用户的key
+smcloudcli>sync
+smcloudcli>list <tab>
+设置数据显示方式为table
+smcloudcli>set display table
+设置数据显示方式为json
+smcloudcli>set display json
+smcloudcli>list users
+</tab></code></pre>
 
     
     </div>
@@ -328,6 +500,88 @@ print m.group()
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/07/19/2014-04-18-cloudstack-421-spawn-vm-workflow/" itemprop="url">Cloudstack 4.2.1 Spawn VM Workflow</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 21 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="http://jiangyt-github-io.qiniudn.com/VM%20Spawn%20Workflow.png" alt="Cloudstack 4.2.1 创建虚拟机流程-Xenserver 平台"></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-02-18-cloudstack-421-user-guide/" itemprop="url">Cloudstack 4.2.1 User Guide</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 37 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Adding-nic-to-a-vm"><a href="#Adding-nic-to-a-vm" class="headerlink" title="Adding nic to a vm"></a>Adding nic to a vm</h3><ul>
+<li><strong>Be sure that the network to be added had a VR running</strong></li>
+<li><strong>The network doesn’t add before</strong></li>
+<li><strong>Shutdown VM</strong><pre><code>Click INSTANCES -->> VM -->> Details -->> NICS -->> Add network to VM  -->> select network -->> OK
+</code></pre>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/07/19/2014-03-20-host-cpu-comprehension/" itemprop="url">host cpu comprehension</a>
         
     </h1>
@@ -384,50 +638,6 @@ print m.group()
 </blockquote>
 <h2 id="Xenserver"><a href="#Xenserver" class="headerlink" title="Xenserver"></a>Xenserver</h2><p><strong>XenServer中Socket、Core、以及超线程后的核心之间在XenServer中CPU的排序关系</strong></p>
 <p><img src="https://lh4.googleusercontent.com/-mKqIVhoVnx4/Uyr2yJi9h_I/AAAAAAAAAHs/4_ekJs8SipY/w626-h162-no/CPU.png" alt="enter image description here"></p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-02-18-cloudstack-421-user-guide/" itemprop="url">Cloudstack 4.2.1 User Guide</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a few seconds read (About 37 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h3 id="Adding-nic-to-a-vm"><a href="#Adding-nic-to-a-vm" class="headerlink" title="Adding nic to a vm"></a>Adding nic to a vm</h3><ul>
-<li><strong>Be sure that the network to be added had a VR running</strong></li>
-<li><strong>The network doesn’t add before</strong></li>
-<li><strong>Shutdown VM</strong><pre><code>Click INSTANCES -->> VM -->> Details -->> NICS -->> Add network to VM  -->> select network -->> OK
-</code></pre>
-</li>
-</ul>
 
     
     </div>
@@ -719,214 +929,6 @@ mysql> select * from documents;
 <ol>
 <li><a href="http://docs.openstack.org/developer/nova/devref/addmethod.openstackapi.html" target="_blank" rel="noopener">Adding a Method to the OpenStack API</a></li>
 </ol>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-06-03-cloud-storage-swift-ceph/" itemprop="url">cloud storage swift ceph</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Storage/">Storage</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            14 minutes read (About 2063 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>###<em>概述</em><br>许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类</p>
-<p>块存储对于云环境下是重要的一部分，<br>主要用于存储<br>虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.</p>
-<p>###<em>Openstack Swift</em></p>
-<p>###软件架构</p>
-<p>OpenStack 对象存储(Swift)利用标准服务器组建集群，提供了冗余的，可扩展的分布式对象存储。分布式意味着数据的每一分份在集群中的存储节点上复制。复制的份数是可配置的但是对于生产环境最少是3份。</p>
-<p>Swift 中的数据可以通过REST<br>接口访问，根据需要可以对存储的数据进行相应的操作。<br>每一个对象的访问路径包含三个元素：<br>/account/container/object<br>object存储了用户的实际的输入的数据</p>
-<p>Accounts and containers提供了组织对象的方式，不允许嵌套的accounts 和 containers。</p>
-<p>Swift 软件以组件的方式进行开发，包括account servers, container servers, 和object servers 除此之外，proxy server哟用于接受用户的api请求<br>Account servers 对账户提供container listings的操作 Container servers 对于一个给定的容器提供object listings 的操作 Object servers返回数据本身</p>
-<p>###<em>Rings</em></p>
-<p>由于用户的数据在集群中分布，所以非常的有必要记录数据存放的位置。 Swift通过维护一个叫做_rings_的数据结构来完成数据的定位操作。Rings 在集群中的各个节点复制包括存储节点以及代理节点，这种方式使得swift避免了大部分存储系统依赖于集中单一的meta date服务器的弊端。由于ring文件存储的是集群中node的关系，而不是一个集中的数据map，所以在存储或者删除object是，不需要更新ring文件.这样有益于IO操作，极大程度的减少了访问的带来的不便</p>
-<p>对于acount数据库、container数据库、和单独的object都有独立的rings文件，但是都已相同的方式进行工作。简单来说就是，对于一个给定的Account，container，或者object，ring返回的是它在物理存储节点上的位置，从技术的角度来说，这一过程包括<a href="http://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">一致性hash算法</a>。在mirantis上有对ring工作原理的相关介绍 <a href="http://mirantis.blogspot.com/2012/02/under-hood-of-swift-ring.html" target="_blank" rel="noopener">under-hood-of-swift-ring</a> 和 <a href="https://julien.danjou.info/blog/2012/openstack-swift-consistency-analysis" target="_blank" rel="noopener">openstack-swift-consistency-analysis</a>.</p>
-<p><img src="http://jiangyt-github-io.qiniudn.com/Swift_Arch.png" alt="Swift-architecture"></p>
-<p>###<em>Proxy Server</em><br>代理服务器暴露出public API并且接受对存储实体的请求。对于每一个请求，代理节点都会通过ring文件查找account，container以及object所在的物理位置。根据位置将请求转发.Objects 在代理节点和客户端间直接的以流的的方式进行传递，并且没有缓存</p>
-<p>###<em>Object server</em><br>这是一个简单的blob的存储服务器，可以存储数据、查询、删除数据。对象以二进制文件的方式在存储节点中，对象的metadata信息存储在xattrs（file’s extended attributes）上，这就要求存储object的节点必须支持xattrs</p>
-<p>每一个object利用对象名的hash值以及操作的时间戳来进行存储路径的存储，最新的写操作会在记录中的最新位置（包括在分布式的场景下，创建的请求需要全局的同步时钟）以保证响应对象的最新的一个版本。删除操作也会记录为文件的一个版本，这就保证了已经删除的对象在集群间正确的复制，老的版本不会出现在用户的请求中</p>
-<p>###<em>Container server</em><br>Container 服务器用于查询object信息（listings）。并不知道具体的object的位置，但是对于一个给定的container可以查询到其包含的objects。listings 数据存储在sqlite3数据库中，并且向object一样，在集群间复制。象object总数、container的存储使用情况的统计值都会记录下来.</p>
-<p>在所服务的节点上，会有一个特殊的进程swift-container-updater 不间断的想container数据库中填充数据，在一个container中的数据变化时，并对其数据库进行更新。通过ring来定位需要更新的account。</p>
-<p>###<em>Account server</em><br>与container server雷系，但是是处理container listings 的操作.</p>
-<p>###<em>Features and functions</em></p>
-<ul>
-<li>Replication: The number of object copies that can be configured manually.</li>
-<li>Object upload is a synchronous process: The proxy server returns a “201 Created” HTTP code only if more than half the replicas are written.</li>
-<li>Integration with OpenStack identity service (Keystone): Accounts are mapped to tenants.</li>
-<li>Auditing objects consistency: the md5 sum of an object on the file system compared to its metadata stored in xattrs.</li>
-<li>Container synchronization: This makes it possible to synchronize containers across multiple data centers.</li>
-<li>Handoff mechanism: It makes it possible to use an additional node to keep a replica in case of failure.</li>
-<li>If the object is more than 5 Gb, it has to be split: These parts are stored as separate objects and could be read simultaneously.</li>
-</ul>
-<p>##Ceph</p>
-<p>Ceph is a distributed network storage with distributed metadata management and POSIX semantics. The Ceph object store can be accessed with a number of clients, including a dedicated cmdline tool, FUSE, and  Amazon S3 clients (through a compatibility layer, called “S3 Gateway“).  Ceph is highly modular – different sets of features are provided by different components which one can mix and match. Specifically, for object store accessible via s3 API it is enough to run three of them: object server, monitori</p>
-<p><img src="http://jiangyt-github-io.qiniudn.com/Ceph_arch.png" alt="ceph-architecture"></p>
-<p>###<em>Monitor server</em><br>ceph-mon is a lightweight daemon that provides a consensus for distributed decision-making in a Ceph cluster. It also is the initial point of contact for new clients, and will hand out information about the topology of the cluster. Normally there would be three ceph-mon daemons, on three separate physical machines, isolated from each other; for example, in different racks or rows.</p>
-<p>###<em>Object server</em><br>The actual data put onto Ceph is stored on top of a cluster storage engine called RADOS, deployed on a set of storage nodes.</p>
-<p>ceph-osd is the storage daemon that runs on every storage node (object server) in the Ceph cluster. ceph-osd contacts ceph-mon for cluster membership. Its main goal is to service object read/write/etc. requests from clients, It also peers with other ceph-osds for data replication. The data model is fairly simple at this level. There are multiple named pools, and within each pool there are named objects, in a flat namespace (no directories). Each object has both data and metadata. The data for an object is a single, potentially big, series of bytes.  The metadata is an unordered set of key-value pairs. Ceph filesystem uses metadata to store file owner, etc. Underneath, ceph-osd stores the data on a local filesystem. We recommend Btrfs, but any POSIX filesystem that has extended attributes should work.</p>
-<p>###<em>CRUSH algorithm</em><br>While Swift uses rings (md5 hash range mapping against sets of storage nodes) for consistent data distribution and lookup, Ceph uses an algorithm called CRUSH for this.  In short, CRUSH is an algorithm that can calculate the physical location of data in Ceph, given the object name, cluster map and CRUSH rules as input. CRUSH describes the storage cluster in a hierarchy that reflects its physical organization, and thus can also ensure proper data replication on top of physical hardware. Also CRUSH allows data placement to be controlled by policy, which allows CRUSH to adapt to changes in the cluster membership.</p>
-<p>###<em>Rados Gateway</em><br>radosgw is a FastCGI service that provides a RESTful HTTP API to store objects and metadata on the Ceph cluster.</p>
-<p>###<em>Features and functions</em></p>
-<ul>
-<li>Partial or complete reads and writes</li>
-<li>Snapshots</li>
-<li>Atomic transactions with features like append, truncate, and clone range</li>
-<li>Object level key-value mappings</li>
-<li>Object replicas management</li>
-<li>Aggregation of objects (series of objects) into a group, and mapping the group to a series of OSDs</li>
-<li>Authentication with shared secret keys: Both the client and the monitor cluster- have a copy of the client’s secret key</li>
-<li>Compatibility with S3/Swift API</li>
-</ul>
-<p>###<em>Feature summary</em></p>
-<pre><code>
-Swift Ceph
-Replication Yes Yes
-Max. obj.size 5gb(bigger objects segmented) Unlimited
-Multi DCinstallation Yes (replication on the container level only,but a blueprint proposed for full inter dc replication) No (demands asynchronous eventual consistency
-replication, which Ceph does not yet support)
-Integration/w Opentsack Yes Partial(lack of Keystone support)
-Replicasmanagement No Yes
-Writingalgorithm Synchronous Synchronous
-Amazon S3 compatible API Yes Yes
-Data placement method Ring (static mapping structure) CRUSH (algorithm)
-</code></pre>
-
-<p>###<em>参考文章</em></p>
-<p><a href="http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph" target="_blank" rel="noopener">http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph</a></p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-09-03-cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1806 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>##Cloudstack Debug a live agent<br>login into ssvm, either console proxy or ssh(port 3922)<br>kill all the processes named as(run.sh/_run.sh, and java)</p>
-<ol>
-<li><p>cd /usr/local/cloud/systemvm</p>
-</li>
-<li><p>add parameters “-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787” after “java “ in the last line of _run.sh</p>
-</li>
-<li><p>./run.sh, the java agent will start, with debug port 8787 is listened on.</p>
-</li>
-<li><p>allow port 8787 in ssvm, “iptables -I INPUT -i eth1 -p tcp -m state –state NEW -m tcp –dport 8787 -j ACCEPT”, either eth1 or eth2 is ok.</p>
-</li>
-<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
-</li>
-<li><p>Log in into ssvm - Log into the hypervisor and then type the following command   “ssh -i /opt/xensource/bin/id_rsa –p 3922 root@privateIP_or_LinkLocalIpofSSVM”, or “ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal” on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .<br>Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<private ip address of ssvm></private></p>
-</li>
-<li><p>SSVM health check - Run the following script inside ssvm  /usr/local/cloud/systemvm/ssvm-check.sh</p>
-<p> It checks for </p>
-<pre><code>1. connectivity with  DNS server 
-2. resolving of  domain names 
-3. status of secondary storage 
-4. ability to write to secondary storage 
-5. connectivity with management server at port 8250 and  status of java process.
-NOTE - If you dont find the health check script then go to #9. Most probably your ssvm didnt get patched right.</code></pre></li>
-<li><p>Template not ready / not available when creating an instance - Many a times the SSVM is running but still the templates do not show as ready or to say templates are not available when creating an instance. Run the health check script above and diagnose. The most probable reason reason is that the agent running on SSVM hasn’t been able to connect with MS which could also be validated by checking the host table in DB. select * from host where type like ‘SecondaryStorageVM’. If the status shows as Alert then definitely that is the reason. There could be a number of reasons for the agent not being able to connect with MS. Below three could be one of them.</p>
-</li>
-</ol>
-<p>Check whether port 8250 is open on MS and there is no firewall rule. This is the port on which the agent and MS communication happens.</p>
-<p>Check whether the SSVM is trying to connect to the right ip of MS. If it is incorrect it could be due to the wrong ip being set in the global settings (configuration table) for ‘host’ in MS. Change that, restart MS and SSVM and see if it solves the issue.</p>
-<p>Check the agent status on SSVM- See if the agent is running by typing “service cloud status” in SSVM. Try to run it and see if that’s successful or changes the alert status.</p>
-<p>To check the state of templates whether is has downloaded or there is an error - Log into DB and check table template_host_ref and observe the download_state and error_string.</p>
-<p>Templates stuck in download in progress - Either stop and then start the SSVM. Or, run service cloud restart on the SSVM. You can also restart MS. This would trigger template sync which essentially will try and resume such stuck templates or redo the download of erred out templates. Whenever there is a handshake between MS and the agent running on the SSVM there is a template sync which syncs the template status on the MS DB and the template’s physical Location and triggers the download if its not complete or retries in case there was some error. (This handshake happens on ssvm re/start, agent re/start and MS re/start)<br>Connection refused as the status for the template - Check whether the config parameter “secstorage.allowed.internal.sites” has been set to allow the internal n/w URL’s.</p>
-<p>Retrying the download of templates - Refer #5 above</p>
-<p>###no route to host<br>This error often implies your firewall blocks the traffic, check iptable rules in SSVM then host then physical firewall.</p>
-<p>###SSVM agent not running<br>You see error something like below. Most probably your systemvm didnt get patched with the agent specific code. This patching happens through the ISO - something like  systemvm***.iso. Check the size and location of the iso and whether you are not using the old version iso. For XS its on the host so grep for it and for vmware its on secondary storage. Do also check that if its vmware that you built your ssvm using noredist flag for mvn command.<br>2013-12-20 13:35:12,954 DEBUG [cloud.utils.ProcessUtil] (main:null) Execution is successful.<br>2013-12-20 13:35:12,960 ERROR [cloud.agent.AgentShell] (main:null) Unable to start agent: Resource class not found: com.cloud.storage.resource.PremiumSecondaryStorageResource due to: java.lang.ClassNotFoundException: com.cloud.storage.resource.PremiumSecondaryStorageResource<br>Dont see any health check script on SSVM or the agent running - The issue for sure is as in #9 above. For vmware setup I saw that because the systemvm.iso size wasnt right.<br>SSVM Logs - /var/log/cloud/cloud.log<br>*ERROR: Java process not running. Try restarting the SSVM - *It looks like the scripts/java binaries have not been copied into the SSVM ? See this thread <a href="http://markmail.org/thread/niu2qwsdydkuh2f" target="_blank" rel="noopener">http://markmail.org/thread/niu2qwsdydkuh2f</a> for how it is supposed to work (response from Alex)</p>
-<p>###Available secondary storage space is low<br>shows only ~2 gb. Generally this is because the secondary storage is not mounted correctly. Run the step 2 above to verify that. One of the reasons could be “It’s due to IP access-list settings which was turned on by default on NAS4Free.  Have allowed the SSVM’s IP address to mount to the NAS and it’s now working fine.”<br>SSVM nics - SSVM basically has four nics, they are:</p>
-<ul>
-<li>eth0: link local nic used for ssh login from host</li>
-<li>eth1: private nic used as management interface between mgmt server and SSVM</li>
-<li>eth2: public nic used as interface that can reach outside internet</li>
-<li>eth3: storage nic used as interface to access secondary storage share like NFS</li>
-</ul>
-<p>CloudStack sets route for each nic, however, the most important route ‘default’ is set to public nic which is eth2.</p>
-<p>That means a healthy SSVM should have default route like(by command ‘ip route’):<br>default via public_gateway_ip_address dev eth2</p>
-<p>this also implies communication between SSVMs happen thru public nic even both SSVMs are in the same private subnet.</p>
-<p>SSVM templates physical location - find the mount point by typing command “mount” . Go to the directory and under template/tmpl you will find all the templates.</p>
-<p>SSVM Apache server - For 2.2 onwards the system vms are debian based. Type “service apache2 status” to find the status. Apache root is at /www/html/<br>Run script of java process /usr/local/cloud/systemvm/run.sh<br>Increasing log level - 1) Edit the file /usr/local/cloud/systemvm/conf/log4j-cloud.xml 2) For the log file cloud.log change the threshold to info:  <param name="Threshold" value="WARN">  to  <param name="Threshold" value="INFO">  3) Change com.cloud to INFO:  <category name="com.cloud"> <priority value="INFO"> </priority></category>  If you’re not getting sufficient logging, you can also try setting it to  DEBUG.</p>
-<p>Multiple secondary storages feature has been added since some time now. The private templates are copied to one of the secondary storages and public to all of them for higher availability.All the public templates will be replicated to all the secondary storage for redundancy but private templates and uploaded volumes would be kept in one of the randomly chosen secondary storage. Snapshots are randomly copied to one of the secondary storage (the chain of incremental snapshots are kept on the same secondary storage.) Currently these algorithms are hardcoded and there is no way to tweak it. In case you need flexibility please open an enhancement for the same. During template sync the consistency is again checked and download triggered for templates keeping in mind the algorithm above.<br>SSVM and CPVM do not have agents running AND  SSVM health check runs fine. cloud.log on SSVM/CPVM keeps showing the following message:<br>2014-06-16 08:08:01,108 INFO  [utils.nio.NioClient] (Agent-Selector:null) Connecting to 10.102.192.247:8250<br>2014-06-16 08:08:01,872 ERROR [utils.nio.NioConnection] (Agent-Selector:null) Unable to initialize the threads.<br>java.io.IOException: SSL: Fail to init SSL! java.io.IOException: Connection closed with -1 on reading size.<br>at com.cloud.utils.nio.NioClient.init(NioClient.java:84)<br>at com.cloud.utils.nio.NioConnection.run(NioConnection.java:108)<br>at java.lang.Thread.run(Thread.java:701)</p>
-<p>###Solution :</p>
-<ol>
-<li><p>rm ./client/target/cloud-client-ui-4.3.0.0/WEB-INF/classes/cloudmanagementserver.keystore ./client/target/conf/cloudmanagementserver.keystore ./client/target/generated-webapp/WEB-INF/classes/cloudmanagementserver.keystore</p>
-</li>
-<li><p>remove root entry from cloud.keystore;</p>
-</li>
-<li><p>remove ssl.keystore from cloud.configuration where description like ‘%key%’;</p>
-</li>
-<li><p>restart MS  agent in ssvm</p>
-</li>
-</ol>
-<p>Download Complete 100% but getting error like this Failed post download script: /usr/sbin/vhd-utilvhd tool check /mnt/SecStorage/33e2e9f5/template/tmpl/345/447/dnld1469110483936142751tmp_ failed - Many reasons for this but amongst them are wrong OS selection, vhd corruption.</p>
-<p>Test this in the lab by copying the template to one of the hosts then on that host run</p>
-<ul>
-<li>vhd-util check -n filename.vhd</li>
-<li>vhd-util scan filename.vhd</li>
-</ul>
-<p>SSVM RAM - Set the param secstorage.vm.ram.size to in change the ram size of the vm. Default in the code is 256.</p>
-<p>For each secondary storage there is a corresponding row created in the host table. </p>
-<ul>
-<li><p>HTTP Server returned 403 (expected 200 OK) - For copy templates. </p>
-<p>  Try to see the first log for this template initiation ? It should be logged with DownloadCommand and should have the url of the source ssvm’s template. Then you can try going to the destination SSVM and try downloading that url.<br>  See what issues you get. I would also check the iptable rules to see if the destination ssvm is blocked from accessing the source ssvm and also if there is any .htaccess file in the apache directories forbidding the download of template</p>
-<p>  One of the problems as was as follows.*The problem is that we’re using basic networking &amp; have the private network setup with the same gateway &amp; subnet as the public network.  When the storage VM comes up the public network gets setup first but then when the private network comes up on eth2 it clobbers the gateway &amp; sets it to the eth2 interface.  So when the copy is initiated between the storage VMs it happens across the private network but the /var/www/html/copy/.htaccess file only allows the public IP of the other SSVM, thus the 403 errors. </p>
-</li>
-</ul>
 
     
     </div>

@@ -66,7 +66,9 @@
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/images/logo.png" alt height="28">
+                    
+                    ystacks
+                    
                 
             </a>
             <div class="navbar-burger">
@@ -111,6 +113,58 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/07/19/2015-06-10-docker---enter-a-running-container-with-new-tty/" itemprop="url">Docker   Enter a Running Container With New TTY</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/sysadmin/">sysadmin</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 99 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h1 id="Generic-Method-Docker-Enter"><a href="#Generic-Method-Docker-Enter" class="headerlink" title="Generic Method - Docker Enter"></a>Generic Method - Docker Enter</h1><p>Since docker 1.3, you can use docker exec -it [container-id] bash. To make this easier, I create a file at/usr/bin/docker-enter with the following contents.</p>
+<pre><code>
+#!/bin/bash 
+
+EXPECTED_NUM_ARGS=1;
+
+if [ "$#" -ne $EXPECTED_NUM_ARGS ]; then
+    CONTAINER_ID=`/usr/bin/docker ps -q --no-trunc | /bin/sed -n 1p`
+    /usr/bin/docker exec -it $CONTAINER_ID bash
+else
+    /usr/bin/docker exec -it $1 bash
+fi
+</code></pre>
+
+<p>Now you can just run docker-enter $container-id or if you just want to enter the last container you spawned, just run the command docker-enter</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/07/19/2014-09-03-instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
         
     </h1>
@@ -143,6 +197,99 @@
 <p>[root@ms2 is]# cat authorized_keys<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAv2Ym6oJKNnSiMPg0F/RxNhCNvmiB0HJwWLbWC0GQLkB6/Q7F93X8jConFbjehQqBPXePZhEV8veGyH8AmjRDlnP42qpxvCsOnD7BGrXm+Uv+/VovzZ719wcMny0GO2spJgpJcut0YrJqr9OXRlrgbis9dweeB0SyZDKT2ja4c6V2E2Fo9D7BdqWg2S2ptKW7oNkL6846Rfa9/WHh0PO7DmJ5mIuJbazNfBOM0SH6M2FOORgBFytC2XEf0o2aYHGDKOyuwDb2YOuThfDNP3r29qhRUHdZY8Ozs9S0iF+m/L3vBvuOCk0eJMjuYJnsuMTH7KScP5GILurlBCaU9vXmvw== cloud@ms2</p>
 <p>We can see that the private keys are not equal, so we update the system.iso with correct authorized_keys, and then replace system.iso, destroy ssvm ,cpvm along with it’s base template image within hypervisor, then the new system vms will be bring up.</p>
 <p>Now you can deploy you virtual machines</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-12-17-how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/" itemprop="url">How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 368 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature"><a href="#Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature" class="headerlink" title="#####Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature."></a>#####Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature.</h2><p>###Install Rabbitmq-server</p>
+<ul>
+<li>Following the instructions from here:<a href="http://www.rabbitmq.com/download.html" target="_blank" rel="noopener">http://www.rabbitmq.com/download.html</a> to setup rabbitmq-server</li>
+<li>Make sure that rabbitmq-server running, and (/or) enable rabbitmq-management webui plugin</li>
+</ul>
+<p>###Configure Cloudstack<br>Assuming you have setup cloudstack management server and have mq server running with correct user credential(Default user is <strong><em>guest/guest</em></strong>)</p>
+<ul>
+<li>In cloudstack management server <ul>
+<li>Create spring event bus related configuration file<pre><code>
+mdir -p /usr/share/cloudstack-management/webapps/client/WEB-INF/classes/META-INF/cloudstack/core
+[root@cs-mgmt core]# cat spring-event-bus-context.xml
+< beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:util="http://www.springframework.org/schema/util"    
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+>
+< bean id="eventNotificationBus" class="org.apache.cloudstack.mom.rabbitmq.RabbitMQEventBus">
+  < property name="name" value="eventNotificationBus" />
+  < property name="server" value="localhost" />
+  < property name="port" value="5672" />
+  < property name="username" value="guest" />
+  < property name="password" value="guest" />
+  < property name="exchange" value="cloudstack-events" />
+< /bean>
+< /beans>
+</code></pre></li>
+<li>restart cloudstack management service<ul>
+<li>/etc/init.d/cloudstack-management restart</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###Check Exchange status</p>
+<p>Using rabbitmqctl to check the status exchanges of current node.</p>
+<pre><code>
+[root@cs-mgmt core]# rabbitmqctl list_exchanges
+Listing exchanges ...
+    direct
+amq.direct    direct
+amq.fanout    fanout
+amq.headers    headers
+amq.match    headers
+amq.rabbitmq.log    topic
+amq.rabbitmq.trace    topic
+amq.topic    topic
+cloudstack-events    topic
+...done.
+[root@cs-mgmt core]# 
+</code></pre>
+
+<p>We can see that cloudstack has connected to rabbitmq server.</p>
 
     
     </div>
@@ -204,7 +351,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-05-16-using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
+            <a href="/2019/07/19/2014-05-19-openstack-havana-virtual-networking-devices/" itemprop="url">Openstack Havana Neutron 虚拟网络设备分析</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -221,101 +368,154 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <span class="column is-narrow">
             
             
-            6 minutes read (About 853 words)
+            4 minutes read (About 563 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
-<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
-<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
-<p>自己写的查询Flavor例子</p>
-<pre><code>
- 1 from sqlalchemy.orm import sessionmaker
- 2 from sqlalchemy import create_engine
- 3 from sqlalchemy.ext.declarative import declarative_base
- 4 from sqlalchemy import Column, Integer, String, Float, Boolean
- 5
- 6 sql_connection = "mysql://root:root@localhost/nova?charset=utf8"
- 7 engine = create_engine(sql_connection, echo=True) #echo=True 设置该项后，可以打印出sql的执行过程
- 8 Session = sessionmaker(bind=engine)
- 9 session = Session()
-10
-11 class NovaBase():
-12     pass
-13
-14 BASE = declarative_base() # 用户创建与DB映射的基类
-15
-16 class InstanceTypes(BASE, NovaBase):
-17     __tablename__ = "instance_types" # 数据库中表的名称
-18     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
-19     name = Column(String(255))
-20     memory_mb = Column(Integer)
-21     vcpus = Column(Integer)
-22     root_gb = Column(Integer)
-23     ephemeral_gb = Column(Integer)
-24     flavorid = Column(String(255))
-25     swap = Column(Integer, nullable=False, default=0)
-26     rxtx_factor = Column(Float, nullable=False, default=1)
-27     vcpu_weight = Column(Integer, nullable=True)
-28     disabled = Column(Boolean, default=False)
-29     is_public = Column(Boolean, default=True)
-30
-31 flavors = session.query(InstanceTypes).all() #查询数据表
-32 for flavor in flavors:
-33     print flavor.id, flavor.name
-</code></pre>
-<p>代码输出</p>
-<pre><code>
-2013-05-15 18:41:10,928 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
-2013-05-15 18:41:10,929 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,933 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'character_set%%'
-2013-05-15 18:41:10,934 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,935 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
-2013-05-15 18:41:10,936 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine SHOW COLLATION
-2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
-2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine ()
-2013-05-15 18:41:10,948 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
-2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine SELECT instance_types.id AS instance_types_id, instance_types.name AS instance_types_name, instance_types.memory_mb AS instance_types_memory_mb, instance_types.vcpus AS instance_types_vcpus, instance_types.root_gb AS instance_types_root_gb, instance_types.ephemeral_gb AS instance_types_ephemeral_gb, instance_types.flavorid AS instance_types_flavorid, instance_types.swap AS instance_types_swap, instance_types.rxtx_factor AS instance_types_rxtx_factor, instance_types.vcpu_weight AS instance_types_vcpu_weight, instance_types.disabled AS instance_types_disabled, instance_types.is_public AS instance_types_is_public
-FROM instance_types
-2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine ()
+        <pre><code>
+Openstack网络设计中有：Tap设备、veth对，linux 桥接、OvS 桥接四中虚拟网络设备。对于一个流经vm中的eth0到物理host的eth1的以太网数据帧来说，要利用host上的9个设备完成：Tap设备vnet0(vm nic),linux 桥接qbrXXX, veth pair(qvbXXX,qvoXXX),Open vSwitch 桥接br-int, veth pair(intbr-eth1,phy-br-eth1),以及最后的物理主机的网卡eth1。
 
-1 m1.medium
-2 m1.tiny
-3 m1.large
-4 m1.xlarge
-5 m1.small
-6 m1.nano
-7 m1.micro
+Tap设备:例如KVM、Xen虚拟一个网卡（通常称作VIF或者vNIC）vnet0,供vm使用。Guest OS因此接收到所有发送到Tap设备的以太网数据帧。
+
+Veth pairs 是一对直接相连的虚拟网卡（virtual network interfaces），发送到veth对中的任意一方的以太网数据帧，另一方也会接收到。网络因此利用veth pairs作为VPC(virtual patch cables)来连接virtual bridges.
+
+Linux brige 象一个hub一样，可以将多个网络设备，包括物理或者虚拟机的，连接到一个Linux 桥接设备上。以太网数据帧会在hub上相连的的所有网络设备上进行传输
+
+Open vSwitch 桥接设备的想一个虚拟的交换机，网卡连接到OVS 桥街上的端口，端口可以象物理交换机一样，对其进行配置VLAN等信息
+
+由于openstack现在的防火墙的实现机制，使得不能够直接将Tap设备（vnet0、vnet1……）直接接入到桥接设备br-int(like a hub).防火墙实现机制是在tap设备上通过iptables实现防火墙，但是OVS又不支持直接连接到OVS port上的tap设备上的iptables
+
+因此，网络设计上，增加了一个Linux 桥接设备以及一个veth pair来解决这个问题。将tap设备vnet0连接到linux bridge上（qbrXXX），而不是直接到连到ovs的桥街上，这个ovs桥接设备通过（qvbXXX,qvoXXX）veth pair连接到br-int(linke a hub)上
+
+[root@devstack:keystone_admin ~]# brctl show
+bridge name     bridge id          STP enabled     interfaces
+qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
+qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
 </code></pre>
 
-<p>###Nova 中所对应的代码结构</p>
-<p>nova/openstack/common/db/sqlalchemy/models.py 定义了SQLAlchemy 的基类， 所有的对数据的操作，通过该类中定义的方法来实现， 其子类，只需要调用相关的方法即可</p>
-<p>nova/db/sqlalchemy/models.py 定义了nova数据中的所有的表,以InstanceTypes 为例</p>
-<pre><code>
-BASE = declarative_base() # 与上一个类子中的方法一样
+    
+    </div>
+    
+    
+</article>
 
-class NovaBase(models.SoftDeleteMixin, models.ModelBase): #区别在这里， models 为1中定义的模块
-      pass
-class InstanceTypes(BASE, NovaBase):
-     __tablename__ = "instance_types" # 数据库中表的名称
-     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
-     name = Column(String(255))
-     memory_mb = Column(Integer)
-     vcpus = Column(Integer)
-     root_gb = Column(Integer)
-     ephemeral_gb = Column(Integer)
-     flavorid = Column(String(255))
-     swap = Column(Integer, nullable=False, default=0)
-     rxtx_factor = Column(Float, nullable=False, default=1)
-     vcpu_weight = Column(Integer, nullable=True)
-     disabled = Column(Boolean, default=False)
-     is_public = Column(Boolean, default=True)
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-05-29-mysql-lost-connection/" itemprop="url">MySQL Lost Connection</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Mysql/">Mysql</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a few seconds read (About 106 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Navicat连接mysql数据库连接错误Code 2013 Lost connection</p>
+<p>###现象</p>
+<p>2013 - Lost connection to Mysql Server at ‘waiting for initial communication packet’, system error:0</p>
+<p><img src="http://jiangyt-github-io.qiniudn.com/Mysql%20%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5.png" alt="Lost connection to Mysql Server at &#39;waiting for initial communication packet&#39;, system error:0"></p>
+<p>###解决方法<br>在mysql的配置文件my.cnf 或my.ini 下添加</p>
+<pre><code>skip_name_resolve </code></pre>
+<p>使其在与mysql服务器建立连接时，跳过主机名的解析</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/07/19/2014-02-14-setting-django-oscar-environment/" itemprop="url">Setting Django oscar Environment</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/commerce/">commerce</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 116 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="PSQL-Settings"><a href="#PSQL-Settings" class="headerlink" title="PSQL Settings"></a>PSQL Settings</h3><ul>
+<li><strong>bash-4.1$ psql</strong></li>
+<li><strong>createdb -T template_postgis oscar</strong></li>
+<li><strong>oscar=# \d</strong><pre><code>               List of relations
+Schema |       Name        | Type  |  Owner   
+--------+-------------------+-------+----------
+public | geography_columns | view  | postgres
+public | geometry_columns  | table | postgres
+public | spatial_ref_sys   | table | postgres
+(3 rows)
 </code></pre>
 
+</li>
+</ul>
+<h3 id="Solr-Settings"><a href="#Solr-Settings" class="headerlink" title="Solr Settings"></a>Solr Settings</h3><pre><code>cd ***/solr-4.6.1/example/solr
+cp -rf example oscar
+cp -f sites/demo/deploy/solr/schema.xml oscar/conf
+cd ..
+java -jar start.jar
+</code></pre>
+<p>Browser  http://<em>ip</em>:8983/solr finding your app oscar</p>
+<h3 id="Django-oscar-demo-settings"><a href="#Django-oscar-demo-settings" class="headerlink" title="Django-oscar demo settings"></a>Django-oscar demo settings</h3><pre><code>cd ***/django-oscar/sites/demo
+vim settings.py
+</code></pre>
+<ul>
+<li><p><strong>update sor connections</strong></p>
+<pre><code>
+ 271 HAYSTACK_CONNECTIONS = {
+ 272     'default': {
+ 273         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+ 274         'URL': 'http://127.0.0.1:8983/solr/oscar',
+ 275     },
+ 276 }
+</code></pre>
+</li>
+<li><p>cd <em>dir</em>/django-oscar</p>
+</li>
+<li><p>make demo<br>After a while everyting ok,cd - and run<br><em>python manage.py  runserver 0.0.0.0:8000</em></p>
+</li>
+</ul>
+<p>Browser <em>ip</em>:8000</p>
 
     
     </div>
@@ -458,337 +658,7 @@ class InstanceTypes(BASE, NovaBase):
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-02-14-setting-django-oscar-environment/" itemprop="url">Setting Django oscar Environment</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/commerce/">commerce</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 116 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h3 id="PSQL-Settings"><a href="#PSQL-Settings" class="headerlink" title="PSQL Settings"></a>PSQL Settings</h3><ul>
-<li><strong>bash-4.1$ psql</strong></li>
-<li><strong>createdb -T template_postgis oscar</strong></li>
-<li><strong>oscar=# \d</strong><pre><code>               List of relations
-Schema |       Name        | Type  |  Owner   
---------+-------------------+-------+----------
-public | geography_columns | view  | postgres
-public | geometry_columns  | table | postgres
-public | spatial_ref_sys   | table | postgres
-(3 rows)
-</code></pre>
-
-</li>
-</ul>
-<h3 id="Solr-Settings"><a href="#Solr-Settings" class="headerlink" title="Solr Settings"></a>Solr Settings</h3><pre><code>cd ***/solr-4.6.1/example/solr
-cp -rf example oscar
-cp -f sites/demo/deploy/solr/schema.xml oscar/conf
-cd ..
-java -jar start.jar
-</code></pre>
-<p>Browser  http://<em>ip</em>:8983/solr finding your app oscar</p>
-<h3 id="Django-oscar-demo-settings"><a href="#Django-oscar-demo-settings" class="headerlink" title="Django-oscar demo settings"></a>Django-oscar demo settings</h3><pre><code>cd ***/django-oscar/sites/demo
-vim settings.py
-</code></pre>
-<ul>
-<li><p><strong>update sor connections</strong></p>
-<pre><code>
- 271 HAYSTACK_CONNECTIONS = {
- 272     'default': {
- 273         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
- 274         'URL': 'http://127.0.0.1:8983/solr/oscar',
- 275     },
- 276 }
-</code></pre>
-</li>
-<li><p>cd <em>dir</em>/django-oscar</p>
-</li>
-<li><p>make demo<br>After a while everyting ok,cd - and run<br><em>python manage.py  runserver 0.0.0.0:8000</em></p>
-</li>
-</ul>
-<p>Browser <em>ip</em>:8000</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-06-01-cloudstack-cli-cloudmonkey-installation/" itemprop="url">Cloudstack Cli Cloudmonkey Installation</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            3 minutes read (About 429 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>##Cli安装使用分为四部分</p>
-<ol>
-<li><strong>安装virtualenv</strong></li>
-<li><strong>安装cloudmonkey</strong></li>
-<li><strong>配置cloudmonkey</strong></li>
-<li><strong>命令使用</strong></li>
-</ol>
-<h2 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h2><pre><code>1. virtualenv提供了一个安装软件时的测试环境，所安装的软件不会安装在系统目录下
-2. 安装python2.7.4 时的依赖软件， 此步骤可选， cloudmonkey 要求python版本在2.5以上即可
-3. yum -y groupinstall &quot;Development tools&quot; zlib-devel bzip2-devel openssl-devel ncurses-devel mysql-devel ibxml2-devel libxslt-devel  unixODBC-devel sqlite sqlite-devel</code></pre><h2 id="源码安装python2-7-4"><a href="#源码安装python2-7-4" class="headerlink" title="源码安装python2.7.4"></a>源码安装python2.7.4</h2><pre><code>wget http://www.python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
-tar xf Python-2.7.4.tar.bz2
-cd Python-2.7.4
-/configure --prefix=/opt/python2.7
-make && make altinstall`
-</code></pre>
-
-<p>##源码安装virtualenv</p>
-<pre><code>wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.1.tar.gz#md5=07e09df0adfca0b2d487e39a4bf2270a
-tar
--xvzf virtualenv-1.9.1.tar.gz
-python virtualenv
--1.9.1/setup.py install
-</code></pre>
-
-<p>###安装cloudmonkey</p>
-<ol>
-<li><p>建立virtualenv环境</p>
- <pre><code>#mkidr workenv
- #virtualenv worksenv
- #source worksenv/bin/activate
- </code></pre></li>
-<li><p>安装cloudmonkey两种方式任选其一</p>
-<p> 2.1. 通过python库安装</p>
-<p> 在系统安装了pip后或者env生效后执行下面命令    </p>
- <pre><code>#$ pip install cloudmonkey</code></pre>
-
-<p> 2.2. 通过源码安装将打包后的源码上传至服务器中解压缩打包后的文件安装</p>
- <pre><code># python setup.py build #
- # python setup.py install</code></pre>
-
-
-</li>
-</ol>
-<h3 id="配置cloudmonkey"><a href="#配置cloudmonkey" class="headerlink" title="配置cloudmonkey"></a>配置cloudmonkey</h3><pre><code>
-#cloudmonkey
-> set history_file /usr/share/cloudmonkey_history
-> set log_file /var/log/cloudmonkey
-设置管理服务器
-> set host 192.168.56.1
-设置端口
-> set port 8080
-设置使用的apikey
-> set apikey {put-your-api-key-for-your-user}
-设置使用的secretkey
-> set secretkey {put-your-secret-key-for-your-user}
-修改cloudmonkey终端提示符
-> set prompt smcloudcli>
-同步配置
-> sync
-324 APIs discovered and cached
-</code></pre>
-
-<p>配置结束。<br>通常情况下，所有配置项在 ~/.cloudmonkey/config: 均可见</p>
-<h3 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h3><p>tab健可以命令补全</p>
-<pre><code>#cloudmonkey
-加载用户的key
-smcloudcli>sync
-smcloudcli>list <tab>
-设置数据显示方式为table
-smcloudcli>set display table
-设置数据显示方式为json
-smcloudcli>set display json
-smcloudcli>list users
-</tab></code></pre>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-05-25-git-commands-related/" itemprop="url">Git Commands Related</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Git/">Git</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 233 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <ol>
-<li><p>撤销某次提交，恢复删除的文件</p>
-<ul>
-<li>通过git log 命令查找到想要恢复的commit id号<pre><code> commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
-Author: Yitao Jiang <willierjyt@gmail.com>
-Date:   Thu Apr 17 00:03:21 2014 +0800
-  Delete tags.
-</willierjyt@gmail.com></code></pre></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e</p>
-  <pre><code>[root@dvlp jiangyt.github.io]# git revert cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e
-  Finished one revert.
-  Revert tags.html and Upload new posts
-
-  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
-
-  # Please enter the commit message for your changes. Lines starting
-  # with '#' will be ignored, and an empty message aborts the commit.
-  # On branch master$
-  # Changes to be committed:$
-  #   (use "git reset HEAD <file>..." to unstage)
-  #
-  # new file:   tags.html</file></code></pre>
-</li>
-<li><p>保存，退出后:wq 文件已恢复</p>
-</li>
-<li><p>查看当前提交记录<br>  <em>git log</em></p>
-  <pre><code>  commit bba1aaa176b12a5abd47f852cbb28f187d1d5e5d
-  Author: Yitao Jiang <willierjyt@gmail.com>
-  Date:   Sun May 25 22:12:12 2014 +0800
-
-  Revert tags.html and Upload new posts
-
-  This reverts commit cf9cb9fea61d5adeaf8967f2d51b04b3fd995a0e.
-  </willierjyt@gmail.com></code></pre>
-
-<p>  可以看到在revert后，产生的commit记录中包含revert的commit id号</p>
-</li>
-</ul>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-05-24-libvirt-virsh-commands/" itemprop="url">Libvirt Virsh Commands</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Libvirt/">Libvirt</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 141 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>##Libvirt Virsh 命令</p>
-<p>###磁盘文件</p>
-<ul>
-<li>查看domain的挂载的磁盘信息<ul>
-<li>virsh domblklist instance-0000002d  <pre><code>vda        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk
-  vdb        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.local
-  vdc        /opt/stack/data/nova/instances/f8780dbc-e2fd-46e9-ae0c-9a654d4eb95a/disk.swap
-  vdd        /dev/disk/by-path/ip-192.168.0.28:3260-iscsi-iqn.2010-10.org.openstack:volume-7c9646ef-e1f1-4da4-b230-c4ec7679bb6a-lun-1
-  </code></pre></li>
-</ul>
-</li>
-<li>查看磁盘文件状态<ul>
-<li>virsh domblkstat instance-0000002d vda  <pre><code>vda rd_req 7970
-  vda rd_bytes 214534656
-  vda wr_req 1503
-  vda wr_bytes 247596032
-  vda flush_operations 182
-  vda rd_total_times 32382476906
-  vda wr_total_times 646733610926
-  vda flush_total_times 214371604
-  </code></pre>
-</li>
-</ul>
-</li>
-</ul>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-05-19-openstack-havana-virtual-networking-devices/" itemprop="url">Openstack Havana Neutron 虚拟网络设备分析</a>
+            <a href="/2019/07/19/2014-05-16-using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -805,32 +675,101 @@ Date:   Thu Apr 17 00:03:21 2014 +0800
         <span class="column is-narrow">
             
             
-            4 minutes read (About 563 words)
+            6 minutes read (About 853 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <pre><code>
-Openstack网络设计中有：Tap设备、veth对，linux 桥接、OvS 桥接四中虚拟网络设备。对于一个流经vm中的eth0到物理host的eth1的以太网数据帧来说，要利用host上的9个设备完成：Tap设备vnet0(vm nic),linux 桥接qbrXXX, veth pair(qvbXXX,qvoXXX),Open vSwitch 桥接br-int, veth pair(intbr-eth1,phy-br-eth1),以及最后的物理主机的网卡eth1。
-
-Tap设备:例如KVM、Xen虚拟一个网卡（通常称作VIF或者vNIC）vnet0,供vm使用。Guest OS因此接收到所有发送到Tap设备的以太网数据帧。
-
-Veth pairs 是一对直接相连的虚拟网卡（virtual network interfaces），发送到veth对中的任意一方的以太网数据帧，另一方也会接收到。网络因此利用veth pairs作为VPC(virtual patch cables)来连接virtual bridges.
-
-Linux brige 象一个hub一样，可以将多个网络设备，包括物理或者虚拟机的，连接到一个Linux 桥接设备上。以太网数据帧会在hub上相连的的所有网络设备上进行传输
-
-Open vSwitch 桥接设备的想一个虚拟的交换机，网卡连接到OVS 桥街上的端口，端口可以象物理交换机一样，对其进行配置VLAN等信息
-
-由于openstack现在的防火墙的实现机制，使得不能够直接将Tap设备（vnet0、vnet1……）直接接入到桥接设备br-int(like a hub).防火墙实现机制是在tap设备上通过iptables实现防火墙，但是OVS又不支持直接连接到OVS port上的tap设备上的iptables
-
-因此，网络设计上，增加了一个Linux 桥接设备以及一个veth pair来解决这个问题。将tap设备vnet0连接到linux bridge上（qbrXXX），而不是直接到连到ovs的桥街上，这个ovs桥接设备通过（qvbXXX,qvoXXX）veth pair连接到br-int(linke a hub)上
-
-[root@devstack:keystone_admin ~]# brctl show
-bridge name     bridge id          STP enabled     interfaces
-qbr69e73747-c0          8000.52a89a03f5a9     no          qvb69e73747-c0
-qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
+        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
+<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
+<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
+<p>自己写的查询Flavor例子</p>
+<pre><code>
+ 1 from sqlalchemy.orm import sessionmaker
+ 2 from sqlalchemy import create_engine
+ 3 from sqlalchemy.ext.declarative import declarative_base
+ 4 from sqlalchemy import Column, Integer, String, Float, Boolean
+ 5
+ 6 sql_connection = "mysql://root:root@localhost/nova?charset=utf8"
+ 7 engine = create_engine(sql_connection, echo=True) #echo=True 设置该项后，可以打印出sql的执行过程
+ 8 Session = sessionmaker(bind=engine)
+ 9 session = Session()
+10
+11 class NovaBase():
+12     pass
+13
+14 BASE = declarative_base() # 用户创建与DB映射的基类
+15
+16 class InstanceTypes(BASE, NovaBase):
+17     __tablename__ = "instance_types" # 数据库中表的名称
+18     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+19     name = Column(String(255))
+20     memory_mb = Column(Integer)
+21     vcpus = Column(Integer)
+22     root_gb = Column(Integer)
+23     ephemeral_gb = Column(Integer)
+24     flavorid = Column(String(255))
+25     swap = Column(Integer, nullable=False, default=0)
+26     rxtx_factor = Column(Float, nullable=False, default=1)
+27     vcpu_weight = Column(Integer, nullable=True)
+28     disabled = Column(Boolean, default=False)
+29     is_public = Column(Boolean, default=True)
+30
+31 flavors = session.query(InstanceTypes).all() #查询数据表
+32 for flavor in flavors:
+33     print flavor.id, flavor.name
 </code></pre>
+<p>代码输出</p>
+<pre><code>
+2013-05-15 18:41:10,928 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2013-05-15 18:41:10,929 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,933 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'character_set%%'
+2013-05-15 18:41:10,934 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,935 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
+2013-05-15 18:41:10,936 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine SHOW COLLATION
+2013-05-15 18:41:10,937 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2013-05-15 18:41:10,946 INFO sqlalchemy.engine.base.Engine ()
+2013-05-15 18:41:10,948 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine SELECT instance_types.id AS instance_types_id, instance_types.name AS instance_types_name, instance_types.memory_mb AS instance_types_memory_mb, instance_types.vcpus AS instance_types_vcpus, instance_types.root_gb AS instance_types_root_gb, instance_types.ephemeral_gb AS instance_types_ephemeral_gb, instance_types.flavorid AS instance_types_flavorid, instance_types.swap AS instance_types_swap, instance_types.rxtx_factor AS instance_types_rxtx_factor, instance_types.vcpu_weight AS instance_types_vcpu_weight, instance_types.disabled AS instance_types_disabled, instance_types.is_public AS instance_types_is_public
+FROM instance_types
+2013-05-15 18:41:10,950 INFO sqlalchemy.engine.base.Engine ()
+
+1 m1.medium
+2 m1.tiny
+3 m1.large
+4 m1.xlarge
+5 m1.small
+6 m1.nano
+7 m1.micro
+</code></pre>
+
+<p>###Nova 中所对应的代码结构</p>
+<p>nova/openstack/common/db/sqlalchemy/models.py 定义了SQLAlchemy 的基类， 所有的对数据的操作，通过该类中定义的方法来实现， 其子类，只需要调用相关的方法即可</p>
+<p>nova/db/sqlalchemy/models.py 定义了nova数据中的所有的表,以InstanceTypes 为例</p>
+<pre><code>
+BASE = declarative_base() # 与上一个类子中的方法一样
+
+class NovaBase(models.SoftDeleteMixin, models.ModelBase): #区别在这里， models 为1中定义的模块
+      pass
+class InstanceTypes(BASE, NovaBase):
+     __tablename__ = "instance_types" # 数据库中表的名称
+     id = Column(Integer, primary_key=True) #Column 用于定义数据表 "instance_types”的字段， 其参数是该字段的具体的类型
+     name = Column(String(255))
+     memory_mb = Column(Integer)
+     vcpus = Column(Integer)
+     root_gb = Column(Integer)
+     ephemeral_gb = Column(Integer)
+     flavorid = Column(String(255))
+     swap = Column(Integer, nullable=False, default=0)
+     rxtx_factor = Column(Float, nullable=False, default=1)
+     vcpu_weight = Column(Integer, nullable=True)
+     disabled = Column(Boolean, default=False)
+     is_public = Column(Boolean, default=True)
+</code></pre>
+
 
     
     </div>

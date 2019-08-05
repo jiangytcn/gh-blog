@@ -66,7 +66,9 @@
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
                 
-                <img src="/images/logo.png" alt height="28">
+                    
+                    ystacks
+                    
                 
             </a>
             <div class="navbar-burger">
@@ -107,6 +109,77 @@
 
     <section class="section">
     <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/" itemprop="url">Add route for VirtualBOX hostonly ifs</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-05T11:54:12.000Z" itemprop="datePublished">Aug 5 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 429 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>最近在使用Mac上的VirtualBox 创建出的虚拟机做K8S相关的开发工作， 物理机有时重启后无法连接到虚拟机当中，ICMP拒绝， 但是在VM 内部以及VM间网络通信都是正常的。重启Mac后问题可以解决，但是不是解决问题之道，经过排查，发现Mac上的到虚拟机hostonly 网络的路由丢失，导致连接失败</p>
+        <p class="article-more-link">
+            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/08/05/use-teamsql-in-CloudFoundry/" itemprop="url">Use teamsql in CloudFoundry</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-05T11:13:38.000Z" itemprop="datePublished">Aug 5 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 239 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>Most of cloudfoundry based platform have postgres service in their catalog, applications can use the credentials bounded to their running environment for accessing, but sometimes the administrator need to access the database instance for whatever reason, debugging or checking specific record.</p>
+<p>TeamPostgreSQL is a project of Webworks (<a href="webworks.dk">webworks.dk</a>), which is excellent for the webui based database management, using a single browser, user could manage the postgresql database.</p>
+        <p class="article-more-link">
+            <a href="/2019/08/05/use-teamsql-in-CloudFoundry/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
     
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -472,6 +545,75 @@ NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/07/19/2015-07-21-howto-enable-linux-screen-tabs-name/" itemprop="url"></a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 218 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>This introduction will outline specifically on how to show tab name on an active screen</p>
+<p>Linux screen is a very powerful tool for sysadmin when you need to run a long running process without kept your computer connecting to the remote server</p>
+<p>here is the deatils introductions about <a href="http://linux.die.net/man/1/screen" target="_blank" rel="noopener">Screen</a></p>
+<hr>
+<p>There is two ways to display tab name </p>
+<ul>
+<li>Configure .screenrc</li>
+</ul>
+<pre><code>Add this to your .screenrc file:
+
+`caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;`
+
+After you restart your screen, there&apos;s a status bar below showing the current tab name, and as a bonus your current host name and time -- modify them away at will if you so wish.
+
+To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
+<li><p>Operate at existing screen</p>
+<p>Sometimes you create a screen but havn’t enable captions, it’s not convient to switch among tabs, you can run following commands to enable screen tabs</p>
+<ul>
+<li>First you need to detach current screen<ul>
+<li><em><code>ctrl + a +d</code></em></li>
+<li><em><code>screen  -S &lt;YOUR SCREEN NAME HERE&gt; -X caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;</code></em></li>
+<li>Attach to your screen<ul>
+<li><em><code>screen -r &lt;YOUR SCREEN NAME HERE&gt;</code></em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Now your screen will be looks like this</p>
+<p><img src="http://7fvkn1.com1.z0.glb.clouddn.com/screen.jpg" alt="screen image after enable tabname"></p>
+</li>
+</ul>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/07/19/2015-08-03-How-To-Setup-private-docker-registry-and-build-a-debian-based-docker-image/" itemprop="url"></a>
         
     </h1>
@@ -548,75 +690,6 @@ Status: Image is up to date for localhost:5000/debian:jessie
 #start a new image
 [yitao@yitao-dev ~]$ sudo docker run --rm --name=jessie localhost:5000/debian:jessie cat /etc/issue.net
 Debian GNU/Linux 8</code></pre><p>Thank you.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2015-07-21-howto-enable-linux-screen-tabs-name/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 218 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically on how to show tab name on an active screen</p>
-<p>Linux screen is a very powerful tool for sysadmin when you need to run a long running process without kept your computer connecting to the remote server</p>
-<p>here is the deatils introductions about <a href="http://linux.die.net/man/1/screen" target="_blank" rel="noopener">Screen</a></p>
-<hr>
-<p>There is two ways to display tab name </p>
-<ul>
-<li>Configure .screenrc</li>
-</ul>
-<pre><code>Add this to your .screenrc file:
-
-`caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;`
-
-After you restart your screen, there&apos;s a status bar below showing the current tab name, and as a bonus your current host name and time -- modify them away at will if you so wish.
-
-To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
-<li><p>Operate at existing screen</p>
-<p>Sometimes you create a screen but havn’t enable captions, it’s not convient to switch among tabs, you can run following commands to enable screen tabs</p>
-<ul>
-<li>First you need to detach current screen<ul>
-<li><em><code>ctrl + a +d</code></em></li>
-<li><em><code>screen  -S &lt;YOUR SCREEN NAME HERE&gt; -X caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;</code></em></li>
-<li>Attach to your screen<ul>
-<li><em><code>screen -r &lt;YOUR SCREEN NAME HERE&gt;</code></em></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Now your screen will be looks like this</p>
-<p><img src="http://7fvkn1.com1.z0.glb.clouddn.com/screen.jpg" alt="screen image after enable tabname"></p>
-</li>
-</ul>
 
     
     </div>
@@ -908,151 +981,6 @@ ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
 </blockquote>
 <h3 id="Support-StackEdit"><a href="#Support-StackEdit" class="headerlink" title="Support StackEdit"></a>Support StackEdit</h3><p><a href="https://monetizejs.com/authorize?client_id=ESTHdCYOi18iLhhO&summary=true" target="_blank" rel="noopener"><img src="https://cdn.monetizejs.com/resources/button-32.png" alt></a></p>
 <p>  [^stackedit]: <a href="https://stackedit.io/" target="_blank" rel="noopener">StackEdit</a> is a full-featured, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2015-06-10-docker---enter-a-running-container-with-new-tty/" itemprop="url">Docker   Enter a Running Container With New TTY</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/sysadmin/">sysadmin</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a few seconds read (About 99 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h1 id="Generic-Method-Docker-Enter"><a href="#Generic-Method-Docker-Enter" class="headerlink" title="Generic Method - Docker Enter"></a>Generic Method - Docker Enter</h1><p>Since docker 1.3, you can use docker exec -it [container-id] bash. To make this easier, I create a file at/usr/bin/docker-enter with the following contents.</p>
-<pre><code>
-#!/bin/bash 
-
-EXPECTED_NUM_ARGS=1;
-
-if [ "$#" -ne $EXPECTED_NUM_ARGS ]; then
-    CONTAINER_ID=`/usr/bin/docker ps -q --no-trunc | /bin/sed -n 1p`
-    /usr/bin/docker exec -it $CONTAINER_ID bash
-else
-    /usr/bin/docker exec -it $1 bash
-fi
-</code></pre>
-
-<p>Now you can just run docker-enter $container-id or if you just want to enter the last container you spawned, just run the command docker-enter</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-12-17-how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/" itemprop="url">How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 368 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h2 id="Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature"><a href="#Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature" class="headerlink" title="#####Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature."></a>#####Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature.</h2><p>###Install Rabbitmq-server</p>
-<ul>
-<li>Following the instructions from here:<a href="http://www.rabbitmq.com/download.html" target="_blank" rel="noopener">http://www.rabbitmq.com/download.html</a> to setup rabbitmq-server</li>
-<li>Make sure that rabbitmq-server running, and (/or) enable rabbitmq-management webui plugin</li>
-</ul>
-<p>###Configure Cloudstack<br>Assuming you have setup cloudstack management server and have mq server running with correct user credential(Default user is <strong><em>guest/guest</em></strong>)</p>
-<ul>
-<li>In cloudstack management server <ul>
-<li>Create spring event bus related configuration file<pre><code>
-mdir -p /usr/share/cloudstack-management/webapps/client/WEB-INF/classes/META-INF/cloudstack/core
-[root@cs-mgmt core]# cat spring-event-bus-context.xml
-< beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:context="http://www.springframework.org/schema/context"
-xmlns:aop="http://www.springframework.org/schema/aop"
-xmlns:util="http://www.springframework.org/schema/util"    
-xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/util
-http://www.springframework.org/schema/util/spring-util-3.0.xsd"
->
-< bean id="eventNotificationBus" class="org.apache.cloudstack.mom.rabbitmq.RabbitMQEventBus">
-  < property name="name" value="eventNotificationBus" />
-  < property name="server" value="localhost" />
-  < property name="port" value="5672" />
-  < property name="username" value="guest" />
-  < property name="password" value="guest" />
-  < property name="exchange" value="cloudstack-events" />
-< /bean>
-< /beans>
-</code></pre></li>
-<li>restart cloudstack management service<ul>
-<li>/etc/init.d/cloudstack-management restart</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>###Check Exchange status</p>
-<p>Using rabbitmqctl to check the status exchanges of current node.</p>
-<pre><code>
-[root@cs-mgmt core]# rabbitmqctl list_exchanges
-Listing exchanges ...
-    direct
-amq.direct    direct
-amq.fanout    fanout
-amq.headers    headers
-amq.match    headers
-amq.rabbitmq.log    topic
-amq.rabbitmq.trace    topic
-amq.topic    topic
-cloudstack-events    topic
-...done.
-[root@cs-mgmt core]# 
-</code></pre>
-
-<p>We can see that cloudstack has connected to rabbitmq server.</p>
 
     
     </div>
