@@ -20,6 +20,8 @@ Git 的 revert 命令可以用来撤销提交（commit），对于常规的提�
 3 ......
 </code></pre>
 
+<!-- more -->
+
 其中，Merge 这一行代表的是这个合并 parents，它可以用来表明 merge 操作的线索。
 
 举个例子，通常，我们的稳定代码都在 master 分支，而开发过程使用 dev 分支，当开发完成后，再把 dev 分支 merge 进 master 分支：

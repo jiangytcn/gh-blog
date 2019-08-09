@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "VM Failes to start with error: VDI not available"
 description: ""
 category: "Xenserver"
@@ -15,6 +14,8 @@ tags: [Cloudstack,Xenserver,VDI]
 - Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file
     For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.
     VM are failing to start with "errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]" error
+
+<!-- more -->
 
 - Connect to XenServer and make a note of the SR UUID and name-label of the VDI
 

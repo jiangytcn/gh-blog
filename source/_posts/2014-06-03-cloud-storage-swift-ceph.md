@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "cloud storage swift ceph"
 description: ""
 category: "Storage"
@@ -12,6 +11,8 @@ tags: []
 块存储对于云环境下是重要的一部分，
 主要用于存储
 虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.
+
+<!-- more -->
 
 ###_Openstack Swift_
 ###软件架构

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)"
 description: ""
 category: openstack
@@ -11,6 +10,9 @@ tags: [neutron]
 The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.
 
 我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）
+
+<!-- more -->
+
 
 自己写的查询Flavor例子
 <pre><code>

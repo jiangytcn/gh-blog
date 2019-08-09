@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "OpenStack Nova 添加扩展API流程"
 description: ""
 category: "openstack"
@@ -16,6 +15,7 @@ Openstack 中规定，扩展openstack得api有两种方式
 
 >这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。
 
+<!-- more -->
 
 在一个API模块中，可以有一个或多个得资源和扩展控制器。
 

@@ -1,9 +1,8 @@
 ---
-layout: post
 title: "Cloudstack Debugging SystemVm agents"
 description: ""
 category: "cloudstack"
-tags: [cloudstack,trouble-shooting]
+tags: [cloudstack]
 ---
 
 ##Cloudstack Debug a live agent
@@ -14,6 +13,8 @@ kill all the processes named as(run.sh/_run.sh, and java)
 2. add parameters "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787" after "java " in the last line of _run.sh
 3. ./run.sh, the java agent will start, with debug port 8787 is listened on.
 4. allow port 8787 in ssvm, "iptables -I INPUT -i eth1 -p tcp -m state --state NEW -m tcp --dport 8787 -j ACCEPT", either eth1 or eth2 is ok.
+
+<!-- more -->
 
 5. Log in into ssvm - Log into the hypervisor and then type the following command   "ssh -i /opt/xensource/bin/id_rsa --p 3922 root@privateIP_or_LinkLocalIpofSSVM", or "ssh -i /root/.ssh/id_rsa.cloud -p 3922 root@LinkLocal" on  XenServer.  Private ip in case of vmware and linklocal in case Xenserver.  Vmware do not have link local ip. SSVM can be accessed from Management server using private ip address .   
  Ex:  ssh -i  /var/cloudstack/management/.ssh/id_rsa  -p 3922 root@<Private Ip address of SSVM>

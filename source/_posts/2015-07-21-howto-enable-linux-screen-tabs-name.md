@@ -1,8 +1,7 @@
 ---
-layout: post
-category : Sysadmin
-tagline: "Enable screen tabs name "
-tags : [Sysadmin]
+title: "Enable screen tabs name "
+category : sysadmin
+tags : [system]
 ---
 
 This introduction will outline specifically on how to show tab name on an active screen
@@ -10,6 +9,7 @@ This introduction will outline specifically on how to show tab name on an active
 Linux screen is a very powerful tool for sysadmin when you need to run a long running process without kept your computer connecting to the remote server
 
 here is the deatils introductions about [Screen](http://linux.die.net/man/1/screen)
+<!-- more -->
 
 ----------
 

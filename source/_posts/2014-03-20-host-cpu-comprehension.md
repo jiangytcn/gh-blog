@@ -20,6 +20,8 @@ tags: []
 
 >cat /proc/cpuinfo | grep “physical id” | sort | uniq | wc -l
 
+<!-- more -->
+
 >每个物理CPU中Core的个数：每个相同的physical id都有其对应的core id。如core id分别为1、2、3、4，则表示是Quad-Core CPU，若core id分别是1、2，则表示是Dual-Core。
 
 >cat /proc/cpuinfo | grep “cpu cores” | wc -l

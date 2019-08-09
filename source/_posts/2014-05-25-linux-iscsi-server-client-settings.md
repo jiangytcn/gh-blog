@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Linux Iscsi Server Client Settings"
 description: ""
 category: "Linux"
@@ -12,6 +11,7 @@ tags: []
 - tgtadm --lld iscsi --op new --mode logicalunit --tid 2 --lun 2 -b /dev/sdg #添加设备
 - tgtadm --lld iscsi --op bind --mode target --tid 2 -I ALL # 赋权
 
+<!-- more -->
 #客户端
 
 1. iscsiadm -m discoverydb [ -hV ] [ -d debug_level ] [-P printlevel] [ -t type -p ip:port -I ifaceN ... [ -Dl ] ] | [ [ -p ip:port -t type] [ -o operation ] [ -n name ] [ -v value ] [ -lD ] ] 

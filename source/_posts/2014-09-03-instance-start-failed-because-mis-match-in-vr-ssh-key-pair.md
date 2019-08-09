@@ -1,9 +1,8 @@
 ---
-layout: post
 title: "Instance start failed because mismatch in VR ssh key Pair"
 description: ""
 category: "cloudstack"
-tags: [cloudstack,trouble-shooting]
+tags: [cloudstack]
 
 ---
 
@@ -53,6 +52,8 @@ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:60
 at java.lang.Thread.run(Thread.java:679)
 2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.
 2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received
+
+<!-- more -->
 
 ##Solutions
 

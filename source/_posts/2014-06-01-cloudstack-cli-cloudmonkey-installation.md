@@ -1,9 +1,8 @@
 ---
-layout: post
 title: "Cloudstack Cli Cloudmonkey Installation"
 description: ""
 category: "Cloudstack"
-tags: [Cloudstack,Cloudmonkey,Python]
+tags: [Cloudstack,Python]
 ---
 
 ##Cli安装使用分为四部分
@@ -13,6 +12,7 @@ tags: [Cloudstack,Cloudmonkey,Python]
 3. **配置cloudmonkey**
 4. **命令使用**
 
+<!-- more -->
 
 ## 安装virtualenv
 

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Openstack Havana Neutron 虚拟网络设备分析"
 description: "Openstack Havana Neutron 虚拟网络设备分析"
 category: "openstack"

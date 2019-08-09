@@ -1,15 +1,16 @@
 ---
-layout: post
 title: "PowerDNS Configuration For Single Node"
 description: ""
 category: "sysadmin"
-tags: [powerdns]
+tags: [system]
 ---
 
 Configuration For Single Host
 ==========================================
 
 ##### The guide is used for setup a single node powerdns with mysql backend under openstack
+
+<!-- more -->
 
 Installation
 ------------

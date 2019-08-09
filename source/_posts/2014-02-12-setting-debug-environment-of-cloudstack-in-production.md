@@ -16,6 +16,8 @@ This introduction will outline specifically how setting debug environment in pro
  38     -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 \
  </code></pre>
 
+ <!-- more -->
+
  Now configure you eclipse to the server, go Debugging.
 
 ### Building Single Project
