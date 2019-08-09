@@ -82,3 +82,4 @@ deploy:
   repository: https://github.com/jiangytcn/gh-blog.git
   branch: gh-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+  delete: false
