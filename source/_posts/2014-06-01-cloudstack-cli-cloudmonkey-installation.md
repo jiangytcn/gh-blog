@@ -2,7 +2,7 @@
 title: "Cloudstack Cli Cloudmonkey Installation"
 description: ""
 category: "Cloudstack"
-tags: [Cloudstack,Python]
+tags: [CloudStack,Python]
 ---
 
 ##Cli安装使用分为四部分

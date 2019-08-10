@@ -2,7 +2,7 @@
 title: "Setting Debug Environment Of Cloudstack In Production"
 description: ""
 category: "Cloudstack"
-tags: [Cloudstack,Debug]
+tags: [CloudStack]
 ---
 
 This introduction will outline specifically how setting debug environment in production of Cloudstack, and how building a single project into a patch.

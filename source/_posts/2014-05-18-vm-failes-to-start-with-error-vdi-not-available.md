@@ -2,7 +2,7 @@
 title: "VM Failes to start with error: VDI not available"
 description: ""
 category: "Xenserver"
-tags: [Cloudstack,Xenserver,VDI]
+tags: [CloudStack,XenServer]
 ---
 
 触发条件: Ssh 至 VM内部，执行关机命令(shutdown -h now), 在NFS backend下的Vm通过Cloudstack无法启动

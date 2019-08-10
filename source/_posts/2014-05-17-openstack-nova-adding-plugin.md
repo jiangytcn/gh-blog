@@ -2,18 +2,19 @@
 title: "OpenStack Nova 添加扩展API流程"
 description: ""
 category: "openstack"
-tags: Nova
+tags:
+- OpenStack
+- Python
 ---
 
 例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]
 
 Openstack 中规定，扩展openstack得api有两种方式
 
->创建新的WSGI 资源
+- 创建新的WSGI 资源
+- 扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）
 
->扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）
-
->这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。
+这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。
 
 <!-- more -->
 
@@ -26,7 +27,7 @@ Openstack 中规定，扩展openstack得api有两种方式
 如本例子中得 nova/api/openstack/compute/contrib/documents.py
 
 
-##扩展API流程
+## 扩展API流程
 
 实现控制器，完成对资源的基本操作，如增删改查和其他一些用户自定义的RESTful资源操作；
 
@@ -36,7 +37,7 @@ Openstack 中规定，扩展openstack得api有两种方式
 
 当添加新的资源（extensions.ResourceExtension的子类）的时候，如果想要去除掉 {tenent_id} 链接，则需要编写自定义的路由访问规则（本例子中没有涉及）
 
-###documents.py 实现
+### documents.py 实现
 
 <pre><code>1 # vim: tabstop=4 shiftwidth=4 softtabstop=4
  2
@@ -123,7 +124,7 @@ Openstack 中规定，扩展openstack得api有两种方式
 - DELETE v2/{tenant_id}/ os-documents/{document_id}
 
 
-###扩展api时所修改的文件
+### 扩展api时所修改的文件
 
 <pre><code>
 1  nova/db/api.py
@@ -133,7 +134,10 @@ Openstack 中规定，扩展openstack得api有两种方式
 
 nova/db/api.py 文件内容
 
-####数据操作API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用
+#### 数据操作
+
+API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用
+
 <pre><code>
 1 def document_get(context, document_id):
 2        """Get a document or raise if it does not exist."""
@@ -223,10 +227,9 @@ mysql> select * from documents;
 11     }
 12 }
 </code></pre>
+
 至此新添加的资源，API 扩展成功， 可以在此基础上进行进一步的修改，完成需求
 
-###参考文档：
+### 参考文档：
 
 1. [Adding a Method to the OpenStack API](http://docs.openstack.org/developer/nova/devref/addmethod.openstackapi.html)
-
-[上一随笔]:/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/

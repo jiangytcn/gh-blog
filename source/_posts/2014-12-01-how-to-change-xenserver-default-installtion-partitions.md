@@ -2,7 +2,7 @@
 title: "How To Change Xenserver Default Installtion Partitions"
 description: ""
 category: 
-tags: [Xenserver]
+tags: [XenServer]
 ---
 
 ##  修改root磁盘大小

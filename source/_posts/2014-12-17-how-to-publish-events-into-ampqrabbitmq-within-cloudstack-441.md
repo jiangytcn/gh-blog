@@ -2,7 +2,7 @@
 title: "How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1"
 description: ""
 category: 
-tags: [Cloudstack]
+tags: [CloudStack]
 ---
 
 #### Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature.
