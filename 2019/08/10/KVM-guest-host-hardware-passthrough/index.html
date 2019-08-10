@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>Tag: VM - ystacks</title>
+<title>KVM guest host hardware passthrough - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,13 +14,18 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://www.ystacks.com/tags/VM/index.html">
+    <meta name="description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
+<meta name="keywords" content="KVM,Virtualization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KVM guest host hardware passthrough">
+<meta property="og:url" content="http://www.ystacks.com/2019/08/10/KVM-guest-host-hardware-passthrough/index.html">
 <meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-10T01:16:57.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ystacks">
+<meta name="twitter:title" content="KVM guest host hardware passthrough">
+<meta name="twitter:description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
 
 
 
@@ -84,6 +89,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -107,52 +114,105 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
+    <section class="section">
     <div class="container">
-        <div class="content">
-            <h5>#VM</h5>
-        </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
+    <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/" itemprop="url">Add route for VirtualBOX hostonly ifs</a>
+            KVM guest host hardware passthrough
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-08-05T11:54:12.000Z" itemprop="datePublished">Aug 5 2019</time>
+            <time datetime="2019-08-10T01:08:09.000Z" itemprop="datePublished">Aug 10 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            3 minutes read (About 429 words)
+            3 minutes read (About 438 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>最近在使用Mac上的VirtualBox 创建出的虚拟机做K8S相关的开发工作， 物理机有时重启后无法连接到虚拟机当中，ICMP拒绝， 但是在VM 内部以及VM间网络通信都是正常的。重启Mac后问题可以解决，但是不是解决问题之道，经过排查，发现Mac上的到虚拟机hostonly 网络的路由丢失，导致连接失败</p>
-        <p class="article-more-link">
-            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/#more">Read More</a>
-        </p>
+        <p>在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现</p>
+<h3 id="kvm下的DMA（direct-memory-access）"><a href="#kvm下的DMA（direct-memory-access）" class="headerlink" title="kvm下的DMA（direct memory access）"></a>kvm下的DMA（direct memory access）</h3><a id="more"></a>
+<p>dma要存取的内存地址成为DMA地址（也称为bus address），dmar是DMA remapping ,是intel为支持虚拟机而设计的I/O虚拟化技术，I/O设备访问的DMA地址不再是物理内存地址，而要通过DMA remapping硬件进行转译，DMA remapping硬件会把DMA地址翻译成物理内存地址，并检查访问权限等等。负责DMA remapping操作的硬件称为IOMMU。</p>
+<p>两种DMAR的实现方法均需要IOMMU</p>
+<h4 id="方法一-pci-stub"><a href="#方法一-pci-stub" class="headerlink" title="方法一　pci-stub"></a>方法一　pci-stub</h4><p>开启IOMMU，之后modprobe<br><code>modprobe pci_stub</code></p>
+<p>之后会有/sys/bus/pci/drivers/pci-stub这个模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lspci -nnD 查看设备详细信息</span><br><span class="line">echo "14e4 1639" &gt; /sys/bus/pci/drivers/pci-stub/new_id</span><br><span class="line">echo 0000:01:00.1 &gt; /sys/bus/pci/devices/0000:01:00.1/driver/unbind</span><br><span class="line">echo 0000:01:00.1 &gt; /sys/bus/pci/drivers/pci-stub/bind</span><br></pre></td></tr></table></figure>
+
+<p>使用qemu-kvm启动虚拟机</p>
+<p>/usr/libexec/qemu-kvm -enable-kvm -m 8192 -smp 4,maxcpus=16,sockets=16,cores=2,threads=2 -spice port=3003,disable-ticketing -vga qxl /home/vms/images/basewin7.img -device pci-assign,host=01:00.1</p>
+<h4 id="方法二-vfio"><a href="#方法二-vfio" class="headerlink" title="方法二 vfio"></a>方法二 vfio</h4><p>开启IOMMU，之后加载内核模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mdoprobe vfio</span><br><span class="line">modprobe vfio-pci</span><br><span class="line"></span><br><span class="line">lspci -nnD</span><br><span class="line">echo 0000:05:00.0 &gt; /sys/bus/pci/devices/0000:05.00.0/driver/unbind</span><br><span class="line">echo 1000 005b &gt; /sys/bus/pci/drivers/vfio-pci/new_id</span><br></pre></td></tr></table></figure>
+
+<p>使用qemu-kvm启动虚拟机</p>
+<p>/usr/libexec/qemu-kvm -M pc-i440fx-rhel7.0.0 -enable-kvm -m 2048 -smp 2 -drive if=pflash,format=raw,file=/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd -drive id=disk0,if=none,format=qcow2,file=test.qcow2 -device virtio-blk-pci,drive=disk0,bootindex=0 -global PIIX4_PM.disable_s3=0 -global isa-debugcon.iobase=0x402 -debugcon file:fedora.ovmf.log -monitor stdio -device piix3-usb-uhci -device usb-tablet -netdev id=net0,type=user -device virtio-net-pci,netdev=net0,romfile= -device qxl-vga -spice port=3000,disable-ticketing -device vfio-pci,host=00:05:00.0</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/KVM/">#KVM</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization</a></span>
     
     </div>
     
     
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/08/10/KVM-guest-and-host-cpu-binding/">KVM guest and host cpu binding</a>
+            
+        </span>
+    </div>
+    
 </article>
 
 
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
 
 
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
     
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://www.ystacks.com/2019/08/10/KVM-guest-host-hardware-passthrough/';
+        this.page.identifier = '2019/08/10/KVM-guest-host-hardware-passthrough/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
     </div>
 </section>
     <footer class="footer">

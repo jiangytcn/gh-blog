@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -109,6 +111,98 @@
 
     <section class="section">
     <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/05/15/python-re/" itemprop="url">Python RE 正则表达式</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-14T16:00:00.000Z" itemprop="datePublished">May 15 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Python/">Python</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1394 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>####简单介绍<br>正则表达式并不是Python的一部分。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。<br>下图展示了使用正则表达式进行匹配的流程：<br><img src="http://jiangyt-github-io.qiniudn.com/re-match-workflow.png" alt="正则表达式匹配流程图"></p>
+        <p class="article-more-link">
+            <a href="/2014/05/15/python-re/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/03/20/host-cpu-comprehension/" itemprop="url">host cpu comprehension</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-03-19T16:00:00.000Z" itemprop="datePublished">Mar 20 2014</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 371 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Linux-物理机"><a href="#Linux-物理机" class="headerlink" title="Linux 物理机"></a>Linux 物理机</h2><blockquote>
+<p>查看Linux系统中物理与逻辑cpu的相关信息</p>
+</blockquote>
+<blockquote>
+<p>Linux 下/proc/cpuinfo文件会显示cpu的信息</p>
+</blockquote>
+<blockquote>
+<p>逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “processor” | wc -l</p>
+</blockquote>
+<blockquote>
+<p>物理CPU个数，是指physical id（的值）的数量</p>
+</blockquote>
+<blockquote>
+<p>cat /proc/cpuinfo | grep “physical id” | sort | uniq | wc -l</p>
+</blockquote>
+        <p class="article-more-link">
+            <a href="/2014/03/20/host-cpu-comprehension/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
     
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">

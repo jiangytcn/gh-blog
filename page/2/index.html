@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -109,6 +111,92 @@
 
     <section class="section">
     <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 712 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+        <p class="article-more-link">
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1807 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cloudstack Debug a live agent<br>login into ssvm, either console proxy or ssh(port 3922)<br>kill all the processes named as(run.sh/_run.sh, and java)</p>
+<ol>
+<li>cd /usr/local/cloud/systemvm</li>
+<li>add parameters “-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787” after “java “ in the last line of _run.sh</li>
+<li>./run.sh, the java agent will start, with debug port 8787 is listened on.</li>
+<li>allow port 8787 in ssvm, “iptables -I INPUT -i eth1 -p tcp -m state –state NEW -m tcp –dport 8787 -j ACCEPT”, either eth1 or eth2 is ok.</li>
+</ol>
+        <p class="article-more-link">
+            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
     
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -412,23 +500,19 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1241 words)
+            8 minutes read (About 1230 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 <a href="/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">上一随笔</a></p>
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
 <p>Openstack 中规定，扩展openstack得api有两种方式</p>
-<blockquote>
-<p>创建新的WSGI 资源</p>
-</blockquote>
-<blockquote>
-<p>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</p>
-</blockquote>
-<blockquote>
+<ul>
+<li>创建新的WSGI 资源</li>
+<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
+</ul>
 <p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
-</blockquote>
         <p class="article-more-link">
             <a href="/2014/05/17/openstack-nova-adding-plugin/#more">Read More</a>
         </p>
@@ -473,98 +557,6 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
 <p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
         <p class="article-more-link">
             <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2014/05/15/python-re/" itemprop="url">Python RE 正则表达式</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2014-05-14T16:00:00.000Z" itemprop="datePublished">May 15 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Python/">Python</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            9 minutes read (About 1394 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>####简单介绍<br>正则表达式并不是Python的一部分。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。<br>下图展示了使用正则表达式进行匹配的流程：<br><img src="http://jiangyt-github-io.qiniudn.com/re-match-workflow.png" alt="正则表达式匹配流程图"></p>
-        <p class="article-more-link">
-            <a href="/2014/05/15/python-re/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2014/03/20/host-cpu-comprehension/" itemprop="url">host cpu comprehension</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2014-03-19T16:00:00.000Z" itemprop="datePublished">Mar 20 2014</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 371 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h2 id="Linux-物理机"><a href="#Linux-物理机" class="headerlink" title="Linux 物理机"></a>Linux 物理机</h2><blockquote>
-<p>查看Linux系统中物理与逻辑cpu的相关信息</p>
-</blockquote>
-<blockquote>
-<p>Linux 下/proc/cpuinfo文件会显示cpu的信息</p>
-</blockquote>
-<blockquote>
-<p>逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数</p>
-</blockquote>
-<blockquote>
-<p>cat /proc/cpuinfo | grep “processor” | wc -l</p>
-</blockquote>
-<blockquote>
-<p>物理CPU个数，是指physical id（的值）的数量</p>
-</blockquote>
-<blockquote>
-<p>cat /proc/cpuinfo | grep “physical id” | sort | uniq | wc -l</p>
-</blockquote>
-        <p class="article-more-link">
-            <a href="/2014/03/20/host-cpu-comprehension/#more">Read More</a>
         </p>
     
     </div>

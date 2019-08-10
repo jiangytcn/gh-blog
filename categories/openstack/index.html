@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -194,23 +196,19 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1241 words)
+            8 minutes read (About 1230 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 <a href="/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">上一随笔</a></p>
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
 <p>Openstack 中规定，扩展openstack得api有两种方式</p>
-<blockquote>
-<p>创建新的WSGI 资源</p>
-</blockquote>
-<blockquote>
-<p>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</p>
-</blockquote>
-<blockquote>
+<ul>
+<li>创建新的WSGI 资源</li>
+<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
+</ul>
 <p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
-</blockquote>
         <p class="article-more-link">
             <a href="/2014/05/17/openstack-nova-adding-plugin/#more">Read More</a>
         </p>

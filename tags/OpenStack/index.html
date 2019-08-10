@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -177,6 +179,52 @@
 <p>以 Nova 为例，nova-api 作为 Nova 组件对外的唯一窗口，向客户暴露 Nova 能够提供的功能。 当客户需要执行虚机相关的操作，能且只能向 nova-api 发送 REST 请求。 这里的客户包括终端用户、命令行和 OpenStack 其他组件。<br>设计 API 前端服务的好处在于：</p>
         <p class="article-more-link">
             <a href="/2019/08/10/OpenStack-Internal-Service-Design/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/05/17/openstack-nova-adding-plugin/" itemprop="url">OpenStack Nova 添加扩展API流程</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-16T16:00:00.000Z" itemprop="datePublished">May 17 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1230 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
+<p>Openstack 中规定，扩展openstack得api有两种方式</p>
+<ul>
+<li>创建新的WSGI 资源</li>
+<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
+</ul>
+<p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
+        <p class="article-more-link">
+            <a href="/2014/05/17/openstack-nova-adding-plugin/#more">Read More</a>
         </p>
     
     </div>

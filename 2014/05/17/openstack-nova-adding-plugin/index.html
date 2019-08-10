@@ -16,18 +16,18 @@
 
 
 
-    <meta name="description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
-<meta name="keywords" content="Nova">
+    <meta name="description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔] Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源 扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）  这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+<meta name="keywords" content="Python,OpenStack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenStack Nova 添加扩展API流程">
 <meta property="og:url" content="http://www.ystacks.com/2014/05/17/openstack-nova-adding-plugin/index.html">
 <meta property="og:site_name" content="ystacks">
-<meta property="og:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+<meta property="og:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔] Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源 扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）  这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-09T23:10:54.386Z">
+<meta property="og:updated_time" content="2019-08-10T01:06:42.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenStack Nova 添加扩展API流程">
-<meta name="twitter:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+<meta name="twitter:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔] Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源 扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）  这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
 
 
 
@@ -91,6 +91,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -136,36 +138,30 @@
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1241 words)
+            8 minutes read (About 1230 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 <a href="/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">上一随笔</a></p>
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
 <p>Openstack 中规定，扩展openstack得api有两种方式</p>
-<blockquote>
-<p>创建新的WSGI 资源</p>
-</blockquote>
-<blockquote>
-<p>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</p>
-</blockquote>
-<blockquote>
+<ul>
+<li>创建新的WSGI 资源</li>
+<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
+</ul>
 <p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
-</blockquote>
 <a id="more"></a>
 
 <p>在一个API模块中，可以有一个或多个得资源和扩展控制器。</p>
 <p>根据osapi_compute_extension 得配置， ExtensionManager 由nova/api/openstack/compute/contrib/ 下的<strong>init</strong>.py 文件加载标准的或者新的扩展。</p>
 <p>所以扩展的api统一写在nova/api/openstack/compute/contrib/ 目录下</p>
 <p>如本例子中得 nova/api/openstack/compute/contrib/documents.py</p>
-<p>##扩展API流程</p>
-<p>实现控制器，完成对资源的基本操作，如增删改查和其他一些用户自定义的RESTful资源操作；</p>
+<h2 id="扩展API流程"><a href="#扩展API流程" class="headerlink" title="扩展API流程"></a>扩展API流程</h2><p>实现控制器，完成对资源的基本操作，如增删改查和其他一些用户自定义的RESTful资源操作；</p>
 <p>实现一个extensions.ExtensionDescriptor的子类， 并实现get_resources 或者 get_controller_extensions，来建立新的资源或扩展资源控制器（即改写原有的业务逻辑）。具体实现哪个方法这取决于是否要修改原有的RESTFul业务逻辑， 或者说两个功能都需要；</p>
 <p>将控制器和扩展的资源类，写如新创建的的资源中； 规范是资源类是模块（问家名）首字母大写，这样做的目的是使nova.api.openstack.extensions.load_standard_extensions这个类能够是别该新资源，并予以加载；</p>
 <p>当添加新的资源（extensions.ResourceExtension的子类）的时候，如果想要去除掉 {tenent_id} 链接，则需要编写自定义的路由访问规则（本例子中没有涉及）</p>
-<p>###documents.py 实现</p>
-<pre><code>1 # vim: tabstop=4 shiftwidth=4 softtabstop=4
+<h3 id="documents-py-实现"><a href="#documents-py-实现" class="headerlink" title="documents.py 实现"></a>documents.py 实现</h3><pre><code>1 # vim: tabstop=4 shiftwidth=4 softtabstop=4
  2
  3 # Author:  Yitao Jiang
  4 # Email:  willierjyt@gmail.com
@@ -249,15 +245,14 @@
 <li>PUT v2/{tenant_id}/ os-documents/{document_id}</li>
 <li>DELETE v2/{tenant_id}/ os-documents/{document_id}</li>
 </ul>
-<p>###扩展api时所修改的文件</p>
-<pre><code>
+<h3 id="扩展api时所修改的文件"><a href="#扩展api时所修改的文件" class="headerlink" title="扩展api时所修改的文件"></a>扩展api时所修改的文件</h3><pre><code>
 1  nova/db/api.py
 2  nova/db/sqlalchemy/api.py
 3  nova/db/sqlalchemy/models.py
 </code></pre>
 
 <p>nova/db/api.py 文件内容</p>
-<p>####数据操作API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用</p>
+<h4 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h4><p>API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用</p>
 <pre><code>
 1 def document_get(context, document_id):
 2        """Get a document or raise if it does not exist."""
@@ -344,9 +339,9 @@ mysql> select * from documents;
 11     }
 12 }
 </code></pre>
+
 <p>至此新添加的资源，API 扩展成功， 可以在此基础上进行进一步的修改，完成需求</p>
-<p>###参考文档：</p>
-<ol>
+<h3 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h3><ol>
 <li><a href="http://docs.openstack.org/developer/nova/devref/addmethod.openstackapi.html" target="_blank" rel="noopener">Adding a Method to the OpenStack API</a></li>
 </ol>
 
@@ -355,7 +350,9 @@ mysql> select * from documents;
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Nova/">#Nova</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Python/">#Python</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/OpenStack/">#OpenStack</a></span>
     
     </div>
     

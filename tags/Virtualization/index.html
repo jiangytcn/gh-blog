@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>Tag: VDI - ystacks</title>
+<title>Tag: Virtualization - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -16,7 +16,7 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://www.ystacks.com/tags/VDI/index.html">
+<meta property="og:url" content="http://www.ystacks.com/tags/Virtualization/index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -110,7 +112,7 @@
     <section class="section section-heading">
     <div class="container">
         <div class="content">
-            <h5>#VDI</h5>
+            <h5>#Virtualization</h5>
         </div>
     </div>
 </section>
@@ -120,37 +122,98 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/" itemprop="url">VM Failes to start with error: VDI not available</a>
+            <a href="/2019/08/10/KVM-guest-host-hardware-passthrough/" itemprop="url">KVM guest host hardware passthrough</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2014-05-17T16:00:00.000Z" itemprop="datePublished">May 18 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Xenserver/">Xenserver</a>
+            <time datetime="2019-08-10T01:08:09.000Z" itemprop="datePublished">Aug 10 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            a minute read (About 178 words)
+            3 minutes read (About 438 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>触发条件: Ssh 至 VM内部，执行关机命令(shutdown -h now), 在NFS backend下的Vm通过Cloudstack无法启动</p>
-<p>产生原因：Xenserver 与存储设备或者Lun失去连接</p>
-<p>解决方法：</p>
-<ul>
-<li>Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file<br>  For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.<br>  VM are failing to start with “errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]” error</li>
-</ul>
+        <p>在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现</p>
+<h3 id="kvm下的DMA（direct-memory-access）"><a href="#kvm下的DMA（direct-memory-access）" class="headerlink" title="kvm下的DMA（direct memory access）"></a>kvm下的DMA（direct memory access）</h3>
         <p class="article-more-link">
-            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/#more">Read More</a>
+            <a href="/2019/08/10/KVM-guest-host-hardware-passthrough/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/08/10/KVM-guest-and-host-cpu-binding/" itemprop="url">KVM guest and host cpu binding</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-10T00:47:39.000Z" itemprop="datePublished">Aug 10 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            15 minutes read (About 2302 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>kvm虚拟出来的虚拟机（vm）是运行在单独的一个逻辑cpu还是可以分别在各个cpu之间运行？虚拟机cpu（vcpu）是什么概念？物理机（host）怎么看待kvm和vcpu? 为了搞懂这个概念我们还是要回到命令行中看。举例说明：<br>我这里有一个虚拟机叫core8，它含有8个虚拟cpu它的进程编号是20736。</p>
+        <p class="article-more-link">
+            <a href="/2019/08/10/KVM-guest-and-host-cpu-binding/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/" itemprop="url">Add route for VirtualBOX hostonly ifs</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-05T11:54:12.000Z" itemprop="datePublished">Aug 5 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 429 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>最近在使用Mac上的VirtualBox 创建出的虚拟机做K8S相关的开发工作， 物理机有时重启后无法连接到虚拟机当中，ICMP拒绝， 但是在VM 内部以及VM间网络通信都是正常的。重启Mac后问题可以解决，但是不是解决问题之道，经过排查，发现Mac上的到虚拟机hostonly 网络的路由丢失，导致连接失败</p>
+        <p class="article-more-link">
+            <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/#more">Read More</a>
         </p>
     
     </div>

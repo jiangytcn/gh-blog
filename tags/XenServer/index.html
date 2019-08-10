@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>Tag: Debug - ystacks</title>
+<title>Tag: XenServer - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -16,7 +16,7 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://www.ystacks.com/tags/Debug/index.html">
+<meta property="og:url" content="http://www.ystacks.com/tags/XenServer/index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -84,6 +84,8 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
+            <a class="navbar-item " href="/tags">Tags</a>
+            
             <a class="navbar-item " href="/about">About</a>
             
         </div>
@@ -110,7 +112,7 @@
     <section class="section section-heading">
     <div class="container">
         <div class="content">
-            <h5>#Debug</h5>
+            <h5>#XenServer</h5>
         </div>
     </div>
 </section>
@@ -120,40 +122,79 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2014/02/12/setting-debug-environment-of-cloudstack-in-production/" itemprop="url">Setting Debug Environment Of Cloudstack In Production</a>
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/" itemprop="url">How To Change Xenserver Default Installtion Partitions</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2014-02-11T16:00:00.000Z" itemprop="datePublished">Feb 12 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+            <time datetime="2014-11-30T16:00:00.000Z" itemprop="datePublished">Dec 1 2014</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            a minute read (About 184 words)
+            3 minutes read (About 431 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>This introduction will outline specifically how setting debug environment in production of Cloudstack, and how building a single project into a patch.</p>
-<h3 id="Configure-Tomcat"><a href="#Configure-Tomcat" class="headerlink" title="Configure Tomcat"></a>Configure Tomcat</h3><pre><code>$ vim /usr/sbin/tomcat6</code></pre>
-<ul>
-<li><p><strong>Adding -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 into the file above</strong></p>
-<pre><code> 35     -Djava.io.tmpdir="$CATALINA_TMPDIR" \
-36     -Djava.util.logging.config.file="${CATALINA_BASE}/conf/logging.properties" \
-37     -Djava.util.logging.manager="org.apache.juli.ClassLoaderLogManager" \
-38     -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 \
-</code></pre></li></ul>
+        <h2 id="修改root磁盘大小"><a href="#修改root磁盘大小" class="headerlink" title="修改root磁盘大小"></a>修改root磁盘大小</h2><pre><code>开机选择F2高级模式，输入shell，
+vi /opt/xensource/installer/constants.py
+DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
+输入EXIT</code></pre><h2 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h2><pre><code>XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu-DM的进程，占用大约6M的内存空间，
+因此在虚拟机数量较多的情况下，我们需要增大Domain0内存以便支持更多的虚拟机运行。
+由于Domain0是32位操作系统，故支持的最大内存量为4GB。
+更改Domain0内存的方法参考CTX124806-XenServerSingleServerScalabilitywithXenDesktop提到的例子，
+更改/boot/exlinux.conf下包含dom0_mem=2940M的Xen命令行。</code></pre>
         <p class="article-more-link">
-            <a href="/2014/02/12/setting-debug-environment-of-cloudstack-in-production/#more">Read More</a>
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/" itemprop="url">VM Failes to start with error: VDI not available</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-17T16:00:00.000Z" itemprop="datePublished">May 18 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Xenserver/">Xenserver</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 178 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>触发条件: Ssh 至 VM内部，执行关机命令(shutdown -h now), 在NFS backend下的Vm通过Cloudstack无法启动</p>
+<p>产生原因：Xenserver 与存储设备或者Lun失去连接</p>
+<p>解决方法：</p>
+<ul>
+<li>Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file<br>  For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.<br>  VM are failing to start with “errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]” error</li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/#more">Read More</a>
         </p>
     
     </div>
