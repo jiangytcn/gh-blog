@@ -120,12 +120,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-05-18-vm-failes-to-start-with-error-vdi-not-available/" itemprop="url">VM Failes to start with error: VDI not available</a>
+            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/" itemprop="url">VM Failes to start with error: VDI not available</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.899Z" itemprop="datePublished">Jul 19 2019</time>
+            <time datetime="2014-05-17T16:00:00.000Z" itemprop="datePublished">May 18 2014</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -137,7 +137,7 @@
         <span class="column is-narrow">
             
             
-            a minute read (About 177 words)
+            a minute read (About 178 words)
         </span>
         
     </div>
@@ -147,25 +147,11 @@
 <p>产生原因：Xenserver 与存储设备或者Lun失去连接</p>
 <p>解决方法：</p>
 <ul>
-<li><p>Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file<br>  For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.<br>  VM are failing to start with “errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]” error</p>
-</li>
-<li><p>Connect to XenServer and make a note of the SR UUID and name-label of the VDI</p>
-</li>
+<li>Extract VDI UUID of Virtual Machine(VM) that is failing to start from /var/log/cloud/management/management-server.log file<br>  For example, VDI UUID will be 6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36.<br>  VM are failing to start with “errorInfo: [SR_BACKEND_FAILURE_46, The VDI is not available [opterr=VDI6f97582c-xxxx-xxxx-xxxx-9aa5686bcbd36 already attached RW]” error</li>
 </ul>
-<pre><code># xe vdi-list uuid=<vdi 1 uuid from step> params=sr-uuid, name-label</vdi></code></pre>
-
-<ul>
-<li>Run the following commands in XenServer</li>
-</ul>
-<pre><code># xe vdi-forget uuid=<volume 1 extracted from step>
-# xe sr-scan uuid=<sr 2 uuid extracted from step>
-# xe vdi-param-set uuid=< volume extracted from step1 > name-label=< name label extracted from step2 >
-</sr></volume></code></pre>
-
-<ul>
-<li>Restart Cloudstack Management Service</li>
-</ul>
-
+        <p class="article-more-link">
+            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/#more">Read More</a>
+        </p>
     
     </div>
     

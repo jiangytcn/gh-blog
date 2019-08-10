@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>OpenStack AIO Setup with Ansible - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客">
+<meta name="keywords" content="OpenStack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenStack AIO Setup with Ansible">
+<meta property="og:url" content="http://www.ystacks.com/2019/08/10/OpenStack-AIO-Setup-with-Ansible/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-10T00:39:51.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenStack AIO Setup with Ansible">
+<meta name="twitter:description" content="如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    ystacks
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            OpenStack AIO Setup with Ansible
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-10T00:31:38.000Z" itemprop="datePublished">Aug 10 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 708 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客</p>
+<a id="more"></a>
+
+<p>物理环境</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OS Dist</td>
+<td>Ubuntu 16.04.2 LTS</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>1T + 2T sata 盘</td>
+</tr>
+<tr>
+<td>Mem</td>
+<td>32G</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz</td>
+</tr>
+<tr>
+<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sdb             8:16   0 931.5G  0 disk</span><br><span class="line">├─sdb1          8:17   0   243M  0 part</span><br><span class="line">├─sdb2          8:18   0     1K  0 part</span><br><span class="line">└─sdb5          8:21   0 931.3G  0 part</span><br><span class="line">  ├─dvlp-root 252:0    0    78G  0 lvm  /</span><br><span class="line">  ├─dvlp-home 252:1    0 262.3G  0 lvm  /home</span><br><span class="line">  └─dvlp-data 252:2    0 553.7G  0 lvm</span><br><span class="line">sdc             8:32   0   1.8T  0 disk /openstack</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>2T盘用于存储OpenStack相关的数据<br>1T盘操作系统相关数据盘</p>
+</blockquote>
+<h3 id="在使用时遇到的问题在此说明"><a href="#在使用时遇到的问题在此说明" class="headerlink" title="在使用时遇到的问题在此说明"></a>在使用时遇到的问题在此说明</h3><ol>
+<li>安装时启动的lxc container 无法获得private ip<br>正常情况下在执行了ansible 相关命令后应该每一个container应该有内网及外网IP， 如下<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">→ sudo lxc-ls -f</span><br><span class="line">NAME                                        STATE   AUTOSTART GROUPS            IPV4                                          IPV6</span><br><span class="line">aio1_cinder_api_container-f3bdb579          RUNNING 1         onboot, openstack 10.255.255.244, 172.29.236.67, 172.29.247.153 -</span><br><span class="line">aio1_cinder_scheduler_container-25e9e567    RUNNING 1         onboot, openstack 10.255.255.198, 172.29.238.236                -</span><br><span class="line">aio1_designate_container-b3ca6e11           RUNNING 1         onboot, openstack 10.255.255.64, 172.29.239.241                 -</span><br><span class="line">aio1_galera_container-59168dd6              RUNNING 1         onboot, openstack 10.255.255.172, 172.29.236.218                -</span><br><span class="line">aio1_glance_container-e43dfd64              RUNNING 1         onboot, openstack 10.255.255.176, 172.29.237.35, 172.29.247.172 -</span><br><span class="line">aio1_heat_apis_container-9008349f           RUNNING 1         onboot, openstack 10.255.255.112, 172.29.238.189                -</span><br><span class="line">aio1_heat_engine_container-2d62ff94         RUNNING 1         onboot, openstack 10.255.255.25, 172.29.239.228                 -</span><br><span class="line">aio1_horizon_container-2a77938a             RUNNING 1         onboot, openstack 10.255.255.74, 172.29.239.99                  -</span><br><span class="line">aio1_keystone_container-3441527b            RUNNING 1         onboot, openstack 10.255.255.28, 172.29.236.169                 -</span><br><span class="line">aio1_memcached_container-43bf9c7f           RUNNING 1         onboot, openstack 10.255.255.238, 172.29.239.33                 -</span><br><span class="line">aio1_neutron_agents_container-31363c11      RUNNING 1         onboot, openstack 10.255.255.187, 172.29.236.66, 172.29.242.144 -</span><br><span class="line">aio1_neutron_server_container-c6d33080      RUNNING 1         onboot, openstack 10.255.255.160, 172.29.236.141                -</span><br><span class="line">aio1_nova_api_metadata_container-b04322cb   RUNNING 1         onboot, openstack 10.255.255.203, 172.29.237.253                -</span><br><span class="line">aio1_nova_api_os_compute_container-53803a56 RUNNING 1         onboot, openstack 10.255.255.61, 172.29.237.166                 -</span><br><span class="line">aio1_nova_api_placement_container-d09947c4  RUNNING 1         onboot, openstack 10.255.255.22, 172.29.236.157                 -</span><br><span class="line">aio1_nova_conductor_container-e9e82699      RUNNING 1         onboot, openstack 10.255.255.120, 172.29.239.36                 -</span><br><span class="line">aio1_nova_console_container-2517dd0e        RUNNING 1         onboot, openstack 10.255.255.54, 172.29.239.129                 -</span><br><span class="line">aio1_nova_scheduler_container-db02b5f9      RUNNING 1         onboot, openstack 10.255.255.243, 172.29.237.239                -</span><br><span class="line">aio1_rabbit_mq_container-66fd8455           RUNNING 1         onboot, openstack 10.255.255.2, 172.29.236.124                  -</span><br><span class="line">aio1_repo_container-cf8b6b77                RUNNING 1         onboot, openstack 10.255.255.17, 172.29.238.136                 -</span><br><span class="line">aio1_rsyslog_container-d461d2ed             RUNNING 1         onboot, openstack 10.255.255.76, 172.29.236.228                 -</span><br><span class="line">aio1_swift_proxy_container-00c23b79         RUNNING 1         onboot, openstack 10.255.255.20, 172.29.236.166, 172.29.245.74  -</span><br><span class="line">aio1_utility_container-9755697d             RUNNING 1         onboot, openstack 10.255.255.219, 172.29.239.126                -</span><br><span class="line">ubuntu-xenial-amd64                         STOPPED 0         -                 -                                             -</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>由于之前配置了dnsmasq作为本机的dns server，而lxc 需要用dnsmasq作为所启动的container的dhcp 服务器，所以container 无法通过dhcp获得ip导致deploy失败</p>
+<p><strong>解决办法</strong>: 清空dnsmasq的配置后，重新deploy container 即可获得内部IP</p>
+<ol start="2">
+<li>重启物理节点后无法识别usb设备<br>在OpenStack-Ansible 的使用文档中说明了如何处理在重启物理节点后，openstack 服务如何恢复的问题。在使用时，由于sdc盘通过的usb 接口连接到的server中，重启后出现无法识别存储设备的问题。<br>在ansible 的role 里面有security、security role 相关的设置,在安装好openstack-ansible 后会在host中使用modporb禁用了USB设备</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">→ cat /etc/modprobe.d/openstack-ansible-security-disable-usb-storage.conf</span><br><span class="line">install usb-storage /bin/true</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决办法</strong>: 删除此文件后，重启物理节点，usb设备即可识别</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/OpenStack/">#OpenStack</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/08/10/OpenStack-Internal-Service-Design/">OpenStack Internal Service Design</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://www.ystacks.com/2019/08/10/OpenStack-AIO-Setup-with-Ansible/';
+        this.page.identifier = '2019/08/10/OpenStack-AIO-Setup-with-Ansible/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

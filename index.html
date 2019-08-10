@@ -113,6 +113,77 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/08/10/OpenStack-AIO-Setup-with-Ansible/" itemprop="url">OpenStack AIO Setup with Ansible</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-10T00:31:38.000Z" itemprop="datePublished">Aug 10 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 708 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客</p>
+        <p class="article-more-link">
+            <a href="/2019/08/10/OpenStack-AIO-Setup-with-Ansible/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/08/10/OpenStack-Internal-Service-Design/" itemprop="url">OpenStack Internal Service Design</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-10T00:26:13.000Z" itemprop="datePublished">Aug 10 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1168 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="API前端服务"><a href="#API前端服务" class="headerlink" title="API前端服务"></a>API前端服务</h3><p>每个 OpenStack 组件可能包含若干子服务，其中必定有一个 API 服务负责接收客户请求。</p>
+<p>以 Nova 为例，nova-api 作为 Nova 组件对外的唯一窗口，向客户暴露 Nova 能够提供的功能。 当客户需要执行虚机相关的操作，能且只能向 nova-api 发送 REST 请求。 这里的客户包括终端用户、命令行和 OpenStack 其他组件。<br>设计 API 前端服务的好处在于：</p>
+        <p class="article-more-link">
+            <a href="/2019/08/10/OpenStack-Internal-Service-Design/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/08/05/Add-route-for-VirtualBOX-hostonly-ifs/" itemprop="url">Add route for VirtualBOX hostonly ifs</a>
         
     </h1>
@@ -184,12 +255,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2015-05-06-powerdns-configuration-for-single-node/" itemprop="url">PowerDNS Configuration For Single Node</a>
+            <a href="/2015/07/21/howto-enable-linux-screen-tabs-name/" itemprop="url">Enable screen tabs name </a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T02:38:43.539Z" itemprop="datePublished">Jul 19 2019</time>
+            <time datetime="2015-07-20T16:00:00.000Z" itemprop="datePublished">Jul 21 2015</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -201,368 +272,7 @@
         <span class="column is-narrow">
             
             
-            4 minutes read (About 548 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h1 id="Configuration-For-Single-Host"><a href="#Configuration-For-Single-Host" class="headerlink" title="Configuration For Single Host"></a>Configuration For Single Host</h1><h5 id="The-guide-is-used-for-setup-a-single-node-powerdns-with-mysql-backend-under-openstack"><a href="#The-guide-is-used-for-setup-a-single-node-powerdns-with-mysql-backend-under-openstack" class="headerlink" title="The guide is used for setup a single node powerdns with mysql backend under openstack"></a>The guide is used for setup a single node powerdns with mysql backend under openstack</h5><h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ol>
-<li><p>Launch a powerdns instance using image ubuntu 14.04, associate floatingip</p>
-</li>
-<li><p>ssh into instance then run following commands</p>
-<p> sudo apt-get update<br> sudo apt-get install mysql-server mysql-common pdns-server pdns-backend-mysql</p>
-<p> <strong>WHEN INSTALLING MYSQL-SERVER, REMEMBER THE ROOT PASSWORD OF DATABASE FOR LATER USE</strong></p>
-</li>
-</ol>
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><ul>
-<li><p>configure mysql-server</p>
-<p>  edit /etc/mysql/my.cnf</p>
-<p>  <code>bind-address       = 127.0.0.1</code></p>
-<p>  restart mysql-server</p>
-</li>
-<li><p>Create powerdns database</p>
-<p>  Now that you have created a database, you need to add a user that will have access to that database.<br>  For simplify we are using root user, otherwise create use and grant access to database.</p>
-<p>  Next, you create the database required for your install of PowerDNS:</p>
-  <pre><code>
-  create database pdns;
-
-  use pdns;
-
-  create table domains (
-   id              INT auto_increment,
-   name            VARCHAR(255) NOT NULL,
-   master          VARCHAR(128) DEFAULT NULL,
-   last_check      INT DEFAULT NULL,
-   type            VARCHAR(6) NOT NULL,
-   notified_serial INT DEFAULT NULL,
-   account         VARCHAR(40) DEFAULT NULL,
-   primary key (id)
-  ) Engine=InnoDB;
-
-  CREATE UNIQUE INDEX name_index ON domains(name);
-
-  CREATE TABLE records (
-    id              INT auto_increment,
-    domain_id       INT DEFAULT NULL,
-    name            VARCHAR(255) DEFAULT NULL,
-    type            VARCHAR(10) DEFAULT NULL,
-    content         VARCHAR(64000) DEFAULT NULL,
-    ttl             INT DEFAULT NULL,
-    prio            INT DEFAULT NULL,
-    change_date     INT DEFAULT NULL,
-    primary key(id)
-  ) Engine=InnoDB;
-
-  CREATE INDEX nametype_index ON records(name,type);
-  CREATE INDEX domain_id ON records(domain_id);
-
-  create table supermasters (
-    ip         VARCHAR(64) NOT NULL,
-    nameserver VARCHAR(255) NOT NULL,
-    account    VARCHAR(40) DEFAULT NULL
-  ) Engine=InnoDB;</code></pre>
-
-<p>  Now, leave the MySQL shell with:</p>
-<p>  <code>quit;</code></p>
-</li>
-<li><p>modify powerdns server</p>
-<blockquote>
-<p>cd /etc/powerdns</p>
-</blockquote>
-<blockquote>
-<p>mv pdns.conf pdns.conf.bak</p>
-</blockquote>
-<blockquote>
-<p>cp pdns.d/pdns.local.gmysql.conf  pdns.conf</p>
-</blockquote>
-<p> then modify pdns.conf change to the db credentials created above.<br> Finally, restart your PowerDNS service with the following:</p>
-<p> <code>sudo service pdns restart</code></p>
-</li>
-<li><p><strong>Admin Web UI</strong></p>
-<p>  Poweradmin writen in php give you a web dashboard for operating dns record, much more convinent.</p>
-<ul>
-<li><p>Install the prerequisites</p>
-<blockquote>
-<p>$ sudo apt-get install apache2 libapache2-mod-php5 php5 php5-common </p>
-</blockquote>
-<blockquote>
-<p>php5-curl php5-dev php5-gd php-pear php5-imap php5-mcrypt php5-common </p>
-</blockquote>
-<blockquote>
-<p>php5-ming php5-mysql php5-xmlrpc gettext</p>
-</blockquote>
-<blockquote>
-<p>$sudo pear install MDB2</p>
-</blockquote>
-<blockquote>
-<p>$sudo pear install MDB2_Driver_mysql</p>
-</blockquote>
-</li>
-<li><p>Download poweradmin release</p>
-<blockquote>
-<p>$cd /tmp</p>
-</blockquote>
-<blockquote>
-<p>wget <a href="https://github.com/downloads/Poweradmin/Poweradmin/Poweradmin-2.1.6.tgz" target="_blank" rel="noopener">https://github.com/downloads/Poweradmin/Poweradmin/Poweradmin-2.1.6.tgz</a></p>
-</blockquote>
-<blockquote>
-<p>tar xvfz Poweradmin-2.1.6.tgz</p>
-</blockquote>
-<blockquote>
-<p>mv Poweradmin-2.1.6 /var/www/html/Poweradmin</p>
-</blockquote>
-<blockquote>
-<p>touch /var/www/html/Poweradmin/inc/config.inc.php</p>
-</blockquote>
-<blockquote>
-<p>chown -R www-data:www-data /var/www/html/Poweradmin/`</p>
-</blockquote>
-<p>  Now open a browser and launch the web-based Poweradmin installer (http://<your powerdns floating ip>/poweradmin/install). Following the guide to setup admin ui.</your></p>
-<p>  After installation, install subfolder under /var/www/html/Poweradmin need to be removed or migrated, then go to http://<your powerdns floating ip>/Poweradmin//index.php to setup dns records</your></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ul>
-<li><p>Can not launch powerdns admin installer</p>
-<p>Login to the powerdns machine, disable firewall of add the tcp:80 port to the INPUT chain, restart apache2 service</p>
-</li>
-<li><p>Mysql crypto releate issue</p>
-<ol>
-<li><p>Make sure php5-mcrypt installed(yum install php5-mcrypt)</p>
-</li>
-<li><p>modify configuration for php</p>
-<blockquote>
-<p>root@powerdns-cli-01:/etc/php5# find / -name mcrypt.so</p>
-</blockquote>
- <pre><code>/usr/lib/php5/20121212/mcrypt.so</code></pre>
-
-<blockquote>
-<p>root@powerdns-cli-01:/etc/php5# cat  cli/conf.d/20-mcrypt.ini </p>
-</blockquote>
- <pre><code>; configuration for php MCrypt module
- extension=/usr/lib/php5/20121212/mcrypt.so`</code></pre>
-
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://doc.powerdns.com/md/authoritative/installation/" target="_blank" rel="noopener">https://doc.powerdns.com/md/authoritative/installation/</a></li>
-<li>Google</li>
-</ol>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2014-02-12-setting-debug-environment-of-cloudstack-in-production/" itemprop="url">Setting Debug Environment Of Cloudstack In Production</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T02:02:35.980Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 183 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically how setting debug environment in production of Cloudstack, and how building a single project into a patch.</p>
-<h3 id="Configure-Tomcat"><a href="#Configure-Tomcat" class="headerlink" title="Configure Tomcat"></a>Configure Tomcat</h3><pre><code>$ vim /usr/sbin/tomcat6</code></pre>
-<ul>
-<li><p><strong>Adding -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 into the file above</strong></p>
-<pre><code> 35     -Djava.io.tmpdir="$CATALINA_TMPDIR" \
-36     -Djava.util.logging.config.file="${CATALINA_BASE}/conf/logging.properties" \
-37     -Djava.util.logging.manager="org.apache.juli.ClassLoaderLogManager" \
-38     -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 \
-</code></pre>
-
-<p>Now configure you eclipse to the server, go Debugging.</p>
-</li>
-</ul>
-<h3 id="Building-Single-Project"><a href="#Building-Single-Project" class="headerlink" title="Building Single Project"></a>Building Single Project</h3><ul>
-<li><strong>Some reasons you modified a project, for instance cloud-server, and you want your new code to be taken into effect, you should build a new jar file, and then applying the patch.</strong><pre><code>cd ~/cloudstack4.1.0
-mvn clean
-mvn -pl :cloud-server
-</code></pre>
-
-</li>
-</ul>
-<p>After a while when you saw something like below, then you got a new patch.</p>
-<pre><code> ------------------------------------------------------------------------
- BUILD SUCCESS
- ------------------------------------------------------------------------
- Total time: 3:01.915s
- Finished at: Wed Feb 12 14:56:24 CST 2014
- Final Memory: 26M/233M
-</code></pre>
-
-<p>And replace the old cloud-server-4.1.0.jar with new one , restart cloudstack-management, go hacking.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2015-10-08-Install-Dependency-Under-Different-Languages/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Developting/">Developting</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a few seconds read (About 76 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically  how to install dependencies behind proxy under different code environment</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
-<p>1)      python pip</p>
-<pre><code># pip install --proxy PROXY_INFOR XXX</code></pre>
-<p>2)      Maven</p>
-<pre><code># vi $M2_HOME/conf/settings.xml</code></pre>
-<p>  Navigate to the proxies settings, and change to your proxy informations</p>
-<p> 3) Gradlew</p>
-<blockquote>
-<p>set system properties within your gradlew script by using one the environment variables DEFAULT_JVM_OPTS, JAVA_OPTS or GRADLE_OPTS. Changing to specific information.</p>
-</blockquote>
-<p>Thank you.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2015-10-01-How-To-enable-or-disable-ipv6-on-rhel/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/linux/">linux</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 193 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>This introduction will outline specifically  how to disable and enable IPV6 in RHEL 6.X</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
-<p>Problem:<br>Need to disable the IPV6 in RedHat Enterprise Linux</p>
-<p>Solution:</p>
-<p>Disable IPV6 in RHEL:</p>
-<p>1)      Add the below line in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 off
-alias ipv6 off                    # Add this for RHEL before 5.4
-options ipv6 disable=1    # Add this for 5.4 and later</code></pre><p>Note : If any entry available like “alias net-pf-10 ipv6”, delete that entry.</p>
-<p>2)      Also add the below entry in the network file to prevent error</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=no</code></pre><p>3)      Reboot the server to disable the IPV6</p>
-<pre><code># shutdown -r now</code></pre><p>Enable IPV6 in RHEL:</p>
-<p>4)      Add the below entry in the modprobe.conf file</p>
-<pre><code># vi /etc/modprobe.conf
-
-alias net-pf-10 ipv6</code></pre><p>Note : Remove if any entry like “alias net-pf-10 off or alias ipv6 off or options ipv6 disable=1” in the modprobe.conf file.</p>
-<p>5)      Change the “ NETWORKING_IPV6” parameter value to yes in the netwok file.</p>
-<pre><code># vi /etc/sysconfig/network
-
-NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6 support</p>
-<pre><code># shutdown -r now</code></pre><p>Thank you.</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/07/19/2015-07-21-howto-enable-linux-screen-tabs-name/" itemprop="url"></a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 218 words)
+            a minute read (About 219 words)
         </span>
         
     </div>
@@ -571,36 +281,9 @@ NETWORKING_IPV6=yes</code></pre><p>6)      Restart the server to enable the IPV6
         <p>This introduction will outline specifically on how to show tab name on an active screen</p>
 <p>Linux screen is a very powerful tool for sysadmin when you need to run a long running process without kept your computer connecting to the remote server</p>
 <p>here is the deatils introductions about <a href="http://linux.die.net/man/1/screen" target="_blank" rel="noopener">Screen</a></p>
-<hr>
-<p>There is two ways to display tab name </p>
-<ul>
-<li>Configure .screenrc</li>
-</ul>
-<pre><code>Add this to your .screenrc file:
-
-`caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;`
-
-After you restart your screen, there&apos;s a status bar below showing the current tab name, and as a bonus your current host name and time -- modify them away at will if you so wish.
-
-To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
-<li><p>Operate at existing screen</p>
-<p>Sometimes you create a screen but havn’t enable captions, it’s not convient to switch among tabs, you can run following commands to enable screen tabs</p>
-<ul>
-<li>First you need to detach current screen<ul>
-<li><em><code>ctrl + a +d</code></em></li>
-<li><em><code>screen  -S &lt;YOUR SCREEN NAME HERE&gt; -X caption always &quot;%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c&quot;</code></em></li>
-<li>Attach to your screen<ul>
-<li><em><code>screen -r &lt;YOUR SCREEN NAME HERE&gt;</code></em></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Now your screen will be looks like this</p>
-<p><img src="http://7fvkn1.com1.z0.glb.clouddn.com/screen.jpg" alt="screen image after enable tabname"></p>
-</li>
-</ul>
-
+        <p class="article-more-link">
+            <a href="/2015/07/21/howto-enable-linux-screen-tabs-name/#more">Read More</a>
+        </p>
     
     </div>
     
@@ -614,83 +297,33 @@ To rename a tab, press ctrl+a A and give it a new name.</code></pre><ul>
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2015-08-03-How-To-Setup-private-docker-registry-and-build-a-debian-based-docker-image/" itemprop="url"></a>
+            <a href="/2015/05/06/powerdns-configuration-for-single-node/" itemprop="url">PowerDNS Configuration For Single Node</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+            <time datetime="2015-05-05T16:00:00.000Z" itemprop="datePublished">May 6 2015</time>
         </span>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Docker/">Docker</a>
+            <a class="article-category-link" href="/categories/sysadmin/">sysadmin</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 361 words)
+            4 minutes read (About 549 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>This introduction will outline specifically  how to setup a private docker registry and how building a debian based docker image for later use.</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The following commands run on redhat 6.5</p>
-<h3 id="Set-up-docker-Registry"><a href="#Set-up-docker-Registry" class="headerlink" title="Set up docker Registry"></a>Set up docker Registry</h3><hr>
-<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><p>The Registry is compatible with Docker engine version 1.6.0 or higher.</p>
-<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><pre><code># Start your registry
-docker run -d -p 5000:5000 registry:2
-after the command over, you can see a running container</code></pre><p><img src="http://7fvkn1.com1.z0.glb.clouddn.com/$722FED96F98230C5.jpg" alt="runing just as mine"></p>
-<p>It works.</p>
-<h3 id="Build-Debian-Base-Image-Jessie"><a href="#Build-Debian-Base-Image-Jessie" class="headerlink" title="Build Debian Base Image(Jessie)"></a>Build Debian Base Image(Jessie)</h3><hr>
-<p>####First install debootstrap</p>
-<blockquote>
-<p>sudo yum install debootstrap</p>
-</blockquote>
-<p>####Then prepare the root directory</p>
-<blockquote>
-<p>mkdir -p /vdisks/chroot/jessie</p>
-</blockquote>
-<p>####Finally build a Jessie system</p>
-<blockquote>
-<p>sudo debootstrap jessie /vdisks/chroot/jessie <a href="http://ftp.us.debian.org/debian" target="_blank" rel="noopener">http://ftp.us.debian.org/debian</a></p>
-</blockquote>
-<p>####Waiting for the result</p>
-<p>####…</p>
-<p>####At this point you have a small environment which you can chroot into and modify it the way you like<br><img src="http://7fvkn1.com1.z0.glb.clouddn.com/$3A6B5AB4669806E9.jpg" alt="build image"></p>
-<h4 id="Import-Image"><a href="#Import-Image" class="headerlink" title="Import Image"></a>Import Image</h4><pre><code>[yitao@yitao-dev ~]$ cd /vdisks/chroot/
-[yitao@yitao-dev chroot]$ sudo tar -C jessie/ -c . | sudo docker import - debian-jessie
-79911aebfadd3f5d4fb7a3b539ee658361909bea1e64d25385b5bbb97e4a1d0c
-
-Local images
-[yitao@yitao-dev ~]$ sudo docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
-debian-jessie       latest              79911aebfadd        About a minute ago   274.8 MB
-registry            2                   b4ad0b763f11        2 weeks ago          548.6 MB</code></pre><h3 id="Upload-Customize-Image-to-Private-Registry"><a href="#Upload-Customize-Image-to-Private-Registry" class="headerlink" title="Upload Customize Image to Private Registry"></a>Upload Customize Image to Private Registry</h3><hr>
-<pre><code># Tag the image so that it points to your registry
-sudo docker tag debian-jessie localhost:5000/debian:jessie
-
-# Push it
-[yitao@yitao-dev chroot]$ sudo docker push localhost:5000/debian:jessie
-The push refers to a repository [localhost:5000/debian] (len: 1)
-79911aebfadd: Image already exists 
-Digest: sha256:a7769244195e4230119e8753acd015f3e2804321eb21fcadb200910cb9d93394
-[yitao@yitao-dev chroot]$     
-
-# Pull it back 
-[yitao@yitao-dev ~]$ sudo docker pull localhost:5000/debian:jessie
-jessie: Pulling from localhost:5000/debian
-79911aebfadd: Already exists 
-Digest: sha256:a7769244195e4230119e8753acd015f3e2804321eb21fcadb200910cb9d93394
-Status: Image is up to date for localhost:5000/debian:jessie
-
-#start a new image
-[yitao@yitao-dev ~]$ sudo docker run --rm --name=jessie localhost:5000/debian:jessie cat /etc/issue.net
-Debian GNU/Linux 8</code></pre><p>Thank you.</p>
-
+        <h1 id="Configuration-For-Single-Host"><a href="#Configuration-For-Single-Host" class="headerlink" title="Configuration For Single Host"></a>Configuration For Single Host</h1><h5 id="The-guide-is-used-for-setup-a-single-node-powerdns-with-mysql-backend-under-openstack"><a href="#The-guide-is-used-for-setup-a-single-node-powerdns-with-mysql-backend-under-openstack" class="headerlink" title="The guide is used for setup a single node powerdns with mysql backend under openstack"></a>The guide is used for setup a single node powerdns with mysql backend under openstack</h5>
+        <p class="article-more-link">
+            <a href="/2015/05/06/powerdns-configuration-for-single-node/#more">Read More</a>
+        </p>
     
     </div>
     
@@ -704,53 +337,116 @@ Debian GNU/Linux 8</code></pre><p>Thank you.</p>
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2015-07-10-sudo-witout-password-redhat/" itemprop="url"></a>
+            <a href="/2014/12/17/how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/" itemprop="url">How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Sysadmin/">Sysadmin</a>
+            <time datetime="2014-12-16T16:00:00.000Z" itemprop="datePublished">Dec 17 2014</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 237 words)
+            2 minutes read (About 369 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>This introduction will outline specifically  how to run sudo without password under redhat OS.</p>
+        <h4 id="Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature"><a href="#Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature" class="headerlink" title="Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature."></a>Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature.</h4>
+        <p class="article-more-link">
+            <a href="/2014/12/17/how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/" itemprop="url">How To Change Xenserver Default Installtion Partitions</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-11-30T16:00:00.000Z" itemprop="datePublished">Dec 1 2014</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 431 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="修改root磁盘大小"><a href="#修改root磁盘大小" class="headerlink" title="修改root磁盘大小"></a>修改root磁盘大小</h2><pre><code>开机选择F2高级模式，输入shell，
+vi /opt/xensource/installer/constants.py
+DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
+输入EXIT</code></pre><h2 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h2><pre><code>XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu-DM的进程，占用大约6M的内存空间，
+因此在虚拟机数量较多的情况下，我们需要增大Domain0内存以便支持更多的虚拟机运行。
+由于Domain0是32位操作系统，故支持的最大内存量为4GB。
+更改Domain0内存的方法参考CTX124806-XenServerSingleServerScalabilitywithXenDesktop提到的例子，
+更改/boot/exlinux.conf下包含dom0_mem=2940M的Xen命令行。</code></pre>
+        <p class="article-more-link">
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1807 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##Cloudstack Debug a live agent<br>login into ssvm, either console proxy or ssh(port 3922)<br>kill all the processes named as(run.sh/_run.sh, and java)</p>
 <ol>
-<li>First you need to check what privileges you have now, run command as belows</li>
+<li>cd /usr/local/cloud/systemvm</li>
+<li>add parameters “-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787” after “java “ in the last line of _run.sh</li>
+<li>./run.sh, the java agent will start, with debug port 8787 is listened on.</li>
+<li>allow port 8787 in ssvm, “iptables -I INPUT -i eth1 -p tcp -m state –state NEW -m tcp –dport 8787 -j ACCEPT”, either eth1 or eth2 is ok.</li>
 </ol>
-<p>[yitao@yitao-dev bumblebee]$ <strong><em>sudo -l</em></strong></p>
-<p>Matching Defaults entries for yitao on this host:<br>    requiretty, !visiblepw, always_set_home, env_reset, env_keep=”COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS”, env_keep+=”MAIL<br>    PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE”, env_keep+=”LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES”,<br>    env_keep+=”LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE”, env_keep+=”LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY”,<br>    secure_path=/sbin:/bin:/usr/sbin:/usr/bin</p>
-<p>Runas and Command-specific defaults for yitao:<br>    Defaults&gt;root !requiretty</p>
-<p>User yitao may run the following commands on this host:<br>    (ALL) ALL<br>    (root) NOPASSWD: /usr/bin/usb-luks-encrypt<br>    (root) NOPASSWD: /usr/bin/imagewriter</p>
-<p>2.Add the privilege, run the command as follows</p>
-<p>[yitao@yitao-dev bumblebee]$ sudo visudo</p>
-<p>   <em>INPUT YOUR ROOT PASSWORD TO ACCESS THE VISUDO FILE</em><br>   Then add a record to the last line, to be specific, after the last line which says</p>
-<pre><code>#includedir /etc/sudoers.d 
-
-...
-
-Defaults&gt;root !requiretty # Line required by usb usb-luks-encrypt
-ALL ALL=(root) NOPASSWD: /usr/bin/usb-luks-encrypt
-ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
-***YOUR_NAME_HERE*** ALL=(ALL) NOPASSWD: ALL</code></pre><p>exit.</p>
-<p>Now you can sudo command without password.</p>
-<blockquote>
-<p>Written with <a href="https://stackedit.io/" target="_blank" rel="noopener">StackEdit</a>.</p>
-</blockquote>
-
+        <p class="article-more-link">
+            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/#more">Read More</a>
+        </p>
     
     </div>
     
@@ -764,224 +460,33 @@ ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2015-07-07-using-stackedit-for-github-markdown/" itemprop="url">Using Stackedit for Github Markdown</a>
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T01:16:05.903Z" itemprop="datePublished">Jul 19 2019</time>
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
         </span>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/editor/">editor</a>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            9 minutes read (About 1308 words)
+            5 minutes read (About 712 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>.</p>
-<h1 id="Welcome-to-StackEdit"><a href="#Welcome-to-StackEdit" class="headerlink" title="Welcome to StackEdit!"></a>Welcome to StackEdit!</h1><p>Hey! I’m your first Markdown document in <strong>StackEdit</strong>[^stackedit]. Don’t delete me, I’m very helpful! I can be recovered anyway in the <strong>Utils</strong> tab of the <i class="icon-cog"></i> <strong>Settings</strong> dialog.</p>
-<hr>
-<h2 id="Documents"><a href="#Documents" class="headerlink" title="Documents"></a>Documents</h2><p>StackEdit stores your documents in your browser, which means all your documents are automatically saved locally and are accessible <strong>offline!</strong></p>
-<blockquote>
-<p><strong>Note:</strong></p>
-</blockquote>
-<blockquote>
-<ul>
-<li>StackEdit is accessible offline after the application has been loaded for the first time.</li>
-<li>Your local documents are not shared between different browsers or computers.</li>
-<li>Clearing your browser’s data may <strong>delete all your local documents!</strong> Make sure your documents are synchronized with <strong>Google Drive</strong> or <strong>Dropbox</strong> (check out the <a href="#synchronization"><i class="icon-refresh"></i> Synchronization</a> section).</li>
-</ul>
-</blockquote>
-<h4 id="Create-a-document"><a href="#Create-a-document" class="headerlink" title=" Create a document"></a><i class="icon-file"></i> Create a document</h4><p>The document panel is accessible using the <i class="icon-folder-open"></i> button in the navigation bar. You can create a new document by clicking <i class="icon-file"></i> <strong>New document</strong> in the document panel.</p>
-<h4 id="Switch-to-another-document"><a href="#Switch-to-another-document" class="headerlink" title=" Switch to another document"></a><i class="icon-folder-open"></i> Switch to another document</h4><p>All your local documents are listed in the document panel. You can switch from one to another by clicking a document in the list or you can toggle documents using <kbd>Ctrl+[</kbd> and <kbd>Ctrl+]</kbd>.</p>
-<h4 id="Rename-a-document"><a href="#Rename-a-document" class="headerlink" title=" Rename a document"></a><i class="icon-pencil"></i> Rename a document</h4><p>You can rename the current document by clicking the document title in the navigation bar.</p>
-<h4 id="Delete-a-document"><a href="#Delete-a-document" class="headerlink" title=" Delete a document"></a><i class="icon-trash"></i> Delete a document</h4><p>You can delete the current document by clicking <i class="icon-trash"></i> <strong>Delete document</strong> in the document panel.</p>
-<h4 id="Export-a-document"><a href="#Export-a-document" class="headerlink" title=" Export a document"></a><i class="icon-hdd"></i> Export a document</h4><p>You can save the current document to a file by clicking <i class="icon-hdd"></i> <strong>Export to disk</strong> from the <i class="icon-provider-stackedit"></i> menu panel.</p>
-<blockquote>
-<p><strong>Tip:</strong> Check out the <a href="#publish-a-document"><i class="icon-upload"></i> Publish a document</a> section for a description of the different output formats.</p>
-</blockquote>
-<hr>
-<h2 id="Synchronization"><a href="#Synchronization" class="headerlink" title="Synchronization"></a>Synchronization</h2><p>StackEdit can be combined with <i class="icon-provider-gdrive"></i> <strong>Google Drive</strong> and <i class="icon-provider-dropbox"></i> <strong>Dropbox</strong> to have your documents saved in the <em>Cloud</em>. The synchronization mechanism takes care of uploading your modifications or downloading the latest version of your documents.</p>
-<blockquote>
-<p><strong>Note:</strong></p>
-</blockquote>
-<blockquote>
-<ul>
-<li>Full access to <strong>Google Drive</strong> or <strong>Dropbox</strong> is required to be able to import any document in StackEdit. Permission restrictions can be configured in the settings.</li>
-<li>Imported documents are downloaded in your browser and are not transmitted to a server.</li>
-<li>If you experience problems saving your documents on Google Drive, check and optionally disable browser extensions, such as Disconnect.</li>
-</ul>
-</blockquote>
-<h4 id="Open-a-document"><a href="#Open-a-document" class="headerlink" title=" Open a document"></a><i class="icon-refresh"></i> Open a document</h4><p>You can open a document from <i class="icon-provider-gdrive"></i> <strong>Google Drive</strong> or the <i class="icon-provider-dropbox"></i> <strong>Dropbox</strong> by opening the <i class="icon-refresh"></i> <strong>Synchronize</strong> sub-menu and by clicking <strong>Open from…</strong>. Once opened, any modification in your document will be automatically synchronized with the file in your <strong>Google Drive</strong> / <strong>Dropbox</strong> account.</p>
-<h4 id="Save-a-document"><a href="#Save-a-document" class="headerlink" title=" Save a document"></a><i class="icon-refresh"></i> Save a document</h4><p>You can save any document by opening the <i class="icon-refresh"></i> <strong>Synchronize</strong> sub-menu and by clicking <strong>Save on…</strong>. Even if your document is already synchronized with <strong>Google Drive</strong> or <strong>Dropbox</strong>, you can export it to a another location. StackEdit can synchronize one document with multiple locations and accounts.</p>
-<h4 id="Synchronize-a-document"><a href="#Synchronize-a-document" class="headerlink" title=" Synchronize a document"></a><i class="icon-refresh"></i> Synchronize a document</h4><p>Once your document is linked to a <i class="icon-provider-gdrive"></i> <strong>Google Drive</strong> or a <i class="icon-provider-dropbox"></i> <strong>Dropbox</strong> file, StackEdit will periodically (every 3 minutes) synchronize it by downloading/uploading any modification. A merge will be performed if necessary and conflicts will be detected.</p>
-<p>If you just have modified your document and you want to force the synchronization, click the <i class="icon-refresh"></i> button in the navigation bar.</p>
-<blockquote>
-<p><strong>Note:</strong> The <i class="icon-refresh"></i> button is disabled when you have no document to synchronize.</p>
-</blockquote>
-<h4 id="Manage-document-synchronization"><a href="#Manage-document-synchronization" class="headerlink" title=" Manage document synchronization"></a><i class="icon-refresh"></i> Manage document synchronization</h4><p>Since one document can be synchronized with multiple locations, you can list and manage synchronized locations by clicking <i class="icon-refresh"></i> <strong>Manage synchronization</strong> in the <i class="icon-refresh"></i> <strong>Synchronize</strong> sub-menu. This will let you remove synchronization locations that are associated to your document.</p>
-<blockquote>
-<p><strong>Note:</strong> If you delete the file from <strong>Google Drive</strong> or from <strong>Dropbox</strong>, the document will no longer be synchronized with that location.</p>
-</blockquote>
-<hr>
-<h2 id="Publication"><a href="#Publication" class="headerlink" title="Publication"></a>Publication</h2><p>Once you are happy with your document, you can publish it on different websites directly from StackEdit. As for now, StackEdit can publish on <strong>Blogger</strong>, <strong>Dropbox</strong>, <strong>Gist</strong>, <strong>GitHub</strong>, <strong>Google Drive</strong>, <strong>Tumblr</strong>, <strong>WordPress</strong> and on any SSH server.</p>
-<h4 id="Publish-a-document"><a href="#Publish-a-document" class="headerlink" title=" Publish a document"></a><i class="icon-upload"></i> Publish a document</h4><p>You can publish your document by opening the <i class="icon-upload"></i> <strong>Publish</strong> sub-menu and by choosing a website. In the dialog box, you can choose the publication format:</p>
-<ul>
-<li>Markdown, to publish the Markdown text on a website that can interpret it (<strong>GitHub</strong> for instance),</li>
-<li>HTML, to publish the document converted into HTML (on a blog for example),</li>
-<li>Template, to have a full control of the output.</li>
-</ul>
-<blockquote>
-<p><strong>Note:</strong> The default template is a simple webpage wrapping your document in HTML format. You can customize it in the <strong>Advanced</strong> tab of the <i class="icon-cog"></i> <strong>Settings</strong> dialog.</p>
-</blockquote>
-<h4 id="Update-a-publication"><a href="#Update-a-publication" class="headerlink" title=" Update a publication"></a><i class="icon-upload"></i> Update a publication</h4><p>After publishing, StackEdit will keep your document linked to that publication which makes it easy for you to update it. Once you have modified your document and you want to update your publication, click on the <i class="icon-upload"></i> button in the navigation bar.</p>
-<blockquote>
-<p><strong>Note:</strong> The <i class="icon-upload"></i> button is disabled when your document has not been published yet.</p>
-</blockquote>
-<h4 id="Manage-document-publication"><a href="#Manage-document-publication" class="headerlink" title=" Manage document publication"></a><i class="icon-upload"></i> Manage document publication</h4><p>Since one document can be published on multiple locations, you can list and manage publish locations by clicking <i class="icon-upload"></i> <strong>Manage publication</strong> in the <i class="icon-provider-stackedit"></i> menu panel. This will let you remove publication locations that are associated to your document.</p>
-<blockquote>
-<p><strong>Note:</strong> If the file has been removed from the website or the blog, the document will no longer be published on that location.</p>
-</blockquote>
-<hr>
-<h2 id="Markdown-Extra"><a href="#Markdown-Extra" class="headerlink" title="Markdown Extra"></a>Markdown Extra</h2><p>StackEdit supports <strong>Markdown Extra</strong>, which extends <strong>Markdown</strong> syntax with some nice features.</p>
-<blockquote>
-<p><strong>Tip:</strong> You can disable any <strong>Markdown Extra</strong> feature in the <strong>Extensions</strong> tab of the <i class="icon-cog"></i> <strong>Settings</strong> dialog.</p>
-</blockquote>
-<blockquote>
-<p><strong>Note:</strong> You can find more information about <strong>Markdown</strong> syntax <a href="http://daringfireball.net/projects/markdown/syntax" title="Markdown" target="_blank" rel="noopener">here</a> and <strong>Markdown Extra</strong> extension <a href="https://github.com/jmcmanus/pagedown-extra" title="Pagedown Extra" target="_blank" rel="noopener">here</a>.</p>
-</blockquote>
-<h3 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h3><p><strong>Markdown Extra</strong> has a special syntax for tables:</p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Computer</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>Phone</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>Pipe</td>
-<td>$1</td>
-</tr>
-</tbody></table>
-<p>You can specify column alignment with one or two colons:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Item</th>
-<th align="right">Value</th>
-<th align="center">Qty</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Computer</td>
-<td align="right">$1600</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="left">Phone</td>
-<td align="right">$12</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="left">Pipe</td>
-<td align="right">$1</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<h3 id="Definition-Lists"><a href="#Definition-Lists" class="headerlink" title="Definition Lists"></a>Definition Lists</h3><p><strong>Markdown Extra</strong> has a special syntax for definition lists too:</p>
-<dl><dt>Term 1<br>Term 2<br>:   Definition A</dt><dd>Definition B</dd></dl><p>Term 3</p>
-<p>:   Definition C</p>
-<p>:   Definition D</p>
-<pre><code>&gt; part of definition D</code></pre><h3 id="Fenced-code-blocks"><a href="#Fenced-code-blocks" class="headerlink" title="Fenced code blocks"></a>Fenced code blocks</h3><p>GitHub’s fenced code blocks are also supported with <strong>Highlight.js</strong> syntax highlighting:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Foo</span><br><span class="line">var bar = 0;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>Tip:</strong> To use <strong>Prettify</strong> instead of <strong>Highlight.js</strong>, just configure the <strong>Markdown Extra</strong> extension in the <i class="icon-cog"></i> <strong>Settings</strong> dialog.</p>
-</blockquote>
-<blockquote>
-<p><strong>Note:</strong> You can find more information:</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>about <strong>Prettify</strong> syntax highlighting <a href="https://code.google.com/p/google-code-prettify/" target="_blank" rel="noopener">here</a>,</li>
-<li>about <strong>Highlight.js</strong> syntax highlighting <a href="http://highlightjs.org/" target="_blank" rel="noopener">here</a>.</li>
-</ul>
-</blockquote>
-<h3 id="Footnotes"><a href="#Footnotes" class="headerlink" title="Footnotes"></a>Footnotes</h3><p>You can create footnotes like this[^footnote].</p>
-<p>  [^footnote]: Here is the <em>text</em> of the <strong>footnote</strong>.</p>
-<h3 id="SmartyPants"><a href="#SmartyPants" class="headerlink" title="SmartyPants"></a>SmartyPants</h3><p>SmartyPants converts ASCII punctuation characters into “smart” typographic punctuation HTML entities. For example:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>ASCII</th>
-<th>HTML</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Single backticks</td>
-<td><code>&#39;Isn&#39;t this fun?&#39;</code></td>
-<td>‘Isn’t this fun?’</td>
-</tr>
-<tr>
-<td>Quotes</td>
-<td><code>&quot;Isn&#39;t this fun?&quot;</code></td>
-<td>“Isn’t this fun?”</td>
-</tr>
-<tr>
-<td>Dashes</td>
-<td><code>-- is en-dash, --- is em-dash</code></td>
-<td>– is en-dash, — is em-dash</td>
-</tr>
-</tbody></table>
-<h3 id="Table-of-contents"><a href="#Table-of-contents" class="headerlink" title="Table of contents"></a>Table of contents</h3><p>You can insert a table of contents using the marker <code>[TOC]</code>:</p>
-<p>[TOC]</p>
-<h3 id="MathJax"><a href="#MathJax" class="headerlink" title="MathJax"></a>MathJax</h3><p>You can render <em>LaTeX</em> mathematical expressions using <strong>MathJax</strong>, as on <a href="http://math.stackexchange.com/" target="_blank" rel="noopener">math.stackexchange.com</a>:</p>
-<p>The <em>Gamma function</em> satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral</p>
-<p>$$<br>\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt,.<br>$$</p>
-<blockquote>
-<p><strong>Tip:</strong> To make sure mathematical expressions are rendered properly on your website, include <strong>MathJax</strong> into your template:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>Note:</strong> You can find more information about <strong>LaTeX</strong> mathematical expressions <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">here</a>.</p>
-</blockquote>
-<h3 id="UML-diagrams"><a href="#UML-diagrams" class="headerlink" title="UML diagrams"></a>UML diagrams</h3><p>You can also render sequence diagrams like this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br></pre></td></tr></table></figure>
-
-<p>And flow charts like this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: Start</span><br><span class="line">e=&gt;end</span><br><span class="line">op=&gt;operation: My Operation</span><br><span class="line">cond=&gt;condition: Yes or No?</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>Note:</strong> You can find more information:</p>
-</blockquote>
-<blockquote>
-<ul>
-<li>about <strong>Sequence diagrams</strong> syntax <a href="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="noopener">here</a>,</li>
-<li>about <strong>Flow charts</strong> syntax <a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">here</a>.</li>
-</ul>
-</blockquote>
-<h3 id="Support-StackEdit"><a href="#Support-StackEdit" class="headerlink" title="Support StackEdit"></a>Support StackEdit</h3><p><a href="https://monetizejs.com/authorize?client_id=ESTHdCYOi18iLhhO&summary=true" target="_blank" rel="noopener"><img src="https://cdn.monetizejs.com/resources/button-32.png" alt></a></p>
-<p>  [^stackedit]: <a href="https://stackedit.io/" target="_blank" rel="noopener">StackEdit</a> is a full-featured, open-source Markdown editor based on PageDown, the Markdown library used by Stack Overflow and the other Stack Exchange sites.</p>
-
+        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+        <p class="article-more-link">
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
+        </p>
     
     </div>
     
@@ -1008,8 +513,6 @@ ALL ALL=(root) NOPASSWD: /usr/bin/imagewriter
         <li><a class="pagination-link" href="/page/2/">2</a></li>
         
         <li><a class="pagination-link" href="/page/3/">3</a></li>
-        
-        <li><a class="pagination-link" href="/page/4/">4</a></li>
         
     </ul>
 </nav>

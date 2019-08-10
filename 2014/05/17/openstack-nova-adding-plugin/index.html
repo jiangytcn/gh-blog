@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>OpenStack Nova 添加扩展API流程 - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content>
+
+
+
+
+
+    <meta name="description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+<meta name="keywords" content="Nova">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenStack Nova 添加扩展API流程">
+<meta property="og:url" content="http://www.ystacks.com/2014/05/17/openstack-nova-adding-plugin/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-09T23:10:54.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenStack Nova 添加扩展API流程">
+<meta name="twitter:description" content="例子中涉及到SQLAlchemy 得相关操作，可以参考 上一随笔 Openstack 中规定，扩展openstack得api有两种方式  创建新的WSGI 资源   扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）   这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    ystacks
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            OpenStack Nova 添加扩展API流程
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-16T16:00:00.000Z" itemprop="datePublished">May 17 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1241 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 <a href="/openstack/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">上一随笔</a></p>
+<p>Openstack 中规定，扩展openstack得api有两种方式</p>
+<blockquote>
+<p>创建新的WSGI 资源</p>
+</blockquote>
+<blockquote>
+<p>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</p>
+</blockquote>
+<blockquote>
+<p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>在一个API模块中，可以有一个或多个得资源和扩展控制器。</p>
+<p>根据osapi_compute_extension 得配置， ExtensionManager 由nova/api/openstack/compute/contrib/ 下的<strong>init</strong>.py 文件加载标准的或者新的扩展。</p>
+<p>所以扩展的api统一写在nova/api/openstack/compute/contrib/ 目录下</p>
+<p>如本例子中得 nova/api/openstack/compute/contrib/documents.py</p>
+<p>##扩展API流程</p>
+<p>实现控制器，完成对资源的基本操作，如增删改查和其他一些用户自定义的RESTful资源操作；</p>
+<p>实现一个extensions.ExtensionDescriptor的子类， 并实现get_resources 或者 get_controller_extensions，来建立新的资源或扩展资源控制器（即改写原有的业务逻辑）。具体实现哪个方法这取决于是否要修改原有的RESTFul业务逻辑， 或者说两个功能都需要；</p>
+<p>将控制器和扩展的资源类，写如新创建的的资源中； 规范是资源类是模块（问家名）首字母大写，这样做的目的是使nova.api.openstack.extensions.load_standard_extensions这个类能够是别该新资源，并予以加载；</p>
+<p>当添加新的资源（extensions.ResourceExtension的子类）的时候，如果想要去除掉 {tenent_id} 链接，则需要编写自定义的路由访问规则（本例子中没有涉及）</p>
+<p>###documents.py 实现</p>
+<pre><code>1 # vim: tabstop=4 shiftwidth=4 softtabstop=4
+ 2
+ 3 # Author:  Yitao Jiang
+ 4 # Email:  willierjyt@gmail.com
+ 5
+ 6 import webob
+ 7 from webob import exc
+ 8
+ 9 from nova import db
+10 from nova import exception
+11 from nova.api.openstack import extensions
+12 authorize = extensions.extension_authorizer('compute', 'documents')
+13
+14 # 请求控制器， 即处理对资源的请求，予以响应
+15 class DocumentsController():
+16         """the Documents API Controller declearation"""
+17
+18         def index(self, req):
+19             import pdb; pdb.set_trace()
+20             documents = {}
+21             context = req.environ['nova.context']
+22             authorize(context)
+23
+24             documents["key"] =  "helloworld"
+25             return documents
+26
+27         def create(self, req):
+28             documents = {}
+29             context = req.environ['nova.context']
+30             authorize(context)
+31
+32             documents["key"] =  "helloworld"
+33             return documents
+34
+35         def show(self, req, id):
+37             documents = {}
+38             context = req.environ['nova.context']
+39             authorize(context)
+40
+41             try:
+42                 document = db.document_get(context, id)
+43             except :
+44                 raise webob.exc.HTTPNotFound(explanation="Document not found")
+45
+46             documents["document"] = document
+47             return documents
+48
+49         def update(self, req):
+50             documents = {}
+51             context = req.environ['nova.context']
+52             authorize(context)
+53
+54             documents["key"] =  "helloworld"
+55             return documents
+56
+57         def delete(self, req, id):
+58             return webob.Response(status_int=202)
+59 # 根据命名规范， 模块（python源文件）中的类名是模块名的首字母大写
+60 class Documents(extensions.ExtensionDescriptor):
+61         """Documents ExtensionDescriptor implementation"""
+62
+63         name = "documents"
+64         alias = "os-documents"
+65         namespace = "www.www.com"
+66         updated = "2013-05-19T00:00:00+00:00"
+67
+68         def get_resources(self):
+69             """register the new Documents Restful resource"""
+70
+71             resources = [extensions.ResourceExtension('os-documents',
+72                 DocumentsController())
+73                 ]
+74
+75             return resources
+</code></pre>
+
+<p>在之后可以由以下几种方式来操作documents 资源</p>
+<ul>
+<li>GET v2/{tenant_id}/ os-documents</li>
+<li>POST v2/{tenant_id}/ os-documents </li>
+<li>GET v2/{tenant_id}/ os-documents/{document_id}</li>
+<li>PUT v2/{tenant_id}/ os-documents/{document_id}</li>
+<li>DELETE v2/{tenant_id}/ os-documents/{document_id}</li>
+</ul>
+<p>###扩展api时所修改的文件</p>
+<pre><code>
+1  nova/db/api.py
+2  nova/db/sqlalchemy/api.py
+3  nova/db/sqlalchemy/models.py
+</code></pre>
+
+<p>nova/db/api.py 文件内容</p>
+<p>####数据操作API提供的方法，由Nova API 根据请求进行相应的操作， 由上面的请求控制器进行调用</p>
+<pre><code>
+1 def document_get(context, document_id):
+2        """Get a document or raise if it does not exist."""
+3        return IMPL.document_get(context, document_id)
+
+nova/db/sqlalchemy/api.py 文件内容
+
+# 完成通过由SQLAlchemy操作数据库
+
+ 1  @require_admin_context
+ 2  def document_get(context, document_id):
+ 3
+ 4        session = get_session()
+ 5        with session.begin():
+ 6                query = model_query(context, models.Document, session=session, read_deleted="yes").filter_by(id=document_id)
+ 7
+ 8                result = query.first()
+ 9
+10                if not result or not query:
+11                        raise Exception()
+12
+13                return result
+SQLAlchemy 中定义的资源
+
+nova/db/sqlalchemy/models.py（具体使用见上一 篇日志）
+
+1 class Document(BASE, NovaBase):
+2        """Represents a document of customized extension."""
+3
+4        __tablename__ = 'documents'
+5        id = Column(Integer, primary_key=True)
+6        title = Column(String(255))
+</code></pre>
+
+<p>至此，添加添加新的nova API功能完成,重起api服务</p>
+<p>调用 curl -v -X GET -H ‘X-Auth-Token: 8e5971b3ce0a4f039b895681e7c29361’ <a href="http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/extensions/os-documents" target="_blank" rel="noopener">http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/extensions/os-documents</a>  | python -mjson.tool命令，<br>可以看到返回，扩展添加成功</p>
+<pre><code>
+ 1 {
+ 2     "extension": {
+ 3         "alias": "os-documents",
+ 4         "description": "Documents ExtensionDescriptor implementation",
+ 5         "links": [],
+ 6         "name": "documents",
+ 7         "namespace": "www.www.com",
+ 8         "updated": "2013-05-19T00:00:00+00:00"
+ 9     }
+10 }
+
+数据库添加表documents， 结构如下
+
+mysql> desc documents;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title      | varchar(255) | NO   |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
+| deleted_at | datetime     | YES  |     | NULL    |                |
+| deleted    | int(11)      | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+6 rows in set (0.05 sec)
+
+mysql> select * from documents;
++----+----------------+------------+------------+------------+---------+
+| id | title          | created_at | updated_at | deleted_at | deleted |
++----+----------------+------------+------------+------------+---------+
+|  1 | abcdefgiifeife | NULL       | NULL       | NULL       |    NULL |
+|  2 | 1qaz2wsx       | NULL       | NULL       | NULL       |    NULL |
++----+----------------+------------+------------+------------+---------+
+2 rows in set (0.03 sec)
+
+ 1 curl  -X GET -H 'X-Auth-Token: 8e5971b3ce0a4f039b895681e7c29361' http://127.0.0.1:8774/v2/9b5903dd2d3443d8bb75ddffac27239a/os-documents/1  | python -mjson.tool
+ 2 返回结果
+ 3 {
+ 4     "document": {
+ 5         "created_at": null,
+ 6         "deleted": null,
+ 7         "deleted_at": null,
+ 8         "id": 1,
+ 9         "title": "abcdefgiifeife",
+10         "updated_at": null
+11     }
+12 }
+</code></pre>
+<p>至此新添加的资源，API 扩展成功， 可以在此基础上进行进一步的修改，完成需求</p>
+<p>###参考文档：</p>
+<ol>
+<li><a href="http://docs.openstack.org/developer/nova/devref/addmethod.openstackapi.html" target="_blank" rel="noopener">Adding a Method to the OpenStack API</a></li>
+</ol>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Nova/">#Nova</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/">VM Failes to start with error: VDI not available</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://www.ystacks.com/2014/05/17/openstack-nova-adding-plugin/';
+        this.page.identifier = '2014/05/17/openstack-nova-adding-plugin/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

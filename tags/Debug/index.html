@@ -120,12 +120,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/07/19/2014-02-12-setting-debug-environment-of-cloudstack-in-production/" itemprop="url">Setting Debug Environment Of Cloudstack In Production</a>
+            <a href="/2014/02/12/setting-debug-environment-of-cloudstack-in-production/" itemprop="url">Setting Debug Environment Of Cloudstack In Production</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-07-19T02:02:35.980Z" itemprop="datePublished">Jul 19 2019</time>
+            <time datetime="2014-02-11T16:00:00.000Z" itemprop="datePublished">Feb 12 2014</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -137,7 +137,7 @@
         <span class="column is-narrow">
             
             
-            a minute read (About 183 words)
+            a minute read (About 184 words)
         </span>
         
     </div>
@@ -151,30 +151,10 @@
 36     -Djava.util.logging.config.file="${CATALINA_BASE}/conf/logging.properties" \
 37     -Djava.util.logging.manager="org.apache.juli.ClassLoaderLogManager" \
 38     -server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 \
-</code></pre>
-
-<p>Now configure you eclipse to the server, go Debugging.</p>
-</li>
-</ul>
-<h3 id="Building-Single-Project"><a href="#Building-Single-Project" class="headerlink" title="Building Single Project"></a>Building Single Project</h3><ul>
-<li><strong>Some reasons you modified a project, for instance cloud-server, and you want your new code to be taken into effect, you should build a new jar file, and then applying the patch.</strong><pre><code>cd ~/cloudstack4.1.0
-mvn clean
-mvn -pl :cloud-server
-</code></pre>
-
-</li>
-</ul>
-<p>After a while when you saw something like below, then you got a new patch.</p>
-<pre><code> ------------------------------------------------------------------------
- BUILD SUCCESS
- ------------------------------------------------------------------------
- Total time: 3:01.915s
- Finished at: Wed Feb 12 14:56:24 CST 2014
- Final Memory: 26M/233M
-</code></pre>
-
-<p>And replace the old cloud-server-4.1.0.jar with new one , restart cloudstack-management, go hacking.</p>
-
+</code></pre></li></ul>
+        <p class="article-more-link">
+            <a href="/2014/02/12/setting-debug-environment-of-cloudstack-in-production/#more">Read More</a>
+        </p>
     
     </div>
     

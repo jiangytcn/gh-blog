@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>cloud storage swift ceph - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content>
+
+
+
+
+
+    <meta name="description" content="###概述许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类 块存储对于云环境下是重要的一部分，主要用于存储虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cloud storage swift ceph">
+<meta property="og:url" content="http://www.ystacks.com/2014/06/03/cloud-storage-swift-ceph/index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="###概述许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类 块存储对于云环境下是重要的一部分，主要用于存储虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://jiangyt-github-io.qiniudn.com/Swift_Arch.png">
+<meta property="og:image" content="http://jiangyt-github-io.qiniudn.com/Ceph_arch.png">
+<meta property="og:updated_time" content="2019-08-09T23:10:54.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cloud storage swift ceph">
+<meta name="twitter:description" content="###概述许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类 块存储对于云环境下是重要的一部分，主要用于存储虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.">
+<meta name="twitter:image" content="http://jiangyt-github-io.qiniudn.com/Swift_Arch.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    ystacks
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            cloud storage swift ceph
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-06-02T16:00:00.000Z" itemprop="datePublished">Jun 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Storage/">Storage</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            14 minutes read (About 2064 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>###<em>概述</em><br>许多人对对象存储与像ISCSI、FC这类块存储混同，但是他们之间存在很大的差别。像fc这类的块存储只能提供块设备如系统中的sdb，对象存储只能通过特殊的客户端来访问，像百度网这一类</p>
+<p>块存储对于云环境下是重要的一部分，<br>主要用于存储<br>虚拟机的镜像文件或者存储用户的文件，包括所有进行备份的数据，文件，图像等。对象存储的主要优势在于比企业级的商业存储更加的节约，并且保证规模扩展性和数据的冗余.</p>
+<a id="more"></a>
+
+<p>###<em>Openstack Swift</em></p>
+<p>###软件架构</p>
+<p>OpenStack 对象存储(Swift)利用标准服务器组建集群，提供了冗余的，可扩展的分布式对象存储。分布式意味着数据的每一分份在集群中的存储节点上复制。复制的份数是可配置的但是对于生产环境最少是3份。</p>
+<p>Swift 中的数据可以通过REST<br>接口访问，根据需要可以对存储的数据进行相应的操作。<br>每一个对象的访问路径包含三个元素：<br>/account/container/object<br>object存储了用户的实际的输入的数据</p>
+<p>Accounts and containers提供了组织对象的方式，不允许嵌套的accounts 和 containers。</p>
+<p>Swift 软件以组件的方式进行开发，包括account servers, container servers, 和object servers 除此之外，proxy server哟用于接受用户的api请求<br>Account servers 对账户提供container listings的操作 Container servers 对于一个给定的容器提供object listings 的操作 Object servers返回数据本身</p>
+<p>###<em>Rings</em></p>
+<p>由于用户的数据在集群中分布，所以非常的有必要记录数据存放的位置。 Swift通过维护一个叫做_rings_的数据结构来完成数据的定位操作。Rings 在集群中的各个节点复制包括存储节点以及代理节点，这种方式使得swift避免了大部分存储系统依赖于集中单一的meta date服务器的弊端。由于ring文件存储的是集群中node的关系，而不是一个集中的数据map，所以在存储或者删除object是，不需要更新ring文件.这样有益于IO操作，极大程度的减少了访问的带来的不便</p>
+<p>对于acount数据库、container数据库、和单独的object都有独立的rings文件，但是都已相同的方式进行工作。简单来说就是，对于一个给定的Account，container，或者object，ring返回的是它在物理存储节点上的位置，从技术的角度来说，这一过程包括<a href="http://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">一致性hash算法</a>。在mirantis上有对ring工作原理的相关介绍 <a href="http://mirantis.blogspot.com/2012/02/under-hood-of-swift-ring.html" target="_blank" rel="noopener">under-hood-of-swift-ring</a> 和 <a href="https://julien.danjou.info/blog/2012/openstack-swift-consistency-analysis" target="_blank" rel="noopener">openstack-swift-consistency-analysis</a>.</p>
+<p><img src="http://jiangyt-github-io.qiniudn.com/Swift_Arch.png" alt="Swift-architecture"></p>
+<p>###<em>Proxy Server</em><br>代理服务器暴露出public API并且接受对存储实体的请求。对于每一个请求，代理节点都会通过ring文件查找account，container以及object所在的物理位置。根据位置将请求转发.Objects 在代理节点和客户端间直接的以流的的方式进行传递，并且没有缓存</p>
+<p>###<em>Object server</em><br>这是一个简单的blob的存储服务器，可以存储数据、查询、删除数据。对象以二进制文件的方式在存储节点中，对象的metadata信息存储在xattrs（file’s extended attributes）上，这就要求存储object的节点必须支持xattrs</p>
+<p>每一个object利用对象名的hash值以及操作的时间戳来进行存储路径的存储，最新的写操作会在记录中的最新位置（包括在分布式的场景下，创建的请求需要全局的同步时钟）以保证响应对象的最新的一个版本。删除操作也会记录为文件的一个版本，这就保证了已经删除的对象在集群间正确的复制，老的版本不会出现在用户的请求中</p>
+<p>###<em>Container server</em><br>Container 服务器用于查询object信息（listings）。并不知道具体的object的位置，但是对于一个给定的container可以查询到其包含的objects。listings 数据存储在sqlite3数据库中，并且向object一样，在集群间复制。象object总数、container的存储使用情况的统计值都会记录下来.</p>
+<p>在所服务的节点上，会有一个特殊的进程swift-container-updater 不间断的想container数据库中填充数据，在一个container中的数据变化时，并对其数据库进行更新。通过ring来定位需要更新的account。</p>
+<p>###<em>Account server</em><br>与container server雷系，但是是处理container listings 的操作.</p>
+<p>###<em>Features and functions</em></p>
+<ul>
+<li>Replication: The number of object copies that can be configured manually.</li>
+<li>Object upload is a synchronous process: The proxy server returns a “201 Created” HTTP code only if more than half the replicas are written.</li>
+<li>Integration with OpenStack identity service (Keystone): Accounts are mapped to tenants.</li>
+<li>Auditing objects consistency: the md5 sum of an object on the file system compared to its metadata stored in xattrs.</li>
+<li>Container synchronization: This makes it possible to synchronize containers across multiple data centers.</li>
+<li>Handoff mechanism: It makes it possible to use an additional node to keep a replica in case of failure.</li>
+<li>If the object is more than 5 Gb, it has to be split: These parts are stored as separate objects and could be read simultaneously.</li>
+</ul>
+<p>##Ceph</p>
+<p>Ceph is a distributed network storage with distributed metadata management and POSIX semantics. The Ceph object store can be accessed with a number of clients, including a dedicated cmdline tool, FUSE, and  Amazon S3 clients (through a compatibility layer, called “S3 Gateway“).  Ceph is highly modular – different sets of features are provided by different components which one can mix and match. Specifically, for object store accessible via s3 API it is enough to run three of them: object server, monitori</p>
+<p><img src="http://jiangyt-github-io.qiniudn.com/Ceph_arch.png" alt="ceph-architecture"></p>
+<p>###<em>Monitor server</em><br>ceph-mon is a lightweight daemon that provides a consensus for distributed decision-making in a Ceph cluster. It also is the initial point of contact for new clients, and will hand out information about the topology of the cluster. Normally there would be three ceph-mon daemons, on three separate physical machines, isolated from each other; for example, in different racks or rows.</p>
+<p>###<em>Object server</em><br>The actual data put onto Ceph is stored on top of a cluster storage engine called RADOS, deployed on a set of storage nodes.</p>
+<p>ceph-osd is the storage daemon that runs on every storage node (object server) in the Ceph cluster. ceph-osd contacts ceph-mon for cluster membership. Its main goal is to service object read/write/etc. requests from clients, It also peers with other ceph-osds for data replication. The data model is fairly simple at this level. There are multiple named pools, and within each pool there are named objects, in a flat namespace (no directories). Each object has both data and metadata. The data for an object is a single, potentially big, series of bytes.  The metadata is an unordered set of key-value pairs. Ceph filesystem uses metadata to store file owner, etc. Underneath, ceph-osd stores the data on a local filesystem. We recommend Btrfs, but any POSIX filesystem that has extended attributes should work.</p>
+<p>###<em>CRUSH algorithm</em><br>While Swift uses rings (md5 hash range mapping against sets of storage nodes) for consistent data distribution and lookup, Ceph uses an algorithm called CRUSH for this.  In short, CRUSH is an algorithm that can calculate the physical location of data in Ceph, given the object name, cluster map and CRUSH rules as input. CRUSH describes the storage cluster in a hierarchy that reflects its physical organization, and thus can also ensure proper data replication on top of physical hardware. Also CRUSH allows data placement to be controlled by policy, which allows CRUSH to adapt to changes in the cluster membership.</p>
+<p>###<em>Rados Gateway</em><br>radosgw is a FastCGI service that provides a RESTful HTTP API to store objects and metadata on the Ceph cluster.</p>
+<p>###<em>Features and functions</em></p>
+<ul>
+<li>Partial or complete reads and writes</li>
+<li>Snapshots</li>
+<li>Atomic transactions with features like append, truncate, and clone range</li>
+<li>Object level key-value mappings</li>
+<li>Object replicas management</li>
+<li>Aggregation of objects (series of objects) into a group, and mapping the group to a series of OSDs</li>
+<li>Authentication with shared secret keys: Both the client and the monitor cluster- have a copy of the client’s secret key</li>
+<li>Compatibility with S3/Swift API</li>
+</ul>
+<p>###<em>Feature summary</em></p>
+<pre><code>
+Swift Ceph
+Replication Yes Yes
+Max. obj.size 5gb(bigger objects segmented) Unlimited
+Multi DCinstallation Yes (replication on the container level only,but a blueprint proposed for full inter dc replication) No (demands asynchronous eventual consistency
+replication, which Ceph does not yet support)
+Integration/w Opentsack Yes Partial(lack of Keystone support)
+Replicasmanagement No Yes
+Writingalgorithm Synchronous Synchronous
+Amazon S3 compatible API Yes Yes
+Data placement method Ring (static mapping structure) CRUSH (algorithm)
+</code></pre>
+
+<p>###<em>参考文章</em></p>
+<p><a href="http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph" target="_blank" rel="noopener">http://www.mirantis.com/blog/object-storage-openstack-cloud-swift-ceph</a></p>
+
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/">Instance start failed because mismatch in VR ssh key Pair</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2014/06/01/cloudstack-cli-cloudmonkey-installation/">Cloudstack Cli Cloudmonkey Installation</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://www.ystacks.com/2014/06/03/cloud-storage-swift-ceph/';
+        this.page.identifier = '2014/06/03/cloud-storage-swift-ceph/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
