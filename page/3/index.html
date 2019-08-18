@@ -115,6 +115,94 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2014/05/17/openstack-nova-adding-plugin/" itemprop="url">OpenStack Nova 添加扩展API流程</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-16T16:00:00.000Z" itemprop="datePublished">May 17 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1230 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
+<p>Openstack 中规定，扩展openstack得api有两种方式</p>
+<ul>
+<li>创建新的WSGI 资源</li>
+<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
+</ul>
+<p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
+        <p class="article-more-link">
+            <a href="/2014/05/17/openstack-nova-adding-plugin/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-05-15T16:00:00.000Z" itemprop="datePublished">May 16 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/openstack/">openstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 854 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
+<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
+<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
+        <p class="article-more-link">
+            <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2014/05/15/python-re/" itemprop="url">Python RE 正则表达式</a>
         
     </h1>

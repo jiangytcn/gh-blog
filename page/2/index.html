@@ -115,32 +115,69 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+            <a href="/2014/12/17/how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/" itemprop="url">How To Publish Events Into AMPQ/Rabbitmq Within Cloudstack 4.4.1</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+            <time datetime="2014-12-16T16:00:00.000Z" itemprop="datePublished">Dec 17 2014</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            5 minutes read (About 712 words)
+            2 minutes read (About 369 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+        <h4 id="Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature"><a href="#Currently-within-cloudstack-all-events-are-stored-in-DB-and-the-only-to-retrive-events-is-using-APIS-which-is-not-so-convient-Since-4-1-0-Apache-CloudStack-began-to-support-publishing-interesting-events-from-the-management-servers-onto-a-message-queue-The-current-implementation-of-that-feature-uses-RabbitMQ-as-the-message-broker-Fowllowings-are-the-steps-to-enable-such-feature" class="headerlink" title="Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature."></a>Currently within cloudstack all events are stored in DB and the only to retrive events is using APIS which is not so convient.Since 4.1.0, Apache CloudStack began to support publishing interesting events from the management servers onto a message queue. The current implementation of that feature uses RabbitMQ as the message broker.Fowllowings are the steps to enable such feature.</h4>
         <p class="article-more-link">
-            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
+            <a href="/2014/12/17/how-to-publish-events-into-ampqrabbitmq-within-cloudstack-441/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/" itemprop="url">How To Change Xenserver Default Installtion Partitions</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-11-30T16:00:00.000Z" itemprop="datePublished">Dec 1 2014</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            3 minutes read (About 431 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="修改root磁盘大小"><a href="#修改root磁盘大小" class="headerlink" title="修改root磁盘大小"></a>修改root磁盘大小</h2><pre><code>开机选择F2高级模式，输入shell，
+vi /opt/xensource/installer/constants.py
+DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
+输入EXIT</code></pre><h2 id="修改内存"><a href="#修改内存" class="headerlink" title="修改内存"></a>修改内存</h2><pre><code>XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu-DM的进程，占用大约6M的内存空间，
+因此在虚拟机数量较多的情况下，我们需要增大Domain0内存以便支持更多的虚拟机运行。
+由于Domain0是32位操作系统，故支持的最大内存量为4GB。
+更改Domain0内存的方法参考CTX124806-XenServerSingleServerScalabilitywithXenDesktop提到的例子，
+更改/boot/exlinux.conf下包含dom0_mem=2940M的Xen命令行。</code></pre>
+        <p class="article-more-link">
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/#more">Read More</a>
         </p>
     
     </div>
@@ -187,6 +224,46 @@
 </ol>
         <p class="article-more-link">
             <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 712 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+        <p class="article-more-link">
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
         </p>
     
     </div>
@@ -469,94 +546,6 @@ qbrff6ee26c-fc          8000.febb4e384e96     no          qvbff6ee26c-fc
 </ul>
         <p class="article-more-link">
             <a href="/2014/05/18/vm-failes-to-start-with-error-vdi-not-available/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2014/05/17/openstack-nova-adding-plugin/" itemprop="url">OpenStack Nova 添加扩展API流程</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2014-05-16T16:00:00.000Z" itemprop="datePublished">May 17 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/openstack/">openstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            8 minutes read (About 1230 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>例子中涉及到SQLAlchemy 得相关操作，可以参考 [上一随笔]</p>
-<p>Openstack 中规定，扩展openstack得api有两种方式</p>
-<ul>
-<li>创建新的WSGI 资源</li>
-<li>扩展原有得WSGI资源得控制器（我得理解是，接受到API请求后，具体得响应逻辑）</li>
-</ul>
-<p>这两种方式中，都要求写一个新的模块来声明控制器类去处理请求和实现扩展。</p>
-        <p class="article-more-link">
-            <a href="/2014/05/17/openstack-nova-adding-plugin/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/" itemprop="url">OpenStack Nova 使用SQLAlchemy 操作Flavor(Mysql backend)</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2014-05-15T16:00:00.000Z" itemprop="datePublished">May 16 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/openstack/">openstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            6 minutes read (About 854 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>##SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_0_8/orm/tutorial.html" target="_blank" rel="noopener">简介</a></p>
-<p>The SQLAlchemy Object Relational Mapper presents a method of associating user-defined Python classes with database tables, and instances of those classes (objects) with rows in their corresponding tables. It includes a system that transparently synchronizes all changes in state between objects and their related rows, called a unit of work, as well as a system for expressing database queries in terms of the user defined classes and their defined relationships between each other.</p>
-<p>我的理解是，SQLAlchemy 是实体/关系映射的一种操作数据的方式， 实体是由Python所编写的类， 这个类的每一个实体，就对应于数据库中的每一条元组（行数据）。其中对这个类的实体的操作，直接映射（影响）到数据库中对应的元组， 这种方式叫做 工作单元（操作单元，有点类似于一个原子操作）</p>
-        <p class="article-more-link">
-            <a href="/2014/05/16/using-sqlalchemy-crud-openstack-nova-flavors/#more">Read More</a>
         </p>
     
     </div>

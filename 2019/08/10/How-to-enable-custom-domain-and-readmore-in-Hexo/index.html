@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>Tags - ystacks</title>
+<title>How to enable custom-domain and readmore in Hexo - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,14 +14,19 @@
 
 
 
-    <meta name="keywords" content="CloudStack,Python,neutron,XenServer,Network,Git,system,Virtualization,KVM,OpenStack,CloudFoundry">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ystacks">
-<meta property="og:url" content="http://www.ystacks.com/tags/index.html">
+    <meta name="description" content="What’s is Hexo ? according to the official introduction its a blog framework, have more than 20k forks and large user base.  “A fast, simple &amp;amp; powerful blog framework”  The deployment/usage is qui">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to enable custom-domain and readmore in Hexo">
+<meta property="og:url" content="http://www.ystacks.com/2019/08/10/How-to-enable-custom-domain-and-readmore-in-Hexo/index.html">
 <meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="What’s is Hexo ? according to the official introduction its a blog framework, have more than 20k forks and large user base.  “A fast, simple &amp;amp; powerful blog framework”  The deployment/usage is qui">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.ystacks.com/images/article-list-readmore.png">
+<meta property="og:updated_time" content="2019-08-10T01:58:27.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ystacks">
+<meta name="twitter:title" content="How to enable custom-domain and readmore in Hexo">
+<meta name="twitter:description" content="What’s is Hexo ? according to the official introduction its a blog framework, have more than 20k forks and large user base.  “A fast, simple &amp;amp; powerful blog framework”  The deployment/usage is qui">
+<meta name="twitter:image" content="http://www.ystacks.com/images/article-list-readmore.png">
 
 
 
@@ -85,7 +90,7 @@
             
             <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
             
-            <a class="navbar-item is-active" href="/tags">Tags</a>
+            <a class="navbar-item " href="/tags">Tags</a>
             
             <a class="navbar-item " href="/about">About</a>
             
@@ -110,62 +115,107 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
+    <section class="section">
     <div class="container">
-        <div class="content">
-            <h5>#Tags</h5>
-        </div>
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            How to enable custom-domain and readmore in Hexo
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-08-10T01:21:06.000Z" itemprop="datePublished">Aug 10 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 262 words)
+        </span>
+        
     </div>
-</section>
-<section class="section">
-    <div class="container">
-        <div class="columns is-variable is-1 is-multiline is-mobile">
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>What’s is <code>Hexo</code> ?</p>
+<p>according to the official introduction its a blog framework, have more than 20k forks and large user base.</p>
+<blockquote>
+<p>“A fast, simple &amp; powerful blog framework”</p>
+</blockquote>
+<p>The deployment/usage is quite strightforward but not that easy to find ways to manage the custom domain in github pages and the “Read More” in <a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">minos</a> theme</p>
+<p>The website you are visting is built on top Hexo and Minos theme and hosting in github pages with a CNAME for dns resolvtion</p>
+<h3 id="How-we-made-it"><a href="#How-we-made-it" class="headerlink" title="How we made it"></a>How we made it</h3><a id="more"></a>
+
+<ol>
+<li>Generate the CNAME file in source directory<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "ACTUAL Website DOMAIN" &gt; source/CNAME</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>if the site is deployed to github before without the CNAME file, need to delete <code>public</code> folder otherwise the change won’t take into effect</strong><br>then update your dns server make it point to the desied github site, for me its</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> dig www.ystacks.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.8-Ubuntu &lt;&lt;&gt;&gt; www.ystacks.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 42551</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.ystacks.com.		IN	A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.ystacks.com.	1498	IN	CNAME	jiangytcn.github.io.</span><br><span class="line">jiangytcn.github.io.	1498	IN	A	185.199.109.153</span><br><span class="line">jiangytcn.github.io.	1498	IN	A	185.199.110.153</span><br><span class="line">jiangytcn.github.io.	1498	IN	A	185.199.108.153</span><br><span class="line">jiangytcn.github.io.	1498	IN	A	185.199.111.153</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Enable the ReadMore for the posts</li>
+</ol>
+<p>add <code>&lt;!---more ---&gt;</code> section in the post articles, and whatever above it would be present as the abstract in the list page like below</p>
+<p><img src="/images/article-list-readmore.png" alt="articles with readmore"></p>
+<p>That’s it.</p>
+
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/CloudStack/">#CloudStack&nbsp;(6)</a>
-            </span>
+            <a href="/2019/08/18/VIM-split-ticks-and-tips/">VIM split ticks and tips</a>
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/Python/">#Python&nbsp;(3)</a>
-            </span>
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/neutron/">#neutron&nbsp;(1)</a>
-            </span>
+            <a href="/2019/08/10/KVM-guest-host-hardware-passthrough/">KVM guest host hardware passthrough</a>
             
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/XenServer/">#XenServer&nbsp;(2)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/Network/">#Network&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/Git/">#Git&nbsp;(1)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/system/">#system&nbsp;(2)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization&nbsp;(3)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/KVM/">#KVM&nbsp;(2)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/OpenStack/">#OpenStack&nbsp;(3)</a>
-            </span>
-            
-            <span class="column is-narrow">
-                <a class="tag is-light article-tag" href="/tags/CloudFoundry/">#CloudFoundry&nbsp;(1)</a>
-            </span>
-            
-        </div>
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://www.ystacks.com/2019/08/10/How-to-enable-custom-domain-and-readmore-in-Hexo/';
+        this.page.identifier = '2019/08/10/How-to-enable-custom-domain-and-readmore-in-Hexo/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
     </div>
 </section>
     <footer class="footer">
