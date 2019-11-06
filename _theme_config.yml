@@ -25,7 +25,7 @@ article:
 # Navigation bar menu links.
 menu:
   Archives: /archives
-  Lifestyle: /categories/LifeStyle
+  #Lifestyle: /categories/LifeStyle
   #Music: /categories/Music
   #Technology: /categories/Technology
   Tags: /tags
