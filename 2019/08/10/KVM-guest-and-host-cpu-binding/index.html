@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>KVM guest and host cpu binding - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,17 +15,15 @@
 
 
     <meta name="description" content="kvm虚拟出来的虚拟机（vm）是运行在单独的一个逻辑cpu还是可以分别在各个cpu之间运行？虚拟机cpu（vcpu）是什么概念？物理机（host）怎么看待kvm和vcpu? 为了搞懂这个概念我们还是要回到命令行中看。举例说明：我这里有一个虚拟机叫core8，它含有8个虚拟cpu它的进程编号是20736。">
-<meta name="keywords" content="Virtualization,KVM">
+<meta name="keywords" content="KVM,Virtualization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KVM guest and host cpu binding">
-<meta property="og:url" content="http://www.ystacks.com/2019/08/10/KVM-guest-and-host-cpu-binding/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2019&#x2F;08&#x2F;10&#x2F;KVM-guest-and-host-cpu-binding&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="kvm虚拟出来的虚拟机（vm）是运行在单独的一个逻辑cpu还是可以分别在各个cpu之间运行？虚拟机cpu（vcpu）是什么概念？物理机（host）怎么看待kvm和vcpu? 为了搞懂这个概念我们还是要回到命令行中看。举例说明：我这里有一个虚拟机叫core8，它含有8个虚拟cpu它的进程编号是20736。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T00:56:27.823Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KVM guest and host cpu binding">
-<meta name="twitter:description" content="kvm虚拟出来的虚拟机（vm）是运行在单独的一个逻辑cpu还是可以分别在各个cpu之间运行？虚拟机cpu（vcpu）是什么概念？物理机（host）怎么看待kvm和vcpu? 为了搞懂这个概念我们还是要回到命令行中看。举例说明：我这里有一个虚拟机叫core8，它含有8个虚拟cpu它的进程编号是20736。">
 
 
 
@@ -85,25 +83,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -157,13 +153,10 @@
 <p>在KVM环境中，一般并不推荐手动设置qemu进程的处理器亲和性来绑定vCPU，但是，在非常了解系统硬件架构的基础上，根据实际应用的需求，可以将其绑定到特定的CPU上，从而提高客户机中的CPU执行效率或实现CPU资源独享的隔离性。</p>
 <p>为了实现这个功能，你首先得会<code>taskset</code>命令，直观上来说，taskset就是设置任务，也就是制定任务运行的情况，是一个很好用的工具。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　taskset -p [mask] pid</span><br></pre></td></tr></table></figure>
-
-<p>taskset绑定进程到某个CPU是很方便的：</p>
-<p>#taskset -pc 0,1 1249<br>这会绑定1249进程到0号跟1号cpu上。</p>
+<p>taskset绑定进程到某个CPU是很方便的：<br>#taskset -pc 0,1 1249<br>这会绑定1249进程到0号跟1号cpu上。</p>
 <p>#cat /proc/1249/status<br>Cpus_allowed: 3<br>Cpus_allowed_list: 0-1</p>
 <p>重新绑定下：</p>
-<p>#taskset -pc 1 1249</p>
-<p>#cat /proc/1249/status<br>Cpus_allowed: 2<br>Cpus_allowed_list: 1</p>
+<p>#taskset -pc 1 1249<br>#cat /proc/1249/status<br>Cpus_allowed: 2<br>Cpus_allowed_list: 1</p>
 <p>注意这里的Cpu_allowed用的是 二进制掩码，3的二进制是11，2的二进制是10。前一个表示可在两个CPU上运行，第二个表示仅在第二个CPU上运行。<br>那么我们这里就可以使用taskset了，只需把这九个线程都绑定在同一个cpu上即可。假设我们把这个虚拟机绑定到1号cpu上：<br>taskset -p 2 20736<br>taskset -p 20740<br>taskset -p 20741<br>……<br>taskset -p 20747</p>
 <p>ok,这时你再运行ps -eLo ruser,pid,ppid,lwp,psr| awk ‘{if($5==1) print $0}’，会看到形如下面的结果：</p>
 <p>那么也就是完成了我们的虚拟机绑定任务，为了验证一下是否真正实现了绑定，我们在core8虚拟机里运行一个死循环，然后看host里的 top指令的结果：</p>
@@ -181,9 +174,9 @@
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/KVM/">#KVM</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization</a></span>
     
     </div>
     
@@ -218,7 +211,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2019/08/10/KVM-guest-and-host-cpu-binding/';
+        this.page.url = 'http://eng.ystacks.com/2019/08/10/KVM-guest-and-host-cpu-binding/';
         this.page.identifier = '2019/08/10/KVM-guest-and-host-cpu-binding/';
         
         this.language = 'en';
@@ -245,7 +238,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -260,7 +254,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -403,7 +397,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

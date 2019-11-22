@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>OpenStack AIO Setup with Ansible - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,14 +18,12 @@
 <meta name="keywords" content="OpenStack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenStack AIO Setup with Ansible">
-<meta property="og:url" content="http://www.ystacks.com/2019/08/10/OpenStack-AIO-Setup-with-Ansible/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2019&#x2F;08&#x2F;10&#x2F;OpenStack-AIO-Setup-with-Ansible&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T00:39:51.812Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenStack AIO Setup with Ansible">
-<meta name="twitter:description" content="如果你是OpenStack 的developer的话，那么相信对DevStack的会十分的熟悉。 DevStack 可以在一台机器上快速的交付AIO（all-in-one）的OpenStack环境十分的方便。 OpenStack-Ansible 是一种通过ansible来部署OpenStack 环境的方案，具体的设计初衷、以及如果使用请参考rackspace 以及platform9开发博客">
 
 
 
@@ -85,25 +83,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -183,7 +179,6 @@
 <li>重启物理节点后无法识别usb设备<br>在OpenStack-Ansible 的使用文档中说明了如何处理在重启物理节点后，openstack 服务如何恢复的问题。在使用时，由于sdc盘通过的usb 接口连接到的server中，重启后出现无法识别存储设备的问题。<br>在ansible 的role 里面有security、security role 相关的设置,在安装好openstack-ansible 后会在host中使用modporb禁用了USB设备</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">→ cat /etc/modprobe.d/openstack-ansible-security-disable-usb-storage.conf</span><br><span class="line">install usb-storage /bin/true</span><br></pre></td></tr></table></figure>
-
 <p><strong>解决办法</strong>: 删除此文件后，重启物理节点，usb设备即可识别</p>
 
     
@@ -226,7 +221,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2019/08/10/OpenStack-AIO-Setup-with-Ansible/';
+        this.page.url = 'http://eng.ystacks.com/2019/08/10/OpenStack-AIO-Setup-with-Ansible/';
         this.page.identifier = '2019/08/10/OpenStack-AIO-Setup-with-Ansible/';
         
         this.language = 'en';
@@ -253,7 +248,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -268,7 +264,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -411,7 +407,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

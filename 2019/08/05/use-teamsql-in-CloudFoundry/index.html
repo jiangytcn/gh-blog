@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>Use teamsql in CloudFoundry - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,14 +18,12 @@
 <meta name="keywords" content="CloudFoundry">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Use teamsql in CloudFoundry">
-<meta property="og:url" content="http://www.ystacks.com/2019/08/05/use-teamsql-in-CloudFoundry/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2019&#x2F;08&#x2F;05&#x2F;use-teamsql-in-CloudFoundry&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="Most of cloudfoundry based platform have postgres service in their catalog, applications can use the credentials bounded to their running environment for accessing, but sometimes the administrator nee">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-05T12:15:20.747Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Use teamsql in CloudFoundry">
-<meta name="twitter:description" content="Most of cloudfoundry based platform have postgres service in their catalog, applications can use the credentials bounded to their running environment for accessing, but sometimes the administrator nee">
 
 
 
@@ -85,25 +83,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -142,12 +138,10 @@
 <a id="more"></a>
 <p>download release</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/curl -# http://cdn.webworks.dk/download/teampostgresql_multiplatform.zip \</span><br><span class="line">    -o teampostgresql_multiplatform.zip &amp;&amp; \</span><br><span class="line">unzip teampostgresql_multiplatform.zip &amp;&amp; rm -f teampostgresql_multiplatform.zip</span><br></pre></td></tr></table></figure>
-
 <p>generate deploy manifest file for teampostgresql<br>The application would use java buildpack for compiling and hosting, and need to specify JBP_CONFIG_JAVA_MAIN otherwise the http service won’t start correctly</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">applications:</span><br><span class="line">- name: psqlgui</span><br><span class="line">  memory: 1G</span><br><span class="line">  buildpack: https://github.com/cloudfoundry/java-buildpack.git</span><br><span class="line">  host: psqlgui</span><br><span class="line">  env:</span><br><span class="line">    JBP_CONFIG_JAVA_MAIN: &apos;&#123;arguments: &quot;-cp WEB-INF/lib/log4j-1.2.17.jar-1.0.jar:WEB-INF/classes:WEB-INF/lib/* dbexplorer.TeamPostgreSQL $PORT&quot;&#125;&apos;</span><br></pre></td></tr></table></figure>
-
 <p>Deploy<br>using the following script to deploy application, before executing, need to obtain an account of cloudfoundry</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">WORK_DIR=`dirname "$&#123;0&#125;"`</span><br><span class="line">RUN_DIR=$TMPDIR</span><br><span class="line"></span><br><span class="line">cf --version &gt; /dev/null</span><br><span class="line"></span><br><span class="line">if [[ $? -gt 0 ]];</span><br><span class="line">    then</span><br><span class="line">    echo "CloudFoundry cli not installed"</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">cf push -f $WORK_DIR/manifest.yml -p $RUN_DIR/teampostgresql/webapp</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">WORK_DIR=`dirname "$&#123;0&#125;"`</span><br><span class="line">RUN_DIR=$TMPDIR</span><br><span class="line"></span><br><span class="line">cf --version &gt; /dev/null</span><br><span class="line"></span><br><span class="line">if [[ $? -gt 0 ]];</span><br><span class="line">    then</span><br><span class="line">    echo "CloudFoundry cli not installed"</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">cf push -f $WORK_DIR/manifest.yml -p $RUN_DIR/teampostgresql/webapp</span><br></pre></td></tr></table></figure>
 
 <p>After the deployment, the application could be access through webui and then configure database with credential of postgresql database instance</p>
 
@@ -191,7 +185,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2019/08/05/use-teamsql-in-CloudFoundry/';
+        this.page.url = 'http://eng.ystacks.com/2019/08/05/use-teamsql-in-CloudFoundry/';
         this.page.identifier = '2019/08/05/use-teamsql-in-CloudFoundry/';
         
         this.language = 'en';
@@ -218,7 +212,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -233,7 +228,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -376,7 +371,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

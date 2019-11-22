@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>host cpu comprehension - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,25 +10,23 @@
 
 
 
-<meta name="description" content>
+<meta name="description" content="">
 
 
 
 
 
-    <meta name="description" content="Linux 物理机 查看Linux系统中物理与逻辑cpu的相关信息   Linux 下/proc/cpuinfo文件会显示cpu的信息   逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数   cat /proc/cpuinfo | grep “processor” | wc -l   物理CPU个数，是指physical id（的值）的数量   cat /p">
+    <meta name="description" content="Linux 物理机 查看Linux系统中物理与逻辑cpu的相关信息   Linux 下&#x2F;proc&#x2F;cpuinfo文件会显示cpu的信息   逻辑CPU个数是指cat &#x2F;proc&#x2F;cpuinfo 所显示的processor的个数   cat &#x2F;proc&#x2F;cpuinfo | grep “processor” | wc -l   物理CPU个数，是指physical id（的值）的数量   cat &#x2F;p">
 <meta property="og:type" content="article">
 <meta property="og:title" content="host cpu comprehension">
-<meta property="og:url" content="http://www.ystacks.com/2014/03/20/host-cpu-comprehension/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;03&#x2F;20&#x2F;host-cpu-comprehension&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
-<meta property="og:description" content="Linux 物理机 查看Linux系统中物理与逻辑cpu的相关信息   Linux 下/proc/cpuinfo文件会显示cpu的信息   逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数   cat /proc/cpuinfo | grep “processor” | wc -l   物理CPU个数，是指physical id（的值）的数量   cat /p">
+<meta property="og:description" content="Linux 物理机 查看Linux系统中物理与逻辑cpu的相关信息   Linux 下&#x2F;proc&#x2F;cpuinfo文件会显示cpu的信息   逻辑CPU个数是指cat &#x2F;proc&#x2F;cpuinfo 所显示的processor的个数   cat &#x2F;proc&#x2F;cpuinfo | grep “processor” | wc -l   物理CPU个数，是指physical id（的值）的数量   cat &#x2F;p">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lh4.googleusercontent.com/-mKqIVhoVnx4/Uyr2yJi9h_I/AAAAAAAAAHs/4_ekJs8SipY/w626-h162-no/CPU.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;lh4.googleusercontent.com&#x2F;-mKqIVhoVnx4&#x2F;Uyr2yJi9h_I&#x2F;AAAAAAAAAHs&#x2F;4_ekJs8SipY&#x2F;w626-h162-no&#x2F;CPU.png">
 <meta property="og:updated_time" content="2019-08-09T23:10:54.386Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="host cpu comprehension">
-<meta name="twitter:description" content="Linux 物理机 查看Linux系统中物理与逻辑cpu的相关信息   Linux 下/proc/cpuinfo文件会显示cpu的信息   逻辑CPU个数是指cat /proc/cpuinfo 所显示的processor的个数   cat /proc/cpuinfo | grep “processor” | wc -l   物理CPU个数，是指physical id（的值）的数量   cat /p">
-<meta name="twitter:image" content="https://lh4.googleusercontent.com/-mKqIVhoVnx4/Uyr2yJi9h_I/AAAAAAAAAHs/4_ekJs8SipY/w626-h162-no/CPU.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;lh4.googleusercontent.com&#x2F;-mKqIVhoVnx4&#x2F;Uyr2yJi9h_I&#x2F;AAAAAAAAAHs&#x2F;4_ekJs8SipY&#x2F;w626-h162-no&#x2F;CPU.png">
 
 
 
@@ -88,25 +86,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -215,7 +211,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2014/03/20/host-cpu-comprehension/';
+        this.page.url = 'http://eng.ystacks.com/2014/03/20/host-cpu-comprehension/';
         this.page.identifier = '2014/03/20/host-cpu-comprehension/';
         
         this.language = 'en';
@@ -242,7 +238,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -257,7 +254,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -400,7 +397,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

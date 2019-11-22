@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>Git Revert Merge - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,7 +10,7 @@
 
 
 
-<meta name="description" content>
+<meta name="description" content="">
 
 
 
@@ -20,14 +20,12 @@
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git Revert Merge">
-<meta property="og:url" content="http://www.ystacks.com/2014/05/30/git-revert-merge/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;05&#x2F;30&#x2F;git-revert-merge&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="##Git Merge命令的使用及撤销 Git 的 revert 命令可以用来撤销提交（commit），对于常规的提交来说，revert 命令十分直观易用，相当于做一次被 revert 的提交的「反操作」并形成一个新的 commit，但是当你需要撤销一个合并（merge）的时候，事情就变得稍微复杂了一些。 ###Merge Commit在描述 merge commit 之前，先来简短地描述一下常规">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-09T23:10:54.386Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git Revert Merge">
-<meta name="twitter:description" content="##Git Merge命令的使用及撤销 Git 的 revert 命令可以用来撤销提交（commit），对于常规的提交来说，revert 命令十分直观易用，相当于做一次被 revert 的提交的「反操作」并形成一个新的 commit，但是当你需要撤销一个合并（merge）的时候，事情就变得稍微复杂了一些。 ###Merge Commit在描述 merge commit 之前，先来简短地描述一下常规">
 
 
 
@@ -87,25 +85,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -264,7 +260,7 @@ $ git merge dev</code></pre>
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2014/05/30/git-revert-merge/';
+        this.page.url = 'http://eng.ystacks.com/2014/05/30/git-revert-merge/';
         this.page.identifier = '2014/05/30/git-revert-merge/';
         
         this.language = 'en';
@@ -291,7 +287,8 @@ $ git merge dev</code></pre>
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -306,7 +303,7 @@ $ git merge dev</code></pre>
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -449,7 +446,7 @@ $ git merge dev</code></pre>
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

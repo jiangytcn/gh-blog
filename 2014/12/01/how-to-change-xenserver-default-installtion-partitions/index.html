@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>How To Change Xenserver Default Installtion Partitions - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,24 +10,22 @@
 
 
 
-<meta name="description" content>
+<meta name="description" content="">
 
 
 
 
 
-    <meta name="description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
+    <meta name="description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi &#x2F;opt&#x2F;xensource&#x2F;installer&#x2F;constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
 <meta name="keywords" content="XenServer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How To Change Xenserver Default Installtion Partitions">
-<meta property="og:url" content="http://www.ystacks.com/2014/12/01/how-to-change-xenserver-default-installtion-partitions/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;12&#x2F;01&#x2F;how-to-change-xenserver-default-installtion-partitions&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
-<meta property="og:description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
+<meta property="og:description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi &#x2F;opt&#x2F;xensource&#x2F;installer&#x2F;constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T00:59:41.469Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="How To Change Xenserver Default Installtion Partitions">
-<meta name="twitter:description" content="修改root磁盘大小开机选择F2高级模式，输入shell， vi /opt/xensource/installer/constants.py DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240 输入EXIT修改内存XenServerDomain0默认使用752MB内存，由于每启动一台虚拟机，Domain0中就会启动一个Qemu">
 
 
 
@@ -87,25 +85,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -175,7 +171,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/">Cloudstack Debugging SystemVm agents</a>
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/">Instance start failed because mismatch in VR ssh key Pair</a>
             
         </span>
     </div>
@@ -197,7 +193,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2014/12/01/how-to-change-xenserver-default-installtion-partitions/';
+        this.page.url = 'http://eng.ystacks.com/2014/12/01/how-to-change-xenserver-default-installtion-partitions/';
         this.page.identifier = '2014/12/01/how-to-change-xenserver-default-installtion-partitions/';
         
         this.language = 'en';
@@ -224,7 +220,8 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -239,7 +236,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -382,7 +379,7 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

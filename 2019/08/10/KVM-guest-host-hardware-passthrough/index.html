@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>KVM guest host hardware passthrough - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,17 +15,15 @@
 
 
     <meta name="description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
-<meta name="keywords" content="Virtualization,KVM">
+<meta name="keywords" content="KVM,Virtualization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KVM guest host hardware passthrough">
-<meta property="og:url" content="http://www.ystacks.com/2019/08/10/KVM-guest-host-hardware-passthrough/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2019&#x2F;08&#x2F;10&#x2F;KVM-guest-host-hardware-passthrough&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T01:16:57.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KVM guest host hardware passthrough">
-<meta name="twitter:description" content="在vmware下，物理主机的硬件映射给虚拟机称为直通, 可以很方便的通过ＵＩ进行操作, 但kvm下，需要通过技术手段实现 kvm下的DMA（direct memory access）">
 
 
 
@@ -85,25 +83,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -144,7 +140,6 @@
 <h4 id="方法一-pci-stub"><a href="#方法一-pci-stub" class="headerlink" title="方法一　pci-stub"></a>方法一　pci-stub</h4><p>开启IOMMU，之后modprobe<br><code>modprobe pci_stub</code></p>
 <p>之后会有/sys/bus/pci/drivers/pci-stub这个模块</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lspci -nnD 查看设备详细信息</span><br><span class="line">echo "14e4 1639" &gt; /sys/bus/pci/drivers/pci-stub/new_id</span><br><span class="line">echo 0000:01:00.1 &gt; /sys/bus/pci/devices/0000:01:00.1/driver/unbind</span><br><span class="line">echo 0000:01:00.1 &gt; /sys/bus/pci/drivers/pci-stub/bind</span><br></pre></td></tr></table></figure>
-
 <p>使用qemu-kvm启动虚拟机</p>
 <p>/usr/libexec/qemu-kvm -enable-kvm -m 8192 -smp 4,maxcpus=16,sockets=16,cores=2,threads=2 -spice port=3003,disable-ticketing -vga qxl /home/vms/images/basewin7.img -device pci-assign,host=01:00.1</p>
 <h4 id="方法二-vfio"><a href="#方法二-vfio" class="headerlink" title="方法二 vfio"></a>方法二 vfio</h4><p>开启IOMMU，之后加载内核模块</p>
@@ -158,9 +153,9 @@
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/KVM/">#KVM</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Virtualization/">#Virtualization</a></span>
     
     </div>
     
@@ -195,7 +190,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2019/08/10/KVM-guest-host-hardware-passthrough/';
+        this.page.url = 'http://eng.ystacks.com/2019/08/10/KVM-guest-host-hardware-passthrough/';
         this.page.identifier = '2019/08/10/KVM-guest-host-hardware-passthrough/';
         
         this.language = 'en';
@@ -222,7 +217,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -237,7 +233,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -380,7 +376,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>Instance start failed because mismatch in VR ssh key Pair - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,7 +10,7 @@
 
 
 
-<meta name="description" content>
+<meta name="description" content="">
 
 
 
@@ -20,14 +20,12 @@
 <meta name="keywords" content="CloudStack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Instance start failed because mismatch in VR ssh key Pair">
-<meta property="og:url" content="http://www.ystacks.com/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;09&#x2F;03&#x2F;instance-start-failed-because-mis-match-in-vr-ssh-key-pair&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
 <meta property="og:description" content="ExceptionFailed to authentication SSH user root on host 10.147.40.1642013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T01:00:18.510Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Instance start failed because mismatch in VR ssh key Pair">
-<meta name="twitter:description" content="ExceptionFailed to authentication SSH user root on host 10.147.40.1642013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command">
 
 
 
@@ -87,25 +85,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -148,8 +144,7 @@
 <a id="more"></a>
 
 <p>##Solutions</p>
-<p>[root@ms2 ~]# cat /var/cloudstack/management/.ssh/id_rsa.pub<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuqhNj72tdEVhc/Cbph6EyPLcPm6KKrgVMdFKXRn7uW5S6UT+QqtM4ec7S0lA0roVsbnst2/DdLQZhCcBDMggRRP7BJSM1O5cXcFQib+gwAaneaUwomVMPiA/uAdCJBxgId5qTZw4cyWnemLkkZTcta96aIIhT0/ycal4PMPbXRE9u78RRVeoo19BnjAYd6o7zo+O8fNaRLdQRTcpGCm5KTQRhKREOA/OREHvX0mBuuEAie74e3QVd+ZA/6kQ7uspKsFnQTWEM0I8YR2UPj9JL1pyPAawV3QiycEOaChYhUZ6DcuebEJEbzahiRbtBnDkRz+gQ/TpHx96pmAzzDaQyQ==cloud@ms2<br>[root@ms2 ~]#</p>
-<p>###Mount System ISO<br>[root@ms2 ~]# mkdir /tmp/is<br>[root@ms2 ~]# mount -o loop /var/cloudstack/mnt/VM/7566222426160.3051fff0/systemvm/systemvm-4.2.0-SNAPSHOT.iso </p>
+<p>[root@ms2 ~]# cat /var/cloudstack/management/.ssh/id_rsa.pub<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuqhNj72tdEVhc/Cbph6EyPLcPm6KKrgVMdFKXRn7uW5S6UT+QqtM4ec7S0lA0roVsbnst2/DdLQZhCcBDMggRRP7BJSM1O5cXcFQib+gwAaneaUwomVMPiA/uAdCJBxgId5qTZw4cyWnemLkkZTcta96aIIhT0/ycal4PMPbXRE9u78RRVeoo19BnjAYd6o7zo+O8fNaRLdQRTcpGCm5KTQRhKREOA/OREHvX0mBuuEAie74e3QVd+ZA/6kQ7uspKsFnQTWEM0I8YR2UPj9JL1pyPAawV3QiycEOaChYhUZ6DcuebEJEbzahiRbtBnDkRz+gQ/TpHx96pmAzzDaQyQ==cloud@ms2<br>[root@ms2 ~]#<br>###Mount System ISO<br>[root@ms2 ~]# mkdir /tmp/is<br>[root@ms2 ~]# mount -o loop /var/cloudstack/mnt/VM/7566222426160.3051fff0/systemvm/systemvm-4.2.0-SNAPSHOT.iso </p>
 <p>root@ms2 ~]# cd /tmp/is/</p>
 <p>[root@ms2 is]# ls<br>authorized_keys cloud-scripts.tgz systemvm.zip</p>
 <p>[root@ms2 is]# cat authorized_keys<br>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAv2Ym6oJKNnSiMPg0F/RxNhCNvmiB0HJwWLbWC0GQLkB6/Q7F93X8jConFbjehQqBPXePZhEV8veGyH8AmjRDlnP42qpxvCsOnD7BGrXm+Uv+/VovzZ719wcMny0GO2spJgpJcut0YrJqr9OXRlrgbis9dweeB0SyZDKT2ja4c6V2E2Fo9D7BdqWg2S2ptKW7oNkL6846Rfa9/WHh0PO7DmJ5mIuJbazNfBOM0SH6M2FOORgBFytC2XEf0o2aYHGDKOyuwDb2YOuThfDNP3r29qhRUHdZY8Ozs9S0iF+m/L3vBvuOCk0eJMjuYJnsuMTH7KScP5GILurlBCaU9vXmvw== cloud@ms2</p>
@@ -169,12 +164,12 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/">Cloudstack Debugging SystemVm agents</a>
+            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/">How To Change Xenserver Default Installtion Partitions</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2014/06/03/cloud-storage-swift-ceph/">cloud storage swift ceph</a>
+            <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/">Cloudstack Debugging SystemVm agents</a>
             
         </span>
     </div>
@@ -196,7 +191,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/';
+        this.page.url = 'http://eng.ystacks.com/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/';
         this.page.identifier = '2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/';
         
         this.language = 'en';
@@ -223,7 +218,8 @@
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -238,7 +234,7 @@
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -381,7 +377,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">

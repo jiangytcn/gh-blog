@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <meta charset="utf-8">
 <title>Cloudstack Debugging SystemVm agents - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,24 +10,22 @@
 
 
 
-<meta name="description" content>
+<meta name="description" content="">
 
 
 
 
 
-    <meta name="description" content="##Cloudstack Debug a live agentlogin into ssvm, either console proxy or ssh(port 3922)kill all the processes named as(run.sh/_run.sh, and java)  cd /usr/local/cloud/systemvm add parameters “-Xdebug -X">
+    <meta name="description" content="##Cloudstack Debug a live agentlogin into ssvm, either console proxy or ssh(port 3922)kill all the processes named as(run.sh&#x2F;_run.sh, and java)  cd &#x2F;usr&#x2F;local&#x2F;cloud&#x2F;systemvm add parameters “-Xdebug -X">
 <meta name="keywords" content="CloudStack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cloudstack Debugging SystemVm agents">
-<meta property="og:url" content="http://www.ystacks.com/2014/09/03/cloudstack-debugging-systemvm-agents/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;09&#x2F;03&#x2F;cloudstack-debugging-systemvm-agents&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
-<meta property="og:description" content="##Cloudstack Debug a live agentlogin into ssvm, either console proxy or ssh(port 3922)kill all the processes named as(run.sh/_run.sh, and java)  cd /usr/local/cloud/systemvm add parameters “-Xdebug -X">
+<meta property="og:description" content="##Cloudstack Debug a live agentlogin into ssvm, either console proxy or ssh(port 3922)kill all the processes named as(run.sh&#x2F;_run.sh, and java)  cd &#x2F;usr&#x2F;local&#x2F;cloud&#x2F;systemvm add parameters “-Xdebug -X">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-08-10T00:57:30.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cloudstack Debugging SystemVm agents">
-<meta name="twitter:description" content="##Cloudstack Debug a live agentlogin into ssvm, either console proxy or ssh(port 3922)kill all the processes named as(run.sh/_run.sh, and java)  cd /usr/local/cloud/systemvm add parameters “-Xdebug -X">
 
 
 
@@ -87,25 +85,23 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/archives">Archives</a>
+            <a class="navbar-item "
+               href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/categories/LifeStyle">Lifestyle</a>
-            
-            <a class="navbar-item " href="/tags">Tags</a>
-            
-            <a class="navbar-item " href="/about">About</a>
+            <a class="navbar-item "
+               href="/tags">Tags</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
                 <i class="fas fa-search"></i>
             </a>
             
             
             
-            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn">
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
                 
                 <i class="fab fa-github"></i>
                 
@@ -175,9 +171,7 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
 <p>To check the state of templates whether is has downloaded or there is an error - Log into DB and check table template_host_ref and observe the download_state and error_string.</p>
 <p>Templates stuck in download in progress - Either stop and then start the SSVM. Or, run service cloud restart on the SSVM. You can also restart MS. This would trigger template sync which essentially will try and resume such stuck templates or redo the download of erred out templates. Whenever there is a handshake between MS and the agent running on the SSVM there is a template sync which syncs the template status on the MS DB and the template’s physical Location and triggers the download if its not complete or retries in case there was some error. (This handshake happens on ssvm re/start, agent re/start and MS re/start)<br>Connection refused as the status for the template - Check whether the config parameter “secstorage.allowed.internal.sites” has been set to allow the internal n/w URL’s.</p>
 <p>Retrying the download of templates - Refer #5 above</p>
-<p>###no route to host<br>This error often implies your firewall blocks the traffic, check iptable rules in SSVM then host then physical firewall.</p>
-<p>###SSVM agent not running<br>You see error something like below. Most probably your systemvm didnt get patched with the agent specific code. This patching happens through the ISO - something like  systemvm***.iso. Check the size and location of the iso and whether you are not using the old version iso. For XS its on the host so grep for it and for vmware its on secondary storage. Do also check that if its vmware that you built your ssvm using noredist flag for mvn command.<br>2013-12-20 13:35:12,954 DEBUG [cloud.utils.ProcessUtil] (main:null) Execution is successful.<br>2013-12-20 13:35:12,960 ERROR [cloud.agent.AgentShell] (main:null) Unable to start agent: Resource class not found: com.cloud.storage.resource.PremiumSecondaryStorageResource due to: java.lang.ClassNotFoundException: com.cloud.storage.resource.PremiumSecondaryStorageResource<br>Dont see any health check script on SSVM or the agent running - The issue for sure is as in #9 above. For vmware setup I saw that because the systemvm.iso size wasnt right.<br>SSVM Logs - /var/log/cloud/cloud.log<br>*ERROR: Java process not running. Try restarting the SSVM - *It looks like the scripts/java binaries have not been copied into the SSVM ? See this thread <a href="http://markmail.org/thread/niu2qwsdydkuh2f" target="_blank" rel="noopener">http://markmail.org/thread/niu2qwsdydkuh2f</a> for how it is supposed to work (response from Alex)</p>
-<p>###Available secondary storage space is low<br>shows only ~2 gb. Generally this is because the secondary storage is not mounted correctly. Run the step 2 above to verify that. One of the reasons could be “It’s due to IP access-list settings which was turned on by default on NAS4Free.  Have allowed the SSVM’s IP address to mount to the NAS and it’s now working fine.”<br>SSVM nics - SSVM basically has four nics, they are:</p>
+<p>###no route to host<br>This error often implies your firewall blocks the traffic, check iptable rules in SSVM then host then physical firewall.<br>###SSVM agent not running<br>You see error something like below. Most probably your systemvm didnt get patched with the agent specific code. This patching happens through the ISO - something like  systemvm***.iso. Check the size and location of the iso and whether you are not using the old version iso. For XS its on the host so grep for it and for vmware its on secondary storage. Do also check that if its vmware that you built your ssvm using noredist flag for mvn command.<br>2013-12-20 13:35:12,954 DEBUG [cloud.utils.ProcessUtil] (main:null) Execution is successful.<br>2013-12-20 13:35:12,960 ERROR [cloud.agent.AgentShell] (main:null) Unable to start agent: Resource class not found: com.cloud.storage.resource.PremiumSecondaryStorageResource due to: java.lang.ClassNotFoundException: com.cloud.storage.resource.PremiumSecondaryStorageResource<br>Dont see any health check script on SSVM or the agent running - The issue for sure is as in #9 above. For vmware setup I saw that because the systemvm.iso size wasnt right.<br>SSVM Logs - /var/log/cloud/cloud.log<br>*ERROR: Java process not running. Try restarting the SSVM - *It looks like the scripts/java binaries have not been copied into the SSVM ? See this thread <a href="http://markmail.org/thread/niu2qwsdydkuh2f" target="_blank" rel="noopener">http://markmail.org/thread/niu2qwsdydkuh2f</a> for how it is supposed to work (response from Alex)<br>###Available secondary storage space is low<br>shows only ~2 gb. Generally this is because the secondary storage is not mounted correctly. Run the step 2 above to verify that. One of the reasons could be “It’s due to IP access-list settings which was turned on by default on NAS4Free.  Have allowed the SSVM’s IP address to mount to the NAS and it’s now working fine.”<br>SSVM nics - SSVM basically has four nics, they are:</p>
 <ul>
 <li>eth0: link local nic used for ssh login from host</li>
 <li>eth1: private nic used as management interface between mgmt server and SSVM</li>
@@ -229,12 +223,12 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2014/12/01/how-to-change-xenserver-default-installtion-partitions/">How To Change Xenserver Default Installtion Partitions</a>
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/">Instance start failed because mismatch in VR ssh key Pair</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/">Instance start failed because mismatch in VR ssh key Pair</a>
+            <a href="/2014/06/03/cloud-storage-swift-ceph/">cloud storage swift ceph</a>
             
         </span>
     </div>
@@ -256,7 +250,7 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://www.ystacks.com/2014/09/03/cloudstack-debugging-systemvm-agents/';
+        this.page.url = 'http://eng.ystacks.com/2014/09/03/cloudstack-debugging-systemvm-agents/';
         this.page.identifier = '2014/09/03/cloudstack-debugging-systemvm-agents/';
         
         this.language = 'en';
@@ -283,7 +277,8 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
                 &copy; 2019 Jiang Yi Tao&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
 
@@ -298,7 +293,7 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
 <!-- test if the browser is outdated -->
 <div id="outdated">
     <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
@@ -441,7 +436,7 @@ NOTE - If you dont find the health check script then go to #9. Most probably you
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
