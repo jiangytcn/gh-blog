@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Cloudstack Cli Cloudmonkey Installation - ystacks</title>
+<title>Tag: MultiCloud - ystacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -10,21 +10,15 @@
 
 
 
-<meta name="description" content="">
 
 
 
 
-
-    <meta name="description" content="##Cli安装使用分为四部分  安装virtualenv 安装cloudmonkey 配置cloudmonkey 命令使用">
-<meta name="keywords" content="CloudStack,Python">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Cloudstack Cli Cloudmonkey Installation">
-<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2014&#x2F;06&#x2F;01&#x2F;cloudstack-cli-cloudmonkey-installation&#x2F;index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ystacks">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;tags&#x2F;MultiCloud&#x2F;index.html">
 <meta property="og:site_name" content="ystacks">
-<meta property="og:description" content="##Cli安装使用分为四部分  安装virtualenv 安装cloudmonkey 配置cloudmonkey 命令使用">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T00:58:33.777Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -112,173 +106,52 @@
     </div>
 </nav>
 
-    <section class="section">
+    <section class="section section-heading">
     <div class="container">
-    <article class="article content gallery" itemscope itemprop="blogPost">
+        <div class="content">
+            <h5>#MultiCloud</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Cloudstack Cli Cloudmonkey Installation
+            <a href="/2019/12/05/Kubernetes-In-Kubernetes-the-Easy-Way/" itemprop="url">Kubernetes In Kubernetes the Easy Way</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2014-05-31T16:00:00.000Z" itemprop="datePublished">Jun 1 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Cloudstack/">Cloudstack</a>
+            <time datetime="2019-12-05T14:09:00.000Z" itemprop="datePublished">Dec 5 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            3 minutes read (About 430 words)
+            8 minutes read (About 1231 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>##Cli安装使用分为四部分</p>
-<ol>
-<li><strong>安装virtualenv</strong></li>
-<li><strong>安装cloudmonkey</strong></li>
-<li><strong>配置cloudmonkey</strong></li>
-<li><strong>命令使用</strong></li>
-</ol>
-<a id="more"></a>
-
-<h2 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h2><pre><code>1. virtualenv提供了一个安装软件时的测试环境，所安装的软件不会安装在系统目录下
-2. 安装python2.7.4 时的依赖软件， 此步骤可选， cloudmonkey 要求python版本在2.5以上即可
-3. yum -y groupinstall &quot;Development tools&quot; zlib-devel bzip2-devel openssl-devel ncurses-devel mysql-devel ibxml2-devel libxslt-devel  unixODBC-devel sqlite sqlite-devel</code></pre><h2 id="源码安装python2-7-4"><a href="#源码安装python2-7-4" class="headerlink" title="源码安装python2.7.4"></a>源码安装python2.7.4</h2><pre><code>wget http://www.python.org/ftp/python/2.7.4/Python-2.7.4.tar.bz2
-tar xf Python-2.7.4.tar.bz2
-cd Python-2.7.4
-/configure --prefix=/opt/python2.7
-make && make altinstall`
-</code></pre>
-
-<p>##源码安装virtualenv</p>
-<pre><code>wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.1.tar.gz#md5=07e09df0adfca0b2d487e39a4bf2270a
-tar
--xvzf virtualenv-1.9.1.tar.gz
-python virtualenv
--1.9.1/setup.py install
-</code></pre>
-
-<p>###安装cloudmonkey</p>
-<ol>
-<li><p>建立virtualenv环境</p>
- <pre><code>#mkidr workenv
- #virtualenv worksenv
- #source worksenv/bin/activate
- </code></pre></li>
-<li><p>安装cloudmonkey两种方式任选其一</p>
-<p> 2.1. 通过python库安装</p>
-<p> 在系统安装了pip后或者env生效后执行下面命令    </p>
- <pre><code>#$ pip install cloudmonkey</code></pre>
-
-<p> 2.2. 通过源码安装将打包后的源码上传至服务器中解压缩打包后的文件安装</p>
- <pre><code># python setup.py build #
- # python setup.py install</code></pre>
-
-
-</li>
-</ol>
-<h3 id="配置cloudmonkey"><a href="#配置cloudmonkey" class="headerlink" title="配置cloudmonkey"></a>配置cloudmonkey</h3><pre><code>
-#cloudmonkey
-> set history_file /usr/share/cloudmonkey_history
-> set log_file /var/log/cloudmonkey
-设置管理服务器
-> set host 192.168.56.1
-设置端口
-> set port 8080
-设置使用的apikey
-> set apikey {put-your-api-key-for-your-user}
-设置使用的secretkey
-> set secretkey {put-your-secret-key-for-your-user}
-修改cloudmonkey终端提示符
-> set prompt smcloudcli>
-同步配置
-> sync
-324 APIs discovered and cached
-</code></pre>
-
-<p>配置结束。<br>通常情况下，所有配置项在 ~/.cloudmonkey/config: 均可见</p>
-<h3 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h3><p>tab健可以命令补全</p>
-<pre><code>#cloudmonkey
-加载用户的key
-smcloudcli>sync
-smcloudcli>list <tab>
-设置数据显示方式为table
-smcloudcli>set display table
-设置数据显示方式为json
-smcloudcli>set display json
-smcloudcli>list users
-</tab></code></pre>
-
+        <p>If you are planing to adopt CloudNative way to ship your products in an efficient way, then <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a> might be a good choice to mondernize IT.After serveral years growth, the product went into an stable state and adpoted by large number of companies in Production environments. All major cloud prvoider players offerred their own kubernretes service with their own addons. Kelsey Hightower wrote an good article <a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank" rel="noopener">Kubernetes-the-hard-way</a> to help you better understanding the tasks needed to deploy a workable kubernetes cluster. The minimal tasks needed are:</p>
+        <p class="article-more-link">
+            <a href="/2019/12/05/Kubernetes-In-Kubernetes-the-Easy-Way/#more">Read More</a>
+        </p>
     
     </div>
     
-    <div class="columns is-variable is-1 is-multiline is-mobile">
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/CloudStack/">#CloudStack</a></span>
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Python/">#Python</a></span>
-    
-    </div>
-    
-    
-    <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
-            
-            <a href="/2014/06/03/cloud-storage-swift-ceph/">cloud storage swift ceph</a>
-            
-        </span>
-        <span class="column is-12-mobile is-half-desktop  article-nav-next">
-            
-            <a href="/2014/05/30/git-revert-merge/">Git Revert Merge</a>
-            
-        </span>
-    </div>
     
 </article>
 
 
-<div class="sharebox">
+
+
     
-<div class="addthis_inline_share_toolbox"></div>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
-
-</div>
-
-
-
-<div class="comments">
-    <h3 class="title is-4">Comments</h3>
     
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://eng.ystacks.com/2014/06/01/cloudstack-cli-cloudmonkey-installation/';
-        this.page.identifier = '2014/06/01/cloudstack-cli-cloudmonkey-installation/';
-        
-        this.language = 'en';
-        
-    };
-    (function() {
-        var d = document, s = d.createElement('script');  
-        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-
-<div id="disqus_thread">
-    
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-</div>
-
     </div>
 </section>
     <footer class="footer">
