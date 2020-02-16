@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Jenkins-X Technical Briefings (Pipeline) - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="Jenkins-X is an awesome CI&#x2F;CD tool that working best with Kubernetes, it is also the fundation of CI&#x2F;CD as a Service offering of CloudBees company.Just as the functions it says, Continous Integration">
+<meta name="keywords" content="CI&#x2F;CD,Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins-X Technical Briefings (Pipeline)">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2020&#x2F;02&#x2F;14&#x2F;Jenkins-X-Technical-Briefings-Pipeline&#x2F;index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="Jenkins-X is an awesome CI&#x2F;CD tool that working best with Kubernetes, it is also the fundation of CI&#x2F;CD as a Service offering of CloudBees company.Just as the functions it says, Continous Integration">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;images&#x2F;jx-tekton-meta-pipeline.jpeg">
+<meta property="og:image" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;images&#x2F;jx-tekton-pipeline.jpeg">
+<meta property="og:image" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;images&#x2F;jx-tekton-simulation.gif">
+<meta property="og:updated_time" content="2020-02-16T09:47:16.127Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;images&#x2F;jx-tekton-meta-pipeline.jpeg">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    ystacks
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Jenkins-X Technical Briefings (Pipeline)
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-02-14T09:19:37.000Z" itemprop="datePublished">Feb 14 2020</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 754 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><a href="https://jenkins-x.io/" target="_blank" rel="noopener">Jenkins-X</a> is an awesome CI/CD tool that working best with Kubernetes, it is also the fundation of CI/CD as a Service offering of CloudBees company.<br>Just as the functions it says, Continous Integration and Continous Delivery, but how Jenkins-X achieved that goal? what’s the mechanism behind of the tool? </p>
+<a id="more"></a>
+
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>Jenkins-X uses the familiar objects that you would ordinarily use to ship the service; kaniko to build container images within kubernetes; helm charts skeleton to illustrate the deployment of the service; Tekton to assemble tasks into a pipeline; lighthouse(developed internally) or prow to handle the chatops activities. So that’s the most important parts of the Jenins-X.</p>
+<p>Here’s a typical tekton pipeline used for a golang application image building,packaging and delivery to kubernentes.<br>For a given repository, there would be two pipelines involved</p>
+<p><img src="/images/jx-tekton-meta-pipeline.jpeg" alt="tekton meta pipeline used in jenkins-x "></p>
+<p><img src="/images/jx-tekton-pipeline.jpeg" alt="tekton pipeline used in jenkins-x "></p>
+<p>The tekton pipeline and the related resources are kubernetes CRDs, including:</p>
+<ol>
+<li><code>PipelineResource</code>, the only supported types are <code>git</code> and <code>image</code></li>
+<li>a <code>Task</code> is the unit to completedly run a job, contains a series of task instance</li>
+<li><code>TaskRun</code> the single task running instance, contains the full lifecyle of the task.</li>
+<li><code>Pipeline</code> control multiple tasks which assembled into a pipeline template.</li>
+<li><code>PipelineRun</code> an instance to run a spcific <code>pipeline</code></li>
+</ol>
+<p>To make it simple, the <code>Task</code> and <code>Pipeline</code> are the templates to accomplish a goal, <code>TaskRun</code> and <code>PipelineRun</code> are the instance to execute these templates at the given time. </p>
+<p>From the diagram above, we can see that an application contians two pipelines: <code>meta</code> and <code>release</code>. The <code>meta</code> pipeline is used to create effective pipeline dynamatically with the build-pack of the application and in the last step to trigger that templated pipeline with application specific parameters.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ tree . -L 2                                                                                                                             </span><br><span class="line">.</span><br><span class="line">├── charts</span><br><span class="line">│   ├── awesome-go</span><br><span class="line">│   ├── golang</span><br><span class="line">│   └── preview</span><br><span class="line">├── curlloop.sh</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── jenkins-x.yml</span><br><span class="line">├── main.go</span><br><span class="line">├── Makefile</span><br><span class="line">├── OWNERS</span><br><span class="line">├── OWNERS_ALIASES</span><br><span class="line">├── README.md</span><br><span class="line">├── skaffold.yaml</span><br><span class="line">└── watch.sh</span><br><span class="line"></span><br><span class="line">4 directories, 10 files</span><br><span class="line"></span><br><span class="line">$ cat jenkins-x.yml              </span><br><span class="line"></span><br><span class="line">buildPack: go</span><br></pre></td></tr></table></figure>
+
+<p>the jenkins-x.yml in application source code illustrate the build-pack for building. Since we’re using kubernetes based installation, all available buildpacks stored in <a href="https://github.com/jenkins-x-buildpacks/jenkins-x-kubernetes" target="_blank" rel="noopener">github</a>, you can create your own buildpack with unique requirement.</p>
+<h2 id="Tekton-Pipeline-Usage"><a href="#Tekton-Pipeline-Usage" class="headerlink" title="Tekton Pipeline Usage"></a>Tekton Pipeline Usage</h2><p>Let’s make some simulations of the critical parts in Jenkins-X, the source code is the one used above.<br>The workflow is</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">clone</span> repo </span><br><span class="line">  build container image and pushing</span><br><span class="line">    build helm release and uploading to <span class="built_in">local</span> chartmuseum</span><br></pre></td></tr></table></figure>
+<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ol>
+<li>Image building<br>we need the the service account for accessing kubernetes and the credentials for image registry to store container images.</li>
+</ol>
+<p>create image registry </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret docker-registry registrysecret \</span><br><span class="line">    --docker-server=&lt;registry address&gt; \</span><br><span class="line">    --docker-username=&lt;user name&gt; \</span><br><span class="line">    --docker-password=&lt;password&gt;</span><br></pre></td></tr></table></figure>
+
+<p>create git repository access token</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret generic git-credentials --type=kubernetes.io/basic-auth \ </span><br><span class="line">    --from-literal=username=&lt;username&gt; \</span><br><span class="line">    --from-literal=password=&lt;apitoken&gt;</span><br></pre></td></tr></table></figure>
+
+<p>create kubernetes service account k8s-sa.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tekton-bot-sa</span></span><br><span class="line"><span class="attr">secrets:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">registysecret</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">git-credentials</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f k8s-sa.yaml</span><br></pre></td></tr></table></figure>
+
+<p>create the clusterrolebinding</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tekton-bot-handson</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tekton-bot-sa</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">jx</span></span><br></pre></td></tr></table></figure>
+
+<p>create helm release registry chartmuseum</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always -d -it -p 8080:8080 -e DEBUG=1 -e STORAGE=<span class="built_in">local</span> -e STORAGE_LOCAL_ROOTDIR=/charts -v <span class="variable">$PWD</span>/chartmuseum-int:/charts  chartmuseum/chartmuseum:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tekton-Pipeline-Misc"><a href="#Tekton-Pipeline-Misc" class="headerlink" title="Tekton Pipeline Misc"></a>Tekton Pipeline Misc</h3><h4 id="PipelineResources"><a href="#PipelineResources" class="headerlink" title="PipelineResources"></a>PipelineResources</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">tekton.dev/v1alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PipelineResource</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">jiangytcn-awesome-go-master</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">tekton-handson</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">params:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">revision</span></span><br><span class="line">    <span class="attr">value:</span> <span class="string">v0.0.1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">url</span></span><br><span class="line">    <span class="attr">value:</span> <span class="string">http://github.192.168.1.12.nip.io/jiangytcn/awesome-go.git</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>kubectl apply -f tekton-pipelineresource.yaml </p>
+</blockquote>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><blockquote>
+<p>kubectl apply -f tekton-task-build.yaml  </p>
+</blockquote>
+<h4 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h4><p>create pipeline that reference to task and hte pipelineresource created above</p>
+<blockquote>
+<p>kubectl apply -f tekton-pipeline.yaml</p>
+</blockquote>
+<h4 id="PipelineRun"><a href="#PipelineRun" class="headerlink" title="PipelineRun"></a>PipelineRun</h4><p>create a pipeline instance with required parameters </p>
+<blockquote>
+<p>kubectl apply -f tekton-pipelinerun.yaml</p>
+</blockquote>
+<p><strong><em>The pipeline won’t run until create the pipelinerun instance</em></strong></p>
+<p><img src="/images/jx-tekton-simulation.gif" alt="Tekton Pipeline Simulation"></p>
+<p><a href="https://github.com/jiangytcn/jx-briefings-handson" target="_blank" rel="noopener">handson repository</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/CI-CD/">#CI/CD</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Kubernetes/">#Kubernetes</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/01/01/Jenkins-X-Development-101/">Jenkins-X-Development-101</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://eng.ystacks.com/2020/02/14/Jenkins-X-Technical-Briefings-Pipeline/';
+        this.page.identifier = '2020/02/14/Jenkins-X-Technical-Briefings-Pipeline/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

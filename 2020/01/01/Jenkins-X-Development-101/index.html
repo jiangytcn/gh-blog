@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Jenkins-X-Development-101 - ystacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="Jenkins-X is an awesome CI&#x2F;CD tool that working best with Kubernetes, it is also the fundation of CI&#x2F;CD as a Service company of CloudBees. All of the buzz words and the new techs adopted. GitOps, Isti">
+<meta name="keywords" content="CI&#x2F;CD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins-X-Development-101">
+<meta property="og:url" content="http:&#x2F;&#x2F;eng.ystacks.com&#x2F;2020&#x2F;01&#x2F;01&#x2F;Jenkins-X-Development-101&#x2F;index.html">
+<meta property="og:site_name" content="ystacks">
+<meta property="og:description" content="Jenkins-X is an awesome CI&#x2F;CD tool that working best with Kubernetes, it is also the fundation of CI&#x2F;CD as a Service company of CloudBees. All of the buzz words and the new techs adopted. GitOps, Isti">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-16T09:43:09.344Z">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    ystacks
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;" target="_blank" rel="noopener">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/jiangytcn" target="_blank" rel="noopener">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Jenkins-X-Development-101
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2020-01-01T05:37:49.000Z" itemprop="datePublished">Jan 1 2020</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1042 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><a href="https://jenkins-x.io/" target="_blank" rel="noopener">Jenkins-X</a> is an awesome CI/CD tool that working best with Kubernetes, it is also the fundation of <a href="https://www.cloudbees.com/products/cloudbees-ci-cd/overview" target="_blank" rel="noopener">CI/CD as a Service</a> company of CloudBees. All of the buzz words and the new techs adopted. GitOps, Istio, Multi-Cluster, Approval mechanism…</p>
+<p>But the project is still under developing, some features may not implemented or have minior issues need to be fixed.</p>
+<p>The article outlined the tasks need to hack the jenkins-x with your own requirment and environment.</p>
+<a id="more"></a>
+
+<h3 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h3><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Jenkins X</td>
+<td>A JX instance deployed with <code>jx boot</code></td>
+</tr>
+<tr>
+<td>Docker Registry</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Helm Chart Repository</td>
+<td>chartmuseum</td>
+</tr>
+<tr>
+<td>Golang Environment</td>
+<td>1.11 or 1.12</td>
+</tr>
+</tbody></table>
+<p>and also forked the following repository into your own org</p>
+<ol>
+<li><a href="https://github.com/jenkins-x/jenkins-x-boot-config" target="_blank" rel="noopener">https://github.com/jenkins-x/jenkins-x-boot-config</a></li>
+<li><a href="https://github.com/jenkins-x/jenkins-x-platform" target="_blank" rel="noopener">https://github.com/jenkins-x/jenkins-x-platform</a></li>
+<li><a href="https://github.com/jenkins-x/jenkins-x-versions" target="_blank" rel="noopener">https://github.com/jenkins-x/jenkins-x-versions</a></li>
+<li>the codebase repository that you’re trying to hack</li>
+</ol>
+<h3 id="Persona"><a href="#Persona" class="headerlink" title="Persona"></a>Persona</h3><p>Assuming I want to make the Jenkins X works on the kube api 1.16+.<br>So if you followed the docs to install jenkins X on a on premise kube cluster like k3s distribution <code>v1.16.3-k3s.2</code>, you should hit the issue like below:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">configmap/config-entrypoint created</span><br><span class="line">configmap/config-logging created</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/jenkins-x-platform/charts/chartmuseum/templates/part0-deployment.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/jenkins-x-platform/charts/heapster/templates/part0-deployment.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/jenkins-x-platform/charts/nexus/templates/part0-deployment.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/lighthouse/templates/part0-deployment.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/lighthouse/templates/part0-tide-deployment.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;</span><br><span class="line">unable to recognize &quot;/var/folders/62/l5t1s2lj17jd5nwlzw70st1r0000gn/T/helm-template-workdir-114960915/jenkins-x/output/namespaces/jx/env/charts/tekton/templates/part0-controller.yaml&quot;: no matches for kind &quot;Deployment&quot; in version &quot;apps/v1beta1&quot;&apos;</span><br><span class="line">error: failed to interpret pipeline file jenkins-x.yml: failed to run &apos;/bin/sh -c jx step helm apply --boot --remote --name jenkins-x --provider-values-dir ../kubeProviders&apos; command in directory &apos;env&apos;, output: &apos;</span><br></pre></td></tr></table></figure>
+
+<p>The logs above shows that there are issues in the helm charts: <code>jenkins-platform</code>, <code>lighthouse</code> and <code>tekton</code>, so let’s see what’s the issue it is and  forked these repos. </p>
+<p>Let’s take lighthouse for example:</p>
+<p><a href="https://github.com/jiangytcn/lighthouse/blob/master/charts/lighthouse/templates/deployment.yaml#L3" target="_blank" rel="noopener">https://github.com/jiangytcn/lighthouse/blob/master/charts/lighthouse/templates/deployment.yaml#L3</a></p>
+<p>The deployment is using wrong resource version which not compatible with my kube cluster in <a href="https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/" target="_blank" rel="noopener">https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/</a>, so did with other repos. </p>
+<p>Ok, so we got the root cause of the problems and the fixes for that, how can I applied these changes to the jx environment ? </p>
+<h3 id="Hacks"><a href="#Hacks" class="headerlink" title="Hacks"></a>Hacks</h3><p>Cause JX is using helm charts for the deployment, before we apply changes in it, let udpate the helm charts of problematic repos. </p>
+<p>For the development purpose, I setup the helm repository locally with chartmusem without auth.</p>
+<ol>
+<li>build customized charts</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ tree . -L 1</span><br><span class="line">.</span><br><span class="line">├── Makefile</span><br><span class="line">├── jenkins-x-platform</span><br><span class="line">├── jenkins-x-versions</span><br><span class="line">├── lighthouse</span><br><span class="line">├── platform-config</span><br><span class="line">└── tekton</span><br></pre></td></tr></table></figure>
+<p>After update the code in ligthouse, tekton upload the charts to local registry</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">CHART_REPO := <span class="variable">$&#123;CHART_REPO&#125;</span></span><br><span class="line">NAME := <span class="variable">$&#123;NAME&#125;</span></span><br><span class="line">OS := $(shell uname)</span><br><span class="line"></span><br><span class="line">init:</span><br><span class="line">	helm init --client-only</span><br><span class="line"></span><br><span class="line">setup: init</span><br><span class="line">	helm repo add jenkinsxio http://chartmuseum.jenkins-x.io</span><br><span class="line"></span><br><span class="line">build: clean setup</span><br><span class="line">	helm dependency build <span class="variable">$&#123;NAME&#125;</span></span><br><span class="line">	helm lint <span class="variable">$&#123;NAME&#125;</span></span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">	git checkout <span class="string">"<span class="variable">$&#123;NAME&#125;</span>/Chart.yaml"</span></span><br><span class="line">	rm -rf <span class="variable">$&#123;NAME&#125;</span>/charts</span><br><span class="line">	rm -rf <span class="variable">$&#123;NAME&#125;</span>/<span class="variable">$&#123;NAME&#125;</span>*.tgz</span><br><span class="line">	rm -rf <span class="variable">$&#123;NAME&#125;</span>*.tgz</span><br><span class="line">	rm -rf <span class="variable">$&#123;NAME&#125;</span>/requirements.lock</span><br><span class="line">	curl -w <span class="string">'\n'</span> -X DELETE $(CHART_REPO)/api/charts/<span class="variable">$&#123;NAME&#125;</span>/<span class="variable">$&#123;VERSION&#125;</span></span><br><span class="line"></span><br><span class="line">release: clean build</span><br><span class="line">ifeq ($(OS),Darwin)</span><br><span class="line">	sed -i -e <span class="string">"s/version:.*/version: <span class="variable">$(VERSION)</span>/"</span> <span class="string">"<span class="variable">$&#123;NAME&#125;</span>/Chart.yaml"</span></span><br><span class="line"><span class="keyword">else</span> ifeq ($(OS),Linux)</span><br><span class="line">	sed -i -e <span class="string">"s/version:.*/version: <span class="variable">$(VERSION)</span>/"</span> <span class="variable">$&#123;NAME&#125;</span>/Chart.yaml</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">exit</span> -1</span><br><span class="line">endif</span><br><span class="line">	helm package <span class="variable">$&#123;NAME&#125;</span></span><br><span class="line">	curl -w <span class="string">'\n'</span> --fail --data-binary <span class="string">"@<span class="variable">$(NAME)</span>-<span class="variable">$(VERSION)</span>.tgz"</span> $(CHART_REPO)/api/charts</span><br><span class="line">	rm -rf <span class="variable">$&#123;NAME&#125;</span>*.tgz</span><br><span class="line">	git checkout <span class="string">"<span class="variable">$&#123;NAME&#125;</span>/Chart.yaml"</span></span><br><span class="line"></span><br><span class="line">delete-from-chartmuseum:</span><br><span class="line">	curl --fail -X DELETE $(CHART_REPO)/api/charts/$(NAME)/$(VERSION)</span><br></pre></td></tr></table></figure>
+<p>Copy the content above to Makefile.</p>
+<p>Build chart separately and upload to registry with:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd tekton</span><br><span class="line">NAME=tekton VERSION=100.0.0 CHART_REPO=http://chartmuseum.int.caas.ystacks.com:8080 make -f ../Makefile release</span><br><span class="line"></span><br><span class="line">cd lighthouse/charts</span><br><span class="line">NAME=lighthouse VERSION=100.0.0 CHART_REPO=http://chartmuseum.int.caas.ystacks.com:8080 make -f ../../Makefile release</span><br><span class="line"></span><br><span class="line">cd jenkins-x-platform</span><br><span class="line">NAME=jenkins-x-platform VERSION=100.0.0 CHART_REPO=http://chartmuseum.int.caas.ystacks.com:8080 make -f ../Makefile release</span><br></pre></td></tr></table></figure>
+
+<p>Then<br>Add your local helm charts registry to the <code>jenkins-x-versions</code> for searching the customized charts<br><a href="https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/repositories.yml#L12" target="_blank" rel="noopener">https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/repositories.yml#L12</a><br>and the version for other repos<br><a href="https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/jenkins-x/lighthouse.yml#L2" target="_blank" rel="noopener">https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/jenkins-x/lighthouse.yml#L2</a><br><a href="https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/jenkins-x/tekton.yml#L2" target="_blank" rel="noopener">https://github.com/jiangytcn/jenkins-x-versions/blob/chore-compatible-with-1.16/charts/jenkins-x/tekton.yml#L2</a></p>
+<p>after finished the change, bump a new tag for hack branch - v100.0.0</p>
+<h3 id="Deploy-with-the-fix"><a href="#Deploy-with-the-fix" class="headerlink" title="Deploy with the fix"></a>Deploy with the fix</h3><ol>
+<li>update the jx deployment file <code>jx-requriement.yml</code><br>change the section to your own forked url with valid ref<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">versionStream:</span><br><span class="line">  ref: v100.0.0</span><br><span class="line">  url: https://github.com/jiangytcn/jenkins-x-versions.git</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>and <code>jx boot</code></p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://jenkins-x.io/docs/concepts/" target="_blank" rel="noopener">concepts</a><br><a href="https://jenkins-x.io/docs/contributing/" target="_blank" rel="noopener">contributing</a></p>
+<p>Drop me messages for any issue and happy hacking :)</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/CI-CD/">#CI/CD</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/02/14/Jenkins-X-Technical-Briefings-Pipeline/">Jenkins-X Technical Briefings (Pipeline)</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/12/05/Kubernetes-In-Kubernetes-the-Easy-Way/">Kubernetes In Kubernetes the Easy Way</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d311cd182d75784"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://eng.ystacks.com/2020/01/01/Jenkins-X-Development-101/';
+        this.page.identifier = '2020/01/01/Jenkins-X-Development-101/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'ystacks' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2020 Jiang Yi Tao&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
