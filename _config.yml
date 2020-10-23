@@ -79,7 +79,8 @@ theme: minos
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/jiangytcn/gh-blog.git
+  repository: git@github.com:jiangytcn/gh-blog.git
   branch: gh-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
   delete: false
+  token: $GITHUB_TOKEN
