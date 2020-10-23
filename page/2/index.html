@@ -353,46 +353,6 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            5 minutes read (About 712 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
-        <p class="article-more-link">
-            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
             <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/" itemprop="url">Cloudstack Debugging SystemVm agents</a>
         
     </h1>
@@ -425,6 +385,46 @@ DOM0_MEM=752为DOM0_MEM=2940, 修改root_size=4096为 root_size=10240
 </ol>
         <p class="article-more-link">
             <a href="/2014/09/03/cloudstack-debugging-systemvm-agents/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/" itemprop="url">Instance start failed because mismatch in VR ssh key Pair</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2014-09-02T16:00:00.000Z" itemprop="datePublished">Sep 3 2014</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/cloudstack/">cloudstack</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 712 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h3><p>Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:13,977 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Unable to execute NetworkUsage command on DomR (10.147.40.164), domR may not be ready yet. failure due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.networkUsage(VmwareResource.java:5451)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2301)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:480)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Executing resource GetDomRVersionCmd: {“accessDetails”:<br>{“router.ip”:”10.147.40.164”,”router.name”:”r-8-VM”}<br>,”wait”:0}<br>2013-06-15 01:36:13,980 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Run command on domR 10.147.40.164, /opt/cloud/bin/get_template_version.sh<br>2013-06-15 01:36:13,981 DEBUG [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) Use router’s private IP for SSH control. IP : 10.147.40.164<br>2013-06-15 01:36:14,081 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===START=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;<em>=1371220848020<br>2013-06-15 01:36:14,163 DEBUG [cloud.api.ApiServlet] (catalina-exec-12:null) ===END=== 10.101.255.119 – GET command=queryAsyncJobResult&amp;jobId=43dde7f6-fb5d-4ead-8691-5071feb44dfd&amp;response=json&amp;sessionkey=tN07%2BJ4GVSCHGNV%2FPjdO3V%2Bs3Tg%3D&amp;</em>=1371220848020<br>2013-06-15 01:36:14,231 ERROR [utils.ssh.SshHelper] (DirectAgent-18:10.147.40.30) Failed to authentication SSH user root on host 10.147.40.164<br>2013-06-15 01:36:14,235 ERROR [vmware.resource.VmwareResource] (DirectAgent-18:10.147.40.30) GetDomRVersionCmd failed due to Exception: java.lang.Exception<br>Message: Failed to authentication SSH user root on host 10.147.40.164<br>java.lang.Exception: Failed to authentication SSH user root on host 10.147.40.164<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:144)<br>at com.cloud.utils.ssh.SshHelper.sshExecute(SshHelper.java:37)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.execute(VmwareResource.java:2143)<br>at com.cloud.hypervisor.vmware.resource.VmwareResource.executeRequest(VmwareResource.java:488)<br>at com.cloud.agent.manager.DirectAgentAttache$Task.run(DirectAgentAttache.java:186)<br>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)<br>at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)<br>at java.util.concurrent.FutureTask.run(FutureTask.java:166)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)<br>at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)<br>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)<br>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)<br>at java.lang.Thread.run(Thread.java:679)<br>2013-06-15 01:36:14,237 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Cancelling because one of the answers is false and it is stop on error.<br>2013-06-15 01:36:14,238 DEBUG [agent.manager.DirectAgentAttache] (DirectAgent-18:null) Seq 1-965476380: Response Received</p>
+        <p class="article-more-link">
+            <a href="/2014/09/03/instance-start-failed-because-mis-match-in-vr-ssh-key-pair/#more">Read More</a>
         </p>
     
     </div>
