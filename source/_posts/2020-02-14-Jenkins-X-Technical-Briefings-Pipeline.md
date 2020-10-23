@@ -157,3 +157,5 @@ create a pipeline instance with required parameters
 **_The pipeline won't run until create the pipelinerun instance_**
 
 ![Tekton Pipeline Simulation](/images/jx-tekton-simulation.gif)
+
+[handson repository](https://github.com/jiangytcn/jx-briefings-handson)

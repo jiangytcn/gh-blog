@@ -55,7 +55,7 @@ After couple hours debugging and supported by gardener community, only a subset 
 | Ubuntu | 18.04| Y
 | Ubuntu | 16.04 | X
 | CoreOS | 2135.6.0 | Y |
-| CoreOS | 2023.5.0 | X |
+| CoreOS | 2023.5.0 | Y |
 
 **the image used for kubernetes worker nodes need to be uploaded to IaaS before the gardener installation start, it won't download the image for you**
 
